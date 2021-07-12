@@ -36,6 +36,7 @@ avm::eOperandType getType(std::string value)
     } else if (value.find("BigDecimal")) {
         return avm::eOperandType::BIGDECIMAL;
     }
+    
     return avm::eOperandType::UNKNOWN;
 }
 
