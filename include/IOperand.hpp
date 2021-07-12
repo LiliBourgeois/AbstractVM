@@ -12,13 +12,11 @@
 
     namespace avm {
         enum eOperandType {
-            int8, int16, int32, Float, Double, BigDecimal
+            INT8, INT16, INT32, FLOAT, DOUBLE, BIGDECIMAL, UNKNOWN
         };
 
         class IOperand
         {
-        protected:
-            const std::string value;
         public:
             virtual ~IOperand() {};
             virtual std::string toString() const = 0;
