@@ -17,8 +17,6 @@
 
         class IOperand
         {
-        protected:
-            const std::string value;
         public:
             virtual ~IOperand() {};
             virtual std::string toString() const = 0;
