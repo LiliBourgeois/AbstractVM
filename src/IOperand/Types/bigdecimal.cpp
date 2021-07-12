@@ -10,7 +10,7 @@
 avm::myBigdecimal::myBigdecimal(const std::string &value)
 {
     this->value = &value;
-    this->type = avm::eOperandType::BigDecimal;
+    this->type = avm::eOperandType::BIGDECIMAL;
     this->precision = 200;
 }
 

@@ -27,13 +27,14 @@ avm::Factory::~Factory()
 
 avm::IOperand *avm::Factory::createInt8(const std::string &value)
 {
-    return (avm::myInt8(&value));
+    avm::IOperand *n = new avm::myInt8(&value);
+    return (n);
 }
 
 avm::IOperand *avm::Factory::createInt16(const std::string &value)
 {
-    (void)(value);
-    return (NULL);
+    avm::IOperand *n = new avm::myInt16(&value);
+    return (n);
 }
 
 avm::IOperand *avm::Factory::createInt32(const std::string &value)
@@ -62,17 +63,17 @@ avm::IOperand *avm::Factory::createBigDecimal(const std::string &value)
 
 avm::IOperand *avm::Factory::createOperand(avm::eOperandType type, const std::string &value)
 {
-    if (type == avm::eOperandType::int8)
+    if (type == avm::eOperandType::INT8)
         return (this->createInt8(value));
-    if (type == avm::eOperandType::int16)
+    if (type == avm::eOperandType::INT16)
         return (this->createInt16(value));
-    if (type == avm::eOperandType::int32)
+    if (type == avm::eOperandType::INT32)
         return (this->createInt32(value));
-    if (type == avm::eOperandType::Float)
+    if (type == avm::eOperandType::FLOAT)
         return (this->createFloat(value));
-    if (type == avm::eOperandType::Double)
+    if (type == avm::eOperandType::DOUBLE)
         return (this->createDouble(value));
-    if (type == avm::eOperandType::BigDecimal)
+    if (type == avm::eOperandType::BIGDECIMAL)
         return (this->createBigDecimal(value));
     return (NULL);
 }

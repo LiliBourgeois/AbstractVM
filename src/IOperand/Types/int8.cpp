@@ -10,7 +10,7 @@
 avm::myInt8::myInt8(const std::string &value)
 {
     this->value = &value;
-    this->type = avm::eOperandType::int8;
+    this->type = avm::eOperandType::INT8;
     this->precision = 0;
 }
 
