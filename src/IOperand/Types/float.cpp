@@ -7,15 +7,13 @@
 
 #include "float.hpp"
 
-avm::myFloat::myFloat()
+avm::myFloat::myFloat(const std::string &value)
 {
+    this->value = &value;
+    this->type = avm::eOperandType::Float;
+    this->precision = 7;
 }
 
 avm::myFloat::~myFloat()
 {
-}
-
-avm::eOperandType avm::myFloat::getType()
-{
-    return (avm::eOperandType::Float);
 }

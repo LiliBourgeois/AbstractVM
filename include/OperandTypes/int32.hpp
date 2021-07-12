@@ -10,18 +10,14 @@
 
     #include <string>
 
-    #include "IOperand.hpp"
+    #include "Operand.hpp"
 
     namespace avm {
-        class myInt32 : IOperand
+        class myInt32 : Operand
         {
-        private:
-            const std::string *value;
         public:
-            myInt32();
+            myInt32(const std::string &value);
             ~myInt32();
-            eOperandType getType();
-            std::string toString();
         };
     };
 

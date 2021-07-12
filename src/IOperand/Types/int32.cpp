@@ -7,15 +7,13 @@
 
 #include "int32.hpp"
 
-avm::myInt32::myInt32()
+avm::myInt32::myInt32(const std::string &value)
 {
+    this->value = &value;
+    this->type = avm::eOperandType::int32;
+    this->precision = 0;
 }
 
 avm::myInt32::~myInt32()
 {
-}
-
-avm::eOperandType avm::myInt32::getType()
-{
-    return (avm::eOperandType::int32);
 }

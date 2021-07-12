@@ -10,18 +10,14 @@
 
     #include <string>
 
-    #include "IOperand.hpp"
+    #include "Operand.hpp"
 
     namespace avm {
-        class myBigdecimal : IOperand
+        class myBigdecimal : Operand
         {
-        private:
-            const std::string *value;
         public:
-            myBigdecimal();
+            myBigdecimal(const std::string &value);
             ~myBigdecimal();
-            eOperandType getType();
-            std::string toString();
         };
     };
 

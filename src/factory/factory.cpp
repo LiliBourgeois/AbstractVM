@@ -9,6 +9,7 @@
 
 #include "Factory.hpp"
 #include "IOperand.hpp"
+#include "Operand.hpp"
 #include "int8.hpp"
 #include "int16.hpp"
 #include "int32.hpp"
@@ -26,7 +27,37 @@ avm::Factory::~Factory()
 
 avm::IOperand *avm::Factory::createInt8(const std::string &value)
 {
-    
+    return (avm::myInt8(&value));
+}
+
+avm::IOperand *avm::Factory::createInt16(const std::string &value)
+{
+    (void)(value);
+    return (NULL);
+}
+
+avm::IOperand *avm::Factory::createInt32(const std::string &value)
+{
+    (void)(value);
+    return (NULL);
+}
+
+avm::IOperand *avm::Factory::createFloat(const std::string &value)
+{
+    (void)(value);
+    return (NULL);
+}
+
+avm::IOperand *avm::Factory::createDouble(const std::string &value)
+{
+    (void)(value);
+    return (NULL);
+}
+
+avm::IOperand *avm::Factory::createBigDecimal(const std::string &value)
+{
+    (void)(value);
+    return (NULL);
 }
 
 avm::IOperand *avm::Factory::createOperand(avm::eOperandType type, const std::string &value)

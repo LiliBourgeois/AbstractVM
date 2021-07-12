@@ -7,15 +7,13 @@
 
 #include "bigdecimal.hpp"
 
-avm::myBigdecimal::myBigdecimal()
+avm::myBigdecimal::myBigdecimal(const std::string &value)
 {
+    this->value = &value;
+    this->type = avm::eOperandType::BigDecimal;
+    this->precision = 200;
 }
 
 avm::myBigdecimal::~myBigdecimal()
 {
-}
-
-avm::eOperandType avm::myBigdecimal::getType()
-{
-    return (avm::eOperandType::BigDecimal);
 }

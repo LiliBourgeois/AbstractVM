@@ -7,15 +7,13 @@
 
 #include "double.hpp"
 
-avm::myDouble::myDouble()
+avm::myDouble::myDouble(const std::string &value)
 {
+    this->value = &value;
+    this->type = avm::eOperandType::Double;
+    this->precision = 15;
 }
 
 avm::myDouble::~myDouble()
 {
-}
-
-avm::eOperandType avm::myDouble::getType()
-{
-    return (avm::eOperandType::Double);
 }

@@ -2,33 +2,36 @@
 ** EPITECH PROJECT, 2021
 ** B-SYN-400-BDX-4-1-abstractVM-lili.bourgeois
 ** File description:
-** IOperand.hpp
+** Operand.hpp
 */
 
-#ifndef ABSTRACTVM_IOPERAND_HPP_
-    #define ABSTRACTVM_IOPERAND_HPP_
+#ifndef ABSTRACTVM_OPERAND_HPP_
+    #define ABSTRACTVM_OPERAND_HPP_
 
     #include <string>
 
-    namespace avm {
-        enum eOperandType {
-            int8, int16, int32, Float, Double, BigDecimal
-        };
+    #include "IOperand.hpp"
 
-        class IOperand
+    namespace avm {
+        class Operand : public IOperand
         {
         protected:
-            const std::string value;
+            const std::string *value;
+            avm::eOperandType type;
+            unsigned int precision;
         public:
-            virtual ~IOperand() {};
-            virtual std::string toString() const = 0;
-            virtual eOperandType getType() const = 0;
-            virtual unsigned int getPrecision() const = 0;
+            unsigned int getPrecision();
+            eOperandType getType();
+            std::string toString();
+
             virtual IOperand* operator+(const IOperand &rhs) const = 0;
             virtual IOperand* operator-(const IOperand &rhs) const = 0;
             virtual IOperand* operator*(const IOperand &rhs) const = 0;
             virtual IOperand* operator/(const IOperand &rhs) const = 0;
             virtual IOperand* operator%(const IOperand &rhs) const = 0;
+
+            Operand();
+            ~Operand();
         };
     };
 

@@ -15,10 +15,10 @@ std::string ReadFromFile(char *filename)
 
     if (myfile.is_open()) {
         while (getline(myfile,line)) {
-            codeAsm = codeAsm + line;
+            codeAsm = codeAsm + line + "\n";
         }
         myfile.close();
-        std::cout << codeAsm;
+        codeAsm = codeAsm + "end\n";
     }
     return codeAsm;
 }
@@ -29,25 +29,30 @@ std::string ReadFromTerminal()
     std::string line("");
 
     while(line.compare(";;")) {
-        codeAsm = codeAsm + line;
+        codeAsm = codeAsm + line + "\n";
         std::cin >> line;
     }
+    codeAsm = codeAsm + "end\n";
     return codeAsm;
 }
 
 int main(int ac, char **av)
 {
     std::string codeAsm;
-    if (ac == 2)
+    if (ac == 2) {
         codeAsm = ReadFromFile(av[1]);
-    else if (ac == 1)
+    } else if (ac == 1) {
         codeAsm = ReadFromTerminal();
-    else
+    } else {
         std::cerr << "error: Please enter only one file name or less\n";
         return 84;
-    if (codeAsm.compare(""))
+    }
+    std::cout << codeAsm;
+    if (codeAsm.compare("")){
+        std::cerr << "code vide\n";
         return 84;
-    if (AbstractVM(codeAsm) == 84)
+    }
+    if (avm::AbstractVM(codeAsm) == 84)
         return 84;
     return 0;
 }

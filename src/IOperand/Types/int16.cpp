@@ -7,15 +7,13 @@
 
 #include "int16.hpp"
 
-avm::myInt16::myInt16()
+avm::myInt16::myInt16(const std::string &value)
 {
+    this->value = &value;
+    this->type = avm::eOperandType::int16;
+    this->precision = 0;
 }
 
 avm::myInt16::~myInt16()
 {
-}
-
-avm::eOperandType avm::myInt16::getType()
-{
-    return (avm::eOperandType::int16);
 }

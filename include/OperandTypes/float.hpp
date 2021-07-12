@@ -10,18 +10,14 @@
 
     #include <string>
 
-    #include "IOperand.hpp"
+    #include "Operand.hpp"
 
     namespace avm {
-        class myFloat : IOperand
+        class myFloat : Operand
         {
-        private:
-            const std::string *value;
         public:
-            myFloat();
+            myFloat(const std::string &value);
             ~myFloat();
-            eOperandType getType();
-            std::string toString();
         };
     };
 
