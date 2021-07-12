@@ -10,7 +10,7 @@
 avm::myDouble::myDouble(const std::string &value)
 {
     this->value = &value;
-    this->type = avm::eOperandType::Double;
+    this->type = avm::eOperandType::DOUBLE;
     this->precision = 15;
 }
 
