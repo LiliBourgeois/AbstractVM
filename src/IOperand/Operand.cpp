@@ -5,6 +5,8 @@
 ** Operand.cpp
 */
 
+#include <string>
+
 #include "Operand.hpp"
 
 avm::Operand::Operand()
@@ -28,4 +30,8 @@ unsigned int avm::Operand::getPrecision()
 std::string avm::Operand::toString()
 {
     return (*this->value);
+}
+
+avm::IOperand *avm::IOperand::operator+(const avm::IOperand &rhs)
+{
 }

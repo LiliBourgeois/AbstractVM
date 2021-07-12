@@ -10,7 +10,7 @@
 avm::myInt32::myInt32(const std::string &value)
 {
     this->value = &value;
-    this->type = avm::eOperandType::int32;
+    this->type = avm::eOperandType::INT32;
     this->precision = 0;
 }
 

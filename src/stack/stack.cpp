@@ -41,5 +41,17 @@ int mdup(std::vector<avm::IOperand *, avm::IOperand> *OList)
 int mswap(std::vector<avm::IOperand *, avm::IOperand> *OList)
 {
     OList->insert(OList->begin(), OList->at(1));
-    OList->swap()
+}
+
+void mdump(std::vector<avm::IOperand *> *OList)
+{
+    unsigned int idx = 0;
+
+    if (OList->size() <= 0)
+        return;
+    while (OList->at(OList->size() - 1) != OList->at(idx)) {
+        std::cout << OList->at(idx) << "\n";
+        idx = idx + 1;
+    }
+    std::cout << OList->at(idx) << "\n";
 }

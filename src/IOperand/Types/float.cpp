@@ -10,7 +10,7 @@
 avm::myFloat::myFloat(const std::string &value)
 {
     this->value = &value;
-    this->type = avm::eOperandType::Float;
+    this->type = avm::eOperandType::FLOAT;
     this->precision = 7;
 }
 
