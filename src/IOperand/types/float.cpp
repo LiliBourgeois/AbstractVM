@@ -16,7 +16,7 @@
 
 avm::myFloat::myFloat(const std::string &value)
 {
-    this->value = &value;
+    this->value = value;
     this->type = avm::eOperandType::FLOAT;
     this->precision = 7;
 }
@@ -32,7 +32,7 @@ avm::eOperandType avm::myFloat::getType() const
 
 std::string avm::myFloat::toString() const
 {
-    return (*value);
+    return (value);
 }
 
 unsigned int avm::myFloat::getPrecision() const
@@ -46,7 +46,7 @@ avm::IOperand *avm::myFloat::operator+(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    float thisValue = static_cast<float>(std::stod(*this->value));
+    float thisValue = static_cast<float>(std::stod(this->value));
     float otherValue = static_cast<float>(std::stod(other.toString()));
     if (avm::isAddOverflowing(std::numeric_limits<float>::max(), std::numeric_limits<float>::min(), thisValue, otherValue)) {
         std::cerr << "myFloat::operator+ error: overflow or underflow\n";
@@ -66,7 +66,7 @@ avm::IOperand *avm::myFloat::operator-(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    float thisValue = static_cast<float>(std::stod(*this->value));
+    float thisValue = static_cast<float>(std::stod(this->value));
     float otherValue = static_cast<float>(std::stod(other.toString()));
     if (avm::isSubOverflowing(std::numeric_limits<float>::max(), std::numeric_limits<float>::min(), thisValue, otherValue)) {
         std::cerr << "myFloat::operator- error: overflow or underflow\n";
@@ -86,7 +86,7 @@ avm::IOperand *avm::myFloat::operator*(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    float thisValue = static_cast<float>(std::stod(*this->value));
+    float thisValue = static_cast<float>(std::stod(this->value));
     float otherValue = static_cast<float>(std::stod(other.toString()));
     if (avm::isMulOverflowing(std::numeric_limits<float>::max(), std::numeric_limits<float>::min(), thisValue, otherValue)) {
         std::cerr << "myFloat::operator* error: overflow or underflow\n";
@@ -107,7 +107,7 @@ avm::IOperand *avm::myFloat::operator/(const IOperand &other) const
     avm::Factory fct;
 
 
-    float thisValue = static_cast<float>(std::stod(*this->value));
+    float thisValue = static_cast<float>(std::stod(this->value));
     float otherValue = static_cast<float>(std::stod(other.toString()));
     if (otherValue == 0) {
         std::cerr << "myFloat::operator/ error: division by 0\n";
@@ -127,7 +127,7 @@ avm::IOperand *avm::myFloat::operator%(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    float thisValue = static_cast<float>(std::stod(*this->value));
+    float thisValue = static_cast<float>(std::stod(this->value));
     float otherValue = static_cast<float>(std::stod(other.toString()));
     if (otherValue == 0) {
         std::cerr << "myFloat::operator\% error: modulo by 0\n";

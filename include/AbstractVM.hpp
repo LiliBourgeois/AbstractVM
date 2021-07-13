@@ -12,6 +12,7 @@
     #include <iostream>
     #include <fstream>
     #include <string>
+    #include <vector>
 
     namespace avm {
 
@@ -20,16 +21,15 @@
         };
  
         struct Instruction_t {
-            eInstruction instruction;
+            eInstruction i;
             avm::IOperand *value;
-            struct Instruction_t *next;
-            struct Instruction_t *prev; 
         };
+
         int AbstractVM(std::string codeAsm);
-        int AbstractVMCore(Instruction_t *instructions);
+        int AbstractVMCore(std::vector<Instruction_t *> &iList);
         bool CheckCode(std::string codeAsm);
+        void getTab(std::string codeAsm, std::vector<Instruction_t *> &iList);
     }
 
-    avm::Instruction_t *getTab(std::string codeAsm);
 
 #endif 

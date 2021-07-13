@@ -45,7 +45,6 @@ int main(int ac, char **av)
         std::cerr << "error: Please enter only one file name or less\n";
         return 84;
     }
-    std::cout << codeAsm;
     if (codeAsm.empty()){
         return 84;
     }

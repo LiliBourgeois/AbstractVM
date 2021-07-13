@@ -16,7 +16,7 @@
 
 avm::myBigdecimal::myBigdecimal(const std::string &value)
 {
-    this->value = &value;
+    this->value = value;
     this->type = avm::eOperandType::BIGDECIMAL;
     this->precision = 200;
 }
@@ -32,7 +32,7 @@ avm::eOperandType avm::myBigdecimal::getType() const
 
 std::string avm::myBigdecimal::toString() const
 {
-    return (*value);
+    return (value);
 }
 
 unsigned int avm::myBigdecimal::getPrecision() const
@@ -46,7 +46,7 @@ avm::IOperand *avm::myBigdecimal::operator+(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    int64_t thisValue = static_cast<int64_t>(std::stod(*this->value));
+    int64_t thisValue = static_cast<int64_t>(std::stod(this->value));
     int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
     if (isAddOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
         std::cerr << "myBigDecimal::operator+ error: overflow or underflow\n";
@@ -66,7 +66,7 @@ avm::IOperand *avm::myBigdecimal::operator-(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    int64_t thisValue = static_cast<int64_t>(std::stod(*this->value));
+    int64_t thisValue = static_cast<int64_t>(std::stod(this->value));
     int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
     if (isSubOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
         std::cerr << "myBigDecimal::operator- error: overflow or underflow\n";
@@ -86,7 +86,7 @@ avm::IOperand *avm::myBigdecimal::operator*(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    int64_t thisValue = static_cast<int64_t>(std::stod(*this->value));
+    int64_t thisValue = static_cast<int64_t>(std::stod(this->value));
     int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
     if (avm::isMulOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
         std::cerr << "myBigDecimal::operator* error: overflow or underflow\n";
@@ -107,7 +107,7 @@ avm::IOperand *avm::myBigdecimal::operator/(const IOperand &other) const
     avm::Factory fct;
 
 
-    int64_t thisValue = static_cast<int64_t>(std::stod(*this->value));
+    int64_t thisValue = static_cast<int64_t>(std::stod(this->value));
     int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
     if (otherValue == 0) {
         std::cerr << "myBigDecimal::operator/ error: division by 0\n";
@@ -127,7 +127,7 @@ avm::IOperand *avm::myBigdecimal::operator%(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    int64_t thisValue = static_cast<int64_t>(std::stod(*this->value));
+    int64_t thisValue = static_cast<int64_t>(std::stod(this->value));
     int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
     if (otherValue == 0) {
         std::cerr << "myBigDecimal::operator\% error: modulo by 0\n";

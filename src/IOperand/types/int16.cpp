@@ -16,7 +16,7 @@
 
 avm::myInt16::myInt16(const std::string &value)
 {
-    this->value = &value;
+    this->value = value;
     this->type = avm::eOperandType::INT16;
     this->precision = 0;
 }
@@ -32,7 +32,7 @@ avm::eOperandType avm::myInt16::getType() const
 
 std::string avm::myInt16::toString() const
 {
-    return (*value);
+    return (value);
 }
 
 unsigned int avm::myInt16::getPrecision() const
@@ -46,7 +46,7 @@ avm::IOperand *avm::myInt16::operator+(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    int16_t thisValue = static_cast<int16_t>(std::stod(*this->value));
+    int16_t thisValue = static_cast<int16_t>(std::stod(this->value));
     int16_t otherValue = static_cast<int16_t>(std::stod(other.toString()));
     if (avm::isAddOverflowing(std::numeric_limits<int16_t>::max(), std::numeric_limits<int16_t>::min(), thisValue, otherValue)) {
         std::cerr << "myInt16::operator+ error: overflow or underflow\n";
@@ -66,7 +66,7 @@ avm::IOperand *avm::myInt16::operator-(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    int16_t thisValue = static_cast<int16_t>(std::stod(*this->value));
+    int16_t thisValue = static_cast<int16_t>(std::stod(this->value));
     int16_t otherValue = static_cast<int16_t>(std::stod(other.toString()));
     if (avm::isSubOverflowing(std::numeric_limits<int16_t>::max(), std::numeric_limits<int16_t>::min(), thisValue, otherValue)) {
         std::cerr << "myInt16::operator- error: overflow or underflow\n";
@@ -86,7 +86,7 @@ avm::IOperand *avm::myInt16::operator*(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    int16_t thisValue = static_cast<int16_t>(std::stod(*this->value));
+    int16_t thisValue = static_cast<int16_t>(std::stod(this->value));
     int16_t otherValue = static_cast<int16_t>(std::stod(other.toString()));
     if (avm::isMulOverflowing(std::numeric_limits<int16_t>::max(), std::numeric_limits<int16_t>::min(), thisValue, otherValue)) {
         std::cerr << "myInt16::operator* error: overflow or underflow\n";
@@ -107,7 +107,7 @@ avm::IOperand *avm::myInt16::operator/(const IOperand &other) const
     avm::Factory fct;
 
 
-    int16_t thisValue = static_cast<int16_t>(std::stod(*this->value));
+    int16_t thisValue = static_cast<int16_t>(std::stod(this->value));
     int16_t otherValue = static_cast<int16_t>(std::stod(other.toString()));
     if (otherValue == 0) {
         std::cerr << "myInt16::operator/ error: division by 0\n";
@@ -127,7 +127,7 @@ avm::IOperand *avm::myInt16::operator%(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    int16_t thisValue = static_cast<int16_t>(std::stod(*this->value));
+    int16_t thisValue = static_cast<int16_t>(std::stod(this->value));
     int16_t otherValue = static_cast<int16_t>(std::stod(other.toString()));
     if (otherValue == 0) {
         std::cerr << "myInt16::operator\% error: modulo by 0\n";

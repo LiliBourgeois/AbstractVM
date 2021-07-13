@@ -16,7 +16,7 @@
         class myInt32 : public IOperand
         {
         protected:
-            const std::string *value;
+            std::string value;
             avm::eOperandType type;
             unsigned int precision;
         public:

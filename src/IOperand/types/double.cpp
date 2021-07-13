@@ -16,7 +16,7 @@
 
 avm::myDouble::myDouble(const std::string &value)
 {
-    this->value = &value;
+    this->value = value;
     this->type = avm::eOperandType::DOUBLE;
     this->precision = 15;
 }
@@ -32,7 +32,7 @@ avm::eOperandType avm::myDouble::getType() const
 
 std::string avm::myDouble::toString() const
 {
-    return (*value);
+    return (value);
 }
 
 unsigned int avm::myDouble::getPrecision() const
@@ -46,7 +46,7 @@ avm::IOperand *avm::myDouble::operator+(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    double thisValue = static_cast<double>(std::stod(*this->value));
+    double thisValue = static_cast<double>(std::stod(this->value));
     double otherValue = static_cast<double>(std::stod(other.toString()));
     if (isAddOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::min(), thisValue, otherValue)) {
         std::cerr << "myDouble::operator+ error: overflow or underflow\n";
@@ -66,7 +66,7 @@ avm::IOperand *avm::myDouble::operator-(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    double thisValue = static_cast<double>(std::stod(*this->value));
+    double thisValue = static_cast<double>(std::stod(this->value));
     double otherValue = static_cast<double>(std::stod(other.toString()));
     if (avm::isSubOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::min(), thisValue, otherValue)) {
         std::cerr << "myDouble::operator- error: overflow or underflow\n";
@@ -86,7 +86,7 @@ avm::IOperand *avm::myDouble::operator*(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    double thisValue = static_cast<double>(std::stod(*this->value));
+    double thisValue = static_cast<double>(std::stod(this->value));
     double otherValue = static_cast<double>(std::stod(other.toString()));
     if (avm::isMulOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::min(), thisValue, otherValue)) {
         std::cerr << "myDouble::operator* error: overflow or underflow\n";
@@ -107,7 +107,7 @@ avm::IOperand *avm::myDouble::operator/(const IOperand &other) const
     avm::Factory fct;
 
 
-    double thisValue = static_cast<double>(std::stod(*this->value));
+    double thisValue = static_cast<double>(std::stod(this->value));
     double otherValue = static_cast<double>(std::stod(other.toString()));
     if (otherValue == 0) {
         std::cerr << "myDouble::operator/ error: division by 0\n";
@@ -127,7 +127,7 @@ avm::IOperand *avm::myDouble::operator%(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    double thisValue = static_cast<double>(std::stod(*this->value));
+    double thisValue = static_cast<double>(std::stod(this->value));
     double otherValue = static_cast<double>(std::stod(other.toString()));
     if (otherValue == 0) {
         std::cerr << "myDouble::operator\% error: modulo by 0\n";

@@ -40,65 +40,37 @@ avm::eOperandType getType(std::string value)
     return avm::eOperandType::UNKNOWN;
 }
 
-avm::Instruction_t *addNewNode(avm::Instruction_t *list, avm::Instruction_t *newNode)
+void avm::getTab(std::string codeAsm, std::vector<avm::Instruction_t *> &iList)
 {
-    avm::Instruction_t *tmp = list;
-
-
-    if (tmp == NULL) {
-        list = new (avm::Instruction_t);
-        list->instruction = newNode->instruction;
-        list->value = newNode->value;
-        list->next = NULL;
-        list->prev = NULL;
-        return list;
-    }
-    while (tmp != NULL && tmp->next != NULL) {
-        tmp = tmp->next;
-    }
-    tmp->next = newNode;
-    tmp->next->next = NULL;
-    tmp->next->prev = tmp;
-    return list;
-}
-
-avm::Instruction_t *getTab(std::string codeAsm)
-{
-    auto f = new avm::Factory;
-    avm::Instruction_t *instructionAsm = new(avm::Instruction_t);
-    avm::Instruction_t *newInstruction;
+    avm::Factory f;
     std::smatch tmp;
+    avm::Instruction_t *newInstruction;
     avm::eOperandType type;
     std::string value;
 
-    instructionAsm = NULL;
     std::regex word_regex("(\\w+)");
     auto words_begin = std::sregex_iterator(codeAsm.begin(), codeAsm.end(), word_regex);
     auto words_end = std::sregex_iterator();
-    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
+    for (std::sregex_iterator idx = words_begin; idx != words_end; ++idx) {
         newInstruction = new(avm::Instruction_t);
-        newInstruction->instruction = getInstruction(*i);
-        if (newInstruction->instruction == 16)
-            return NULL;
-        if (newInstruction->instruction <= 3) {
-            ++i;
-            tmp = *i;
+        newInstruction->i = getInstruction(*idx);
+        if (newInstruction->i == 16)
+            return;
+        if (newInstruction->i <= 3) {
+            ++idx;
+            tmp = *idx;
             type = getType(tmp.str());
-            ++i;
-            tmp = *i;
+            ++idx;
+            tmp = *idx;
             value = tmp.str();
             if (type >= 3 && type <= 5){
-                ++i;
-                tmp = *i;
+                ++idx;
+                tmp = *idx;
                 value.append(".");
                 value.append(tmp.str());
             }
-            newInstruction->value = f->createOperand(type, value);
-            std::cout << "value :\n" << newInstruction->value->toString() << "\n";
+            newInstruction->value = f.createOperand(type, value);
         }
-        instructionAsm = addNewNode(instructionAsm, newInstruction);
-        std::cout << "value 2:\n" << instructionAsm->instruction << "\n" << instructionAsm->value->toString() << "\n";
+        iList.push_back(newInstruction);
     }
-    std::cout << "return \n";
-    return instructionAsm;
 }
