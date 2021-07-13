@@ -9,6 +9,7 @@
 #include <iostream>
 #include <limits>
 
+#include "Overflow.hpp"
 #include "Factory.hpp"
 #include "IOperand.hpp"
 #include "int32.hpp"
@@ -45,10 +46,10 @@ avm::IOperand *avm::myInt32::operator+(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    int8_t thisValue = static_cast<int8_t>(std::stod(*this->value));
-    int8_t otherValue = static_cast<int8_t>(std::stod(other.toString()));
-    if ((std::numeric_limits<int8_t>::max() - (std::numeric_limits<int8_t>::min() + std::abs(thisValue))) < std::abs(otherValue)) {
-        std::cerr << "myInt8::operator+ error: overflow or underflow\n";
+    int32_t thisValue = static_cast<int32_t>(std::stod(*this->value));
+    int32_t otherValue = static_cast<int32_t>(std::stod(other.toString()));
+    if (isAddOverflowing(std::numeric_limits<int32_t>::max(), std::numeric_limits<int32_t>::min(), thisValue, otherValue)) {
+        std::cerr << "myInt32::operator+ error: overflow or underflow\n";
         return (NULL);
     }
     result = std::to_string(thisValue + otherValue);
@@ -65,10 +66,10 @@ avm::IOperand *avm::myInt32::operator-(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    int8_t thisValue = static_cast<int8_t>(std::stod(*this->value));
-    int8_t otherValue = static_cast<int8_t>(std::stod(other.toString()));
-    if ((std::numeric_limits<int8_t>::max() - (std::numeric_limits<int8_t>::min() + std::abs(thisValue))) < std::abs(otherValue)) {
-        std::cerr << "myInt8::operator+ error: overflow or underflow\n";
+    int32_t thisValue = static_cast<int32_t>(std::stod(*this->value));
+    int32_t otherValue = static_cast<int32_t>(std::stod(other.toString()));
+    if (isSubOverflowing(std::numeric_limits<int32_t>::max(), std::numeric_limits<int32_t>::min(), thisValue, otherValue)) {
+        std::cerr << "myint32::operator- error: overflow or underflow\n";
         return (NULL);
     }
     result = std::to_string(thisValue - otherValue);
@@ -85,10 +86,10 @@ avm::IOperand *avm::myInt32::operator*(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    int8_t thisValue = static_cast<int8_t>(std::stod(*this->value));
-    int8_t otherValue = static_cast<int8_t>(std::stod(other.toString()));
-    if ((std::numeric_limits<int8_t>::max() - (std::numeric_limits<int8_t>::min() + std::abs(thisValue))) < std::abs(otherValue)) {
-        std::cerr << "myInt8::operator+ error: overflow or underflow\n";
+    int32_t thisValue = static_cast<int32_t>(std::stod(*this->value));
+    int32_t otherValue = static_cast<int32_t>(std::stod(other.toString()));
+    if (isMulOverflowing(std::numeric_limits<int32_t>::max(), std::numeric_limits<int32_t>::min(), thisValue, otherValue)) {
+        std::cerr << "myint32::operator* error: overflow or underflow\n";
         return (NULL);
     }
     result = std::to_string(thisValue * otherValue);
@@ -106,14 +107,10 @@ avm::IOperand *avm::myInt32::operator/(const IOperand &other) const
     avm::Factory fct;
 
 
-    int8_t thisValue = static_cast<int8_t>(std::stod(*this->value));
-    int8_t otherValue = static_cast<int8_t>(std::stod(other.toString()));
-    if ((std::numeric_limits<int8_t>::max() - (std::numeric_limits<int8_t>::min() + std::abs(thisValue))) < std::abs(otherValue)) {
-        std::cerr << "myInt8::operator+ error: overflow or underflow\n";
-        return (NULL);
-    }
+    int32_t thisValue = static_cast<int32_t>(std::stod(*this->value));
+    int32_t otherValue = static_cast<int32_t>(std::stod(other.toString()));
     if (otherValue == 0) {
-        std::cerr << "myInt8::operator/ error: division by 0\n";
+        std::cerr << "myint32::operator/ error: division by 0\n";
         return (NULL);
     }
     result = std::to_string(thisValue / otherValue);
@@ -130,14 +127,10 @@ avm::IOperand *avm::myInt32::operator%(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    int8_t thisValue = static_cast<int8_t>(std::stod(*this->value));
-    int8_t otherValue = static_cast<int8_t>(std::stod(other.toString()));
-    if ((std::numeric_limits<int8_t>::max() - (std::numeric_limits<int8_t>::min() + std::abs(thisValue))) < std::abs(otherValue)) {
-        std::cerr << "myInt8::operator+ error: overflow or underflow\n";
-        return (NULL);
-    }
+    int32_t thisValue = static_cast<int32_t>(std::stod(*this->value));
+    int32_t otherValue = static_cast<int32_t>(std::stod(other.toString()));
     if (otherValue == 0) {
-        std::cerr << "myInt8::operator\% error: modulo by 0\n";
+        std::cerr << "myint32::operator\% error: modulo by 0\n";
         return (NULL);
     }
     result = std::to_string(thisValue % otherValue);
