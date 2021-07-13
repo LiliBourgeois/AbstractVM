@@ -19,7 +19,7 @@
         int mload(avm::IOperand *data, std::vector<avm::IOperand *> *OList);
         int mstore(avm::IOperand *dest, std::vector<avm::IOperand *> *OList);
         int mpop(std::vector<avm::IOperand *> *OList);
-        void mdump(std::vector<avm::IOperand *> *OList);
+        int mdump(std::vector<avm::IOperand *> *OList);
         int mclear(std::vector<avm::IOperand *> *OList);
         int mdup(std::vector<avm::IOperand *> *OList);
         int mswap(std::vector<avm::IOperand *> *OList);

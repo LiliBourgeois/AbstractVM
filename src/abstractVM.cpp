@@ -6,7 +6,9 @@
 */
 
 #include <vector>
+#include <map>
 
+#include "Stack.hpp"
 #include "AbstractVM.hpp"
 
 std::string GetRidOfComment(std::string codeAsm)
@@ -26,11 +28,30 @@ std::string GetRidOfComment(std::string codeAsm)
     return codeAsm;
 }
 
-/*int avm::AbstractVMCore(Instruction_t *instructions)
+int avm::AbstractVMCore(Instruction_t *instructions)
 {
-    std::vector<avm::IOperand *> *stack;
+    int (*vpf[])(avm::IOperand *, std::vector<avm::IOperand *> *) = {
+        avm::mpush, avm::massert, avm::mload, avm::mstore
+    };
+    int (*pf[])(std::vector<avm::IOperand *> *) = {
+        avm::mpop, avm::mdump, avm::mclear, avm::mdup, avm::mswap,
+        avm::madd, avm::msub, avm::mmul, avm::mdiv, avm::mmod, avm::mprint
+    };
+    std::vector<avm::IOperand *> stack;
+    Instruction_t *tmp = instructions;
+    int retval;
+
+    while (tmp != NULL) {
+        if (tmp->instruction <= 3)
+            retval = vpf[tmp->instruction](tmp->value, &stack);
+        else
+            retval = pf[tmp->instruction - 4](&stack);
+        if (retval == 84)
+            return 84;
+        tmp = tmp->next;
+    }
     return 0;
-}*/
+}
 
 int avm::AbstractVM(std::string codeAsm)
 {
@@ -47,9 +68,9 @@ int avm::AbstractVM(std::string codeAsm)
     while (instructionsAsm->prev != NULL) {
         instructionsAsm = instructionsAsm->prev;
     }
-    /*while (instructionsAsm->next != NULL) {
+    while (instructionsAsm->next != NULL) {
         std::cout << "on tente un truc :" << instructionsAsm->instruction << "\n";
         instructionsAsm = instructionsAsm->next;
-    }*/
-    return (/*AbstractVMCore(instructionsAsm)*/0);
+    }
+    return (AbstractVMCore(instructionsAsm));
 }

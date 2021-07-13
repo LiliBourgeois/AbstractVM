@@ -20,6 +20,8 @@ SRC		=	./src/IOperand/checkOverflowUnderflow.cpp	\
 			\
 			./src/factory/factory.cpp\
 			\
+			./src/stack/stack.cpp	\
+			\
 			./src/abstractVM.cpp
 
 OBJ	=	$(SRC:.cpp=.o)

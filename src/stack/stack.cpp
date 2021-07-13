@@ -8,16 +8,27 @@
 #include <iostream>
 #include <vector>
 
+#include "Stack.hpp"
 #include "Factory.hpp"
 #include "IOperand.hpp"
 
-int mpush(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
+int avm::mpop(std::vector<avm::IOperand *> *OList)
+{
+    if (OList->size() < 1) {
+        std::cerr << "'POP' error: list is empty\n";
+        return 84;
+    }
+    OList->erase(OList->begin());
+    return 0;
+}
+
+int avm::mpush(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 {
     OList->insert(OList->begin(), data);
     return 0;
 }
 
-int massert(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
+int avm::massert(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 {
     if (OList->size() < 1)
         return 84;
@@ -27,7 +38,7 @@ int massert(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
     return 84;
 }
 
-int mload(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
+int avm::mload(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 {
     avm::Factory fct;
     avm::IOperand *newValue;
@@ -43,7 +54,7 @@ int mload(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
     return 0;
 }
 
-int mstore(avm::IOperand *dest, std::vector<avm::IOperand *> *OList)
+int avm::mstore(avm::IOperand *dest, std::vector<avm::IOperand *> *OList)
 {
     avm::Factory fct;
 
@@ -55,7 +66,7 @@ int mstore(avm::IOperand *dest, std::vector<avm::IOperand *> *OList)
     return 0;
 }
 
-int madd(std::vector<avm::IOperand *> *OList)
+int avm::madd(std::vector<avm::IOperand *> *OList)
 {
     avm::IOperand *newValue;
 
@@ -70,7 +81,7 @@ int madd(std::vector<avm::IOperand *> *OList)
     return 0;
 }
 
-int msub(std::vector<avm::IOperand *> *OList)
+int avm::msub(std::vector<avm::IOperand *> *OList)
 {
     avm::IOperand *newValue;
 
@@ -85,7 +96,7 @@ int msub(std::vector<avm::IOperand *> *OList)
     return 0;
 }
 
-int mmul(std::vector<avm::IOperand *> *OList)
+int avm::mmul(std::vector<avm::IOperand *> *OList)
 {
     avm::IOperand *newValue;
 
@@ -100,7 +111,7 @@ int mmul(std::vector<avm::IOperand *> *OList)
     return 0;
 }
 
-int mdiv(std::vector<avm::IOperand *> *OList)
+int avm::mdiv(std::vector<avm::IOperand *> *OList)
 {
     avm::IOperand *newValue;
 
@@ -115,7 +126,7 @@ int mdiv(std::vector<avm::IOperand *> *OList)
     return 0;
 }
 
-int mmod(std::vector<avm::IOperand *> *OList)
+int avm::mmod(std::vector<avm::IOperand *> *OList)
 {
     avm::IOperand *newValue;
 
@@ -130,23 +141,13 @@ int mmod(std::vector<avm::IOperand *> *OList)
     return 0;
 }
 
-int mpop(std::vector<avm::IOperand *> *OList)
-{
-    if (OList->size() < 1) {
-        std::cerr << "'POP' error: list is empty\n";
-        return 84;
-    }
-    OList->erase(OList->begin());
-    return 0;
-}
-
-int mclear(std::vector<avm::IOperand *> *OList)
+int avm::mclear(std::vector<avm::IOperand *> *OList)
 {
     OList->clear();
     return 0;
 }
 
-int mdup(std::vector<avm::IOperand *> *OList)
+int avm::mdup(std::vector<avm::IOperand *> *OList)
 {
     if (OList->size() < 1) {
         std::cerr << "'DUP' error: list is empty\n";
@@ -156,7 +157,7 @@ int mdup(std::vector<avm::IOperand *> *OList)
     return 0;
 }
 
-int mswap(std::vector<avm::IOperand *> *OList)
+int avm::mswap(std::vector<avm::IOperand *> *OList)
 {
     if (OList->size() < 2) {
         std::cerr << "'SWAP' error: not enough value on the stack\n";
@@ -167,32 +168,34 @@ int mswap(std::vector<avm::IOperand *> *OList)
     return 0;
 }
 
-void mdump(std::vector<avm::IOperand *> *OList)
+int avm::mdump(std::vector<avm::IOperand *> *OList)
 {
     unsigned int idx = 0;
 
     if (OList->size() <= 0)
-        return;
+        return 0;
     while (OList->at(OList->size() - 1) != OList->at(idx)) {
         std::cout << OList->at(idx)->toString() << "\n";
         idx = idx + 1;
     }
     std::cout << OList->at(idx)->toString() << "\n";
+    return 0;
 }
 
-void msdump(std::vector<avm::IOperand *> *OList)
+int msdump(std::vector<avm::IOperand *> *OList)
 {
     unsigned int idx = 0;
     if (OList->size() <= 0)
-        return;
+        return 0;
     while (OList->at(OList->size() - 1) != OList->at(idx)) {
         std::cout << OList->at(idx)->toString() << " | " << OList->at(idx)->getType() << "\n";
         idx = idx + 1;
     }
     std::cout << OList->at(idx) << "\n";
+    return 0;
 }
 
-int mprint(std::vector<avm::IOperand *> *OList)
+int avm::mprint(std::vector<avm::IOperand *> *OList)
 {
     char c;
 
