@@ -9,7 +9,6 @@
 
 #include "Factory.hpp"
 #include "IOperand.hpp"
-#include "Operand.hpp"
 #include "int8.hpp"
 #include "int16.hpp"
 #include "int32.hpp"
@@ -27,14 +26,12 @@ avm::Factory::~Factory()
 
 avm::IOperand *avm::Factory::createInt8(const std::string &value)
 {
-    avm::IOperand *n = new avm::myInt8(&value);
-    return (n);
+    return (new myInt8(value));
 }
 
 avm::IOperand *avm::Factory::createInt16(const std::string &value)
 {
-    avm::IOperand *n = new avm::myInt16(&value);
-    return (n);
+    return (new myInt16(value));
 }
 
 avm::IOperand *avm::Factory::createInt32(const std::string &value)

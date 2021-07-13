@@ -10,14 +10,28 @@
 
     #include <string>
 
-    #include "Operand.hpp"
+    #include "IOperand.hpp"
 
     namespace avm {
-        class myFloat : Operand
+        class myFloat : IOperand
         {
+        protected:
+            const std::string *value;
+            avm::eOperandType type;
+            unsigned int precision;
         public:
             myFloat(const std::string &value);
             ~myFloat();
+
+            std::string toString() const;
+            eOperandType getType() const;
+            unsigned int getPrecision() const;
+
+            avm::IOperand *operator+(const IOperand &rhs) const;
+            avm::IOperand *operator-(const IOperand &rhs) const;
+            avm::IOperand *operator*(const IOperand &rhs) const;
+            avm::IOperand *operator/(const IOperand &rhs) const;
+            avm::IOperand *operator%(const IOperand &rhs) const;
         };
     };
 
