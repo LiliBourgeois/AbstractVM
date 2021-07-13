@@ -7,8 +7,7 @@
 
 MAIN	=	./src/main.cpp
 
-SRC		=	./src/IOperand/Operand.cpp	\
-			./src/IOperand/Types/bigdecimal.cpp	\
+SRC		=	./src/IOperand/Types/bigdecimal.cpp	\
 			./src/IOperand/Types/double.cpp	\
 			./src/IOperand/Types/float.cpp	\
 			./src/IOperand/Types/int8.cpp	\

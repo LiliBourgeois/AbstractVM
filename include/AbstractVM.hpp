@@ -23,8 +23,13 @@
         struct Instruction_t {
             eInstruction instruction;
             avm::IOperand *value;
+            struct Instruction_t *next;
+            struct Instruction_t *prev; 
         };
         int AbstractVM(std::string codeAsm);
     }
+
+    avm::Instruction_t *getTab(std::string codeAsm);
+    bool CheckCode(std::string codeAsm);
 
 #endif 
