@@ -10,6 +10,7 @@
 #include <limits>   
 
 #include "Factory.hpp"
+#include "IOperand.hpp"
 #include "int8.hpp"
 
 avm::myInt8::myInt8(const std::string &value)
@@ -31,13 +32,15 @@ avm::IOperand *avm::myInt8::operator+(const IOperand &other) const
 
     int8_t thisValue = static_cast<int8_t>(std::stod(*this->value));
     int8_t otherValue = static_cast<int8_t>(std::stod(other.toString()));
-    if ((std::numeric_limits<int8_t>::max() - (std::numeric_limits<int8_t>::min() + thisValue)) < otherValue) {
+    if ((std::numeric_limits<int8_t>::max() - (std::numeric_limits<int8_t>::min() + std::abs(thisValue))) < std::abs(otherValue)) {
         std::cerr << "myInt8::operator+ error: overflow or underflow\n";
         return (NULL);
     }
-
     result = std::to_string(thisValue + otherValue);
-    newOperand = fct.createOperand(this->getType(), result);
+    if (this->getType() > other.getType())
+        newOperand = fct.createOperand(this->getType(), result);
+    else
+        newOperand = fct.createOperand(other.getType(), result);
     return (newOperand);
 }
 
@@ -47,10 +50,17 @@ avm::IOperand *avm::myInt8::operator-(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    double thisValue = static_cast<double>(std::stod(*this->value));
-    double otherValue = static_cast<double>(std::stod(other.toString()));
+    int8_t thisValue = static_cast<int8_t>(std::stod(*this->value));
+    int8_t otherValue = static_cast<int8_t>(std::stod(other.toString()));
+    if ((std::numeric_limits<int8_t>::max() - (std::numeric_limits<int8_t>::min() + std::abs(thisValue))) < std::abs(otherValue)) {
+        std::cerr << "myInt8::operator+ error: overflow or underflow\n";
+        return (NULL);
+    }
     result = std::to_string(thisValue - otherValue);
-    newOperand = fct.createOperand(this->getType(), result);
+    if (this->getType() > other.getType())
+        newOperand = fct.createOperand(this->getType(), result);
+    else
+        newOperand = fct.createOperand(other.getType(), result);
     return (newOperand);
 }
 
@@ -60,10 +70,17 @@ avm::IOperand *avm::myInt8::operator*(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    double thisValue = static_cast<double>(std::stod(*this->value));
-    double otherValue = static_cast<double>(std::stod(other.toString()));
+    int8_t thisValue = static_cast<int8_t>(std::stod(*this->value));
+    int8_t otherValue = static_cast<int8_t>(std::stod(other.toString()));
+    if ((std::numeric_limits<int8_t>::max() - (std::numeric_limits<int8_t>::min() + std::abs(thisValue))) < std::abs(otherValue)) {
+        std::cerr << "myInt8::operator+ error: overflow or underflow\n";
+        return (NULL);
+    }
     result = std::to_string(thisValue * otherValue);
-    newOperand = fct.createOperand(this->getType(), result);
+    if (this->getType() > other.getType())
+        newOperand = fct.createOperand(this->getType(), result);
+    else
+        newOperand = fct.createOperand(other.getType(), result);
     return (newOperand);
 }
 
@@ -73,10 +90,22 @@ avm::IOperand *avm::myInt8::operator/(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    double thisValue = static_cast<double>(std::stod(*this->value));
-    double otherValue = static_cast<double>(std::stod(other.toString()));
+
+    int8_t thisValue = static_cast<int8_t>(std::stod(*this->value));
+    int8_t otherValue = static_cast<int8_t>(std::stod(other.toString()));
+    if ((std::numeric_limits<int8_t>::max() - (std::numeric_limits<int8_t>::min() + std::abs(thisValue))) < std::abs(otherValue)) {
+        std::cerr << "myInt8::operator+ error: overflow or underflow\n";
+        return (NULL);
+    }
+    if (otherValue = 0) {
+        std::cerr << "myInt8::operator/ error: division by 0\n";
+        return (NULL);
+    }
     result = std::to_string(thisValue / otherValue);
-    newOperand = fct.createOperand(this->getType(), result);
+    if (this->getType() > other.getType())
+        newOperand = fct.createOperand(this->getType(), result);
+    else
+        newOperand = fct.createOperand(other.getType(), result);
     return (newOperand);
 }
 
@@ -86,9 +115,20 @@ avm::IOperand *avm::myInt8::operator%(const IOperand &other) const
     avm::IOperand *newOperand;
     avm::Factory fct;
 
-    uint64_t thisValue = static_cast<int>(std::stod(*this->value));
-    uint64_t otherValue = static_cast<int>(std::stod(other.toString()));
+    int8_t thisValue = static_cast<int8_t>(std::stod(*this->value));
+    int8_t otherValue = static_cast<int8_t>(std::stod(other.toString()));
+    if ((std::numeric_limits<int8_t>::max() - (std::numeric_limits<int8_t>::min() + std::abs(thisValue))) < std::abs(otherValue)) {
+        std::cerr << "myInt8::operator+ error: overflow or underflow\n";
+        return (NULL);
+    }
+    if (otherValue = 0) {
+        std::cerr << "myInt8::operator\% error: modulo by 0\n";
+        return (NULL);
+    }
     result = std::to_string(thisValue % otherValue);
-    newOperand = fct.createOperand(this->getType(), result);
+    if (this->getType() > other.getType())
+        newOperand = fct.createOperand(this->getType(), result);
+    else
+        newOperand = fct.createOperand(other.getType(), result);
     return (newOperand);
 }
