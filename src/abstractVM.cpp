@@ -42,10 +42,12 @@ int avm::AbstractVMCore(Instruction_t *instructions)
     int retval;
 
     while (tmp != NULL) {
-        if (tmp->instruction <= 3)
+        std::cout << tmp->instruction << "\n";
+        if (tmp->instruction <= 3) {
             retval = vpf[tmp->instruction](tmp->value, &stack);
-        else
+        } else 
             retval = pf[tmp->instruction - 4](&stack);
+        std::cout << stack.at(0)->getType() << "\n" << stack.at(0)->toString() << "\n";
         if (retval == 84)
             return 84;
         tmp = tmp->next;
@@ -63,13 +65,13 @@ int avm::AbstractVM(std::string codeAsm)
     if (!isCodeCorrect)
         return 84;
     instructionsAsm = getTab(codeAsm);
-    if (instructionsAsm == NULL)
+    if (instructionsAsm == NULL) {
+        std::cout << "ASM EST NUL\n";
         return 84;
-    while (instructionsAsm->prev != NULL) {
-        instructionsAsm = instructionsAsm->prev;
     }
-    while (instructionsAsm->next != NULL) {
-        std::cout << "on tente un truc :" << instructionsAsm->instruction << "\n";
+    while (instructionsAsm->next) {
+        if (instructionsAsm->instruction <= 3)
+            std::cout << "VALUE:\n" << instructionsAsm->value->toString() << "\n";
         instructionsAsm = instructionsAsm->next;
     }
     return (AbstractVMCore(instructionsAsm));

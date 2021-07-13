@@ -40,33 +40,47 @@ avm::eOperandType getType(std::string value)
     return avm::eOperandType::UNKNOWN;
 }
 
-avm::Instruction_t *setNewNode(avm::Instruction_t *node)
+avm::Instruction_t *addNewNode(avm::Instruction_t *list, avm::Instruction_t *newNode)
 {
-    avm::Instruction_t *newNode = new(avm::Instruction_t);
+    avm::Instruction_t *tmp = list;
 
-    node->next = newNode;
-    newNode->prev = node;
-    newNode->next = NULL;
-    return newNode;
+
+    if (tmp == NULL) {
+        list = new (avm::Instruction_t);
+        list->instruction = newNode->instruction;
+        list->value = newNode->value;
+        list->next = NULL;
+        list->prev = NULL;
+        return list;
+    }
+    while (tmp != NULL && tmp->next != NULL) {
+        tmp = tmp->next;
+    }
+    tmp->next = newNode;
+    tmp->next->next = NULL;
+    tmp->next->prev = tmp;
+    return list;
 }
 
 avm::Instruction_t *getTab(std::string codeAsm)
 {
     auto f = new avm::Factory;
     avm::Instruction_t *instructionAsm = new(avm::Instruction_t);
+    avm::Instruction_t *newInstruction;
     std::smatch tmp;
     avm::eOperandType type;
     std::string value;
 
-    instructionAsm->prev = NULL;
+    instructionAsm = NULL;
     std::regex word_regex("(\\w+)");
     auto words_begin = std::sregex_iterator(codeAsm.begin(), codeAsm.end(), word_regex);
     auto words_end = std::sregex_iterator();
     for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
-        instructionAsm->instruction = getInstruction(*i);
-        if (instructionAsm->instruction == 16)
+        newInstruction = new(avm::Instruction_t);
+        newInstruction->instruction = getInstruction(*i);
+        if (newInstruction->instruction == 16)
             return NULL;
-        if (instructionAsm->instruction <= 3) {
+        if (newInstruction->instruction <= 3) {
             ++i;
             tmp = *i;
             type = getType(tmp.str());
@@ -79,10 +93,12 @@ avm::Instruction_t *getTab(std::string codeAsm)
                 value.append(".");
                 value.append(tmp.str());
             }
-            std::cout << "value :" << value << "\n";
-            instructionAsm->value = f->createOperand(type, value);
+            newInstruction->value = f->createOperand(type, value);
+            std::cout << "value :\n" << newInstruction->value->toString() << "\n";
         }
-        instructionAsm = setNewNode(instructionAsm);
+        instructionAsm = addNewNode(instructionAsm, newInstruction);
+        std::cout << "value 2:\n" << instructionAsm->instruction << "\n" << instructionAsm->value->toString() << "\n";
     }
+    std::cout << "return \n";
     return instructionAsm;
 }
