@@ -133,6 +133,7 @@ avm::IOperand *avm::myDouble::operator%(const IOperand &other) const
         std::cerr << "myDouble::operator\% error: modulo by 0\n";
         return (NULL);
     }
+    (void)(thisValue);//TODO
 //    result = std::to_string(thisValue % otherValue);
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
