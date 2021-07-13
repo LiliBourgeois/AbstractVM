@@ -48,7 +48,7 @@ avm::IOperand *avm::myInt8::operator+(const IOperand &other) const
 
     int8_t thisValue = static_cast<int8_t>(std::stod(*this->value));
     int8_t otherValue = static_cast<int8_t>(std::stod(other.toString()));
-    if (isAddOverflowing(std::numeric_limits<int8_t>::max(), std::numeric_limits<int8_t>::min(), thisValue, otherValue)) {
+    if (avm::isAddOverflowing(std::numeric_limits<int8_t>::max(), std::numeric_limits<int8_t>::min(), thisValue, otherValue)) {
         std::cerr << "myInt8::operator+ error: overflow or underflow\n";
         return (NULL);
     }
@@ -68,7 +68,7 @@ avm::IOperand *avm::myInt8::operator-(const IOperand &other) const
 
     int8_t thisValue = static_cast<int8_t>(std::stod(*this->value));
     int8_t otherValue = static_cast<int8_t>(std::stod(other.toString()));
-    if (isSubOverflowing(std::numeric_limits<int8_t>::max(), std::numeric_limits<int8_t>::min(), thisValue, otherValue)) {
+    if (avm::isSubOverflowing(std::numeric_limits<int8_t>::max(), std::numeric_limits<int8_t>::min(), thisValue, otherValue)) {
         std::cerr << "myInt8::operator- error: overflow or underflow\n";
         return (NULL);
     }
@@ -88,7 +88,7 @@ avm::IOperand *avm::myInt8::operator*(const IOperand &other) const
 
     int8_t thisValue = static_cast<int8_t>(std::stod(*this->value));
     int8_t otherValue = static_cast<int8_t>(std::stod(other.toString()));
-    if (isMulOverflowing(std::numeric_limits<int8_t>::max(), std::numeric_limits<int8_t>::min(), thisValue, otherValue)) {
+    if (avm::isMulOverflowing(std::numeric_limits<int8_t>::max(), std::numeric_limits<int8_t>::min(), thisValue, otherValue)) {
         std::cerr << "myInt8::operator* error: overflow or underflow\n";
         return (NULL);
     }

@@ -48,7 +48,7 @@ avm::IOperand *avm::myBigdecimal::operator+(const IOperand &other) const
 
     int64_t thisValue = static_cast<int64_t>(std::stod(*this->value));
     int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
-    if (isAddOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
+    if (avm::isAddOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
         std::cerr << "myBigDecimal::operator+ error: overflow or underflow\n";
         return (NULL);
     }
@@ -68,7 +68,7 @@ avm::IOperand *avm::myBigdecimal::operator-(const IOperand &other) const
 
     int64_t thisValue = static_cast<int64_t>(std::stod(*this->value));
     int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
-    if (isSubOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
+    if (avm::isSubOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
         std::cerr << "myBigDecimal::operator- error: overflow or underflow\n";
         return (NULL);
     }

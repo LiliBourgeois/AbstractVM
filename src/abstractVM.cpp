@@ -27,9 +27,7 @@ std::string getRidOfComment(std::string codeAsm)
 int avm::AbstractVM(std::string codeAsm)
 {
     avm::Instruction_t *instructionsAsm;
-    std::cout << "avant check code\n";
     bool isCodeCorrect = CheckCode(codeAsm);
-    std::cout << "après check code\n";
 
     if (!isCodeCorrect)
         return 84;

@@ -48,7 +48,7 @@ avm::IOperand *avm::myFloat::operator+(const IOperand &other) const
 
     float thisValue = static_cast<float>(std::stod(*this->value));
     float otherValue = static_cast<float>(std::stod(other.toString()));
-    if (isAddOverflowing(std::numeric_limits<float>::max(), std::numeric_limits<float>::min(), thisValue, otherValue)) {
+    if (avm::isAddOverflowing(std::numeric_limits<float>::max(), std::numeric_limits<float>::min(), thisValue, otherValue)) {
         std::cerr << "myFloat::operator+ error: overflow or underflow\n";
         return (NULL);
     }
@@ -68,7 +68,7 @@ avm::IOperand *avm::myFloat::operator-(const IOperand &other) const
 
     float thisValue = static_cast<float>(std::stod(*this->value));
     float otherValue = static_cast<float>(std::stod(other.toString()));
-    if (isSubOverflowing(std::numeric_limits<float>::max(), std::numeric_limits<float>::min(), thisValue, otherValue)) {
+    if (avm::isSubOverflowing(std::numeric_limits<float>::max(), std::numeric_limits<float>::min(), thisValue, otherValue)) {
         std::cerr << "myFloat::operator- error: overflow or underflow\n";
         return (NULL);
     }
@@ -88,7 +88,7 @@ avm::IOperand *avm::myFloat::operator*(const IOperand &other) const
 
     float thisValue = static_cast<float>(std::stod(*this->value));
     float otherValue = static_cast<float>(std::stod(other.toString()));
-    if (isAddOverflowing(std::numeric_limits<float>::max(), std::numeric_limits<float>::min(), thisValue, otherValue)) {
+    if (avm::isMulOverflowing(std::numeric_limits<float>::max(), std::numeric_limits<float>::min(), thisValue, otherValue)) {
         std::cerr << "myFloat::operator* error: overflow or underflow\n";
         return (NULL);
     }
