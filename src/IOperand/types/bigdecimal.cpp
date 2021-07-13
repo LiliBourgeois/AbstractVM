@@ -88,7 +88,7 @@ avm::IOperand *avm::myBigdecimal::operator*(const IOperand &other) const
 
     int64_t thisValue = static_cast<int64_t>(std::stod(*this->value));
     int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
-    if ((std::numeric_limits<int64_t>::max() - (std::numeric_limits<int64_t>::min() + std::abs(thisValue))) < std::abs(otherValue)) {
+    if (avm::isMulOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
         std::cerr << "myBigDecimal::operator* error: overflow or underflow\n";
         return (NULL);
     }
