@@ -16,7 +16,7 @@
     namespace avm {
 
         enum eInstruction {
-            PUSH, POP, DUMP, CLEAR, DUP, SWAP, ASSERT, ADD, SUB, MUL, DIV, MOD, LOAD, STORE, PRINT, EXIT
+            PUSH, ASSERT, LOAD, STORE, POP, DUMP, CLEAR, DUP, SWAP, ADD, SUB, MUL, DIV, MOD, PRINT, EXIT
         };
  
         struct Instruction_t {

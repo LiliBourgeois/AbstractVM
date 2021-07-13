@@ -18,7 +18,6 @@ std::string ReadFromFile(char *filename)
             codeAsm = codeAsm + line + "\n";
         }
         myfile.close();
-        codeAsm = codeAsm + "end\n";
     }
     return codeAsm;
 }
@@ -32,7 +31,6 @@ std::string ReadFromTerminal()
         codeAsm = codeAsm + line + "\n";
         std::cin >> line;
     }
-    codeAsm = codeAsm + "end\n";
     return codeAsm;
 }
 
@@ -52,7 +50,7 @@ int main(int ac, char **av)
         std::cerr << "code vide\n";
         return 84;
     }
-    std::cout << "ici tranquille";
+    std::cout << "ici tranquille\n\n";
     if (avm::AbstractVM(codeAsm) == 84)
         return 84;
     return 0;

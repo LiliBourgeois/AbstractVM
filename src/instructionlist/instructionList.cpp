@@ -12,7 +12,7 @@
 
 avm::eInstruction getInstruction(std::smatch i)
 {
-    static const char *strInstruction[] = {"push", "pop", "dump", "clear", "dup", "swap", "assert", "add", "sub", "mul", "div", "mod", "load", "store", "print", "exit"};
+    static const char *strInstruction[] = {"push", "assert", "load", "store", "pop", "dump", "clear", "dup", "swap", "add", "sub", "mul", "div", "mod", "print", "exit"};
     avm::eInstruction enumInstruction = avm::eInstruction::PUSH;
     std::string instruction = i.str();
 
@@ -24,37 +24,20 @@ avm::eInstruction getInstruction(std::smatch i)
 
 avm::eOperandType getType(std::string value)
 {
-    if(value.find("int8")) {
+    if(value.find("int8") != std::string::npos) {
         return avm::eOperandType::INT8;
-    } else if (value.find("int16")) {
+    } else if (value.find("int16") != std::string::npos) {
         return avm::eOperandType::INT16;
-    } else if (value.find("int32")) {
+    } else if (value.find("int32") != std::string::npos) {
         return avm::eOperandType::INT32;
-    } else if (value.find("Float")) {
+    } else if (value.find("float") != std::string::npos) {
         return avm::eOperandType::FLOAT;
-    } else if (value.find("Double")) {
+    } else if (value.find("double") != std::string::npos) {
         return avm::eOperandType::DOUBLE;
-    } else if (value.find("BigDecimal")) {
+    } else if (value.find("bigdecimal") != std::string::npos) {
         return avm::eOperandType::BIGDECIMAL;
     }
     return avm::eOperandType::UNKNOWN;
-}
-
-std::string getValue(std::string value)
-{
-    std::string tmp;
-    int i = 0;
-    int j = 0;
-
-    while(value[i] != '(' && value[i] != '\0' && value[i] != '\n') {
-        i += 1;
-    }
-    while(value[i] != ')' && value[i] != '\0' && value[i] != '\n') {
-        tmp[j] = value[i];
-        j += 1;
-        i += 1;
-    }
-    return tmp;
 }
 
 avm::Instruction_t *setNewNode(avm::Instruction_t *node)
@@ -81,11 +64,20 @@ avm::Instruction_t *getTab(std::string codeAsm)
     auto words_end = std::sregex_iterator();
     for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
         instructionAsm->instruction = getInstruction(*i);
-        if (instructionAsm->instruction == (0 || 6 || 12 || 13)) {
+        if (instructionAsm->instruction <= 3) {
             ++i;
             tmp = *i;
             type = getType(tmp.str());
-            value = getValue(tmp.str());
+            ++i;
+            tmp = *i;
+            value = tmp.str();
+            if (type >= 3 && type <= 5){
+                ++i;
+                tmp = *i;
+                value.append(".");
+                value.append(tmp.str());
+            }
+            std::cout << "value :" << value << "\n";
             instructionAsm->value = f->createOperand(type, value);
         }
         instructionAsm = setNewNode(instructionAsm);
