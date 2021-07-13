@@ -7,13 +7,13 @@
 
 MAIN	=	./src/main.cpp
 
-SRC		=	./src/IOperand/types/bigdecimal.cpp	\
+SRC		=	./src/IOperand/checkOverflowUnderflow.cpp	\
+			./src/IOperand/types/bigdecimal.cpp	\
 			./src/IOperand/types/double.cpp	\
 			./src/IOperand/types/float.cpp	\
 			./src/IOperand/types/int8.cpp	\
 			./src/IOperand/types/int16.cpp	\
 			./src/IOperand/types/int32.cpp	\
-			./src/IOperand/checkOverflowUnderflow.cpp	\
 			\
 			./src/instructionlist/checkInstructions.cpp	\
 			./src/instructionlist/instructionList.cpp	\

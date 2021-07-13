@@ -5,7 +5,9 @@
 ** checkOverflowUnderflow.cpp
 */
 
-bool isAddOverflowing(long double max, long double min, long double x, long double y)
+#include "Overflow.hpp"
+
+bool avm::isAddOverflowing(long double max, long double min, long double x, long double y)
 {
     if ((x > 0) && (y > max - x))
         return true;
@@ -14,7 +16,7 @@ bool isAddOverflowing(long double max, long double min, long double x, long doub
     return false;
 }
 
-bool isSubOverflowing(long double max, long double min, long double x, long double y)
+bool avm::isSubOverflowing(long double max, long double min, long double x, long double y)
 {
     if ((x < 0) && (y > max - x))
         return true;
@@ -23,7 +25,7 @@ bool isSubOverflowing(long double max, long double min, long double x, long doub
     return false;
 }
 
-bool isMulOverflowing(long double max, long double min, long double x, long double y)
+bool avm::isMulOverflowing(long double max, long double min, long double x, long double y)
 {
     if (x == -1 && y == min)
         return true;
