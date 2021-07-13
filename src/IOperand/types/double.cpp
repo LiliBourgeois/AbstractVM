@@ -2,29 +2,44 @@
 ** EPITECH PROJECT, 2021
 ** B-SYN-400-BDX-4-1-abstractVM-lili.bourgeois
 ** File description:
-** int32.cpp
+** double.cpp
 */
 
 #include <string>
-#include <iostream>
 #include <limits>
+#include <iostream>
 
-#include "Factory.hpp"
 #include "IOperand.hpp"
-#include "int32.hpp"
+#include "Factory.hpp"
+#include "double.hpp"
 
-avm::myInt32::myInt32(const std::string &value)
+avm::myDouble::myDouble(const std::string &value)
 {
     this->value = &value;
-    this->type = avm::eOperandType::INT32;
-    this->precision = 0;
+    this->type = avm::eOperandType::DOUBLE;
+    this->precision = 15;
 }
 
-avm::myInt32::~myInt32()
+avm::myDouble::~myDouble()
 {
 }
 
-avm::IOperand *avm::myInt32::operator+(const IOperand &other) const
+avm::eOperandType avm::myDouble::getType() const
+{
+    return (avm::eOperandType::DOUBLE);
+}
+
+std::string avm::myDouble::toString() const
+{
+    return (*value);
+}
+
+unsigned int avm::myDouble::getPrecision() const
+{
+    return (15);
+}
+
+avm::IOperand *avm::myDouble::operator+(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
@@ -44,7 +59,7 @@ avm::IOperand *avm::myInt32::operator+(const IOperand &other) const
     return (newOperand);
 }
 
-avm::IOperand *avm::myInt32::operator-(const IOperand &other) const
+avm::IOperand *avm::myDouble::operator-(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
@@ -64,7 +79,7 @@ avm::IOperand *avm::myInt32::operator-(const IOperand &other) const
     return (newOperand);
 }
 
-avm::IOperand *avm::myInt32::operator*(const IOperand &other) const
+avm::IOperand *avm::myDouble::operator*(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
@@ -84,7 +99,7 @@ avm::IOperand *avm::myInt32::operator*(const IOperand &other) const
     return (newOperand);
 }
 
-avm::IOperand *avm::myInt32::operator/(const IOperand &other) const
+avm::IOperand *avm::myDouble::operator/(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
@@ -97,7 +112,7 @@ avm::IOperand *avm::myInt32::operator/(const IOperand &other) const
         std::cerr << "myInt8::operator+ error: overflow or underflow\n";
         return (NULL);
     }
-    if (otherValue = 0) {
+    if (otherValue == 0) {
         std::cerr << "myInt8::operator/ error: division by 0\n";
         return (NULL);
     }
@@ -109,7 +124,7 @@ avm::IOperand *avm::myInt32::operator/(const IOperand &other) const
     return (newOperand);
 }
 
-avm::IOperand *avm::myInt32::operator%(const IOperand &other) const
+avm::IOperand *avm::myDouble::operator%(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
@@ -121,7 +136,7 @@ avm::IOperand *avm::myInt32::operator%(const IOperand &other) const
         std::cerr << "myInt8::operator+ error: overflow or underflow\n";
         return (NULL);
     }
-    if (otherValue = 0) {
+    if (otherValue == 0) {
         std::cerr << "myInt8::operator\% error: modulo by 0\n";
         return (NULL);
     }

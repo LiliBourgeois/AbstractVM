@@ -7,14 +7,15 @@
 
 MAIN	=	./src/main.cpp
 
-SRC		=	./src/IOperand/Types/bigdecimal.cpp	\
-			./src/IOperand/Types/double.cpp	\
-			./src/IOperand/Types/float.cpp	\
-			./src/IOperand/Types/int8.cpp	\
-			./src/IOperand/Types/int16.cpp	\
-			./src/IOperand/Types/int32.cpp	\
+SRC		=	./src/IOperand/types/bigdecimal.cpp	\
+			./src/IOperand/types/double.cpp	\
+			./src/IOperand/types/float.cpp	\
+			./src/IOperand/types/int8.cpp	\
+			./src/IOperand/types/int16.cpp	\
+			./src/IOperand/types/int32.cpp	\
 			\
-			./src/instructions/commands.cpp	\
+			./src/instructionlist/checkInstructions.cpp	\
+			./src/instructionlist/instructionList.cpp	\
 			\
 			./src/factory/factory.cpp\
 			\

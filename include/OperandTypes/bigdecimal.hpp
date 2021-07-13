@@ -13,7 +13,7 @@
     #include "IOperand.hpp"
 
     namespace avm {
-        class myBigdecimal : IOperand
+        class myBigdecimal : public IOperand
         {
         protected:
             const std::string *value;

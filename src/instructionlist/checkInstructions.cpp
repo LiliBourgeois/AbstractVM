@@ -11,13 +11,17 @@ bool sisgz(std::string codeAsm)
 {
     if (codeAsm.find("exit\n"))
         return true;
+    return true;
 }
 
 bool CheckCode(std::string codeAsm)
 {
-    bool isUnknownInstruction = false;
+    static const char *strInstruction[] = {"push", "pop", "dump", "clear", "dup", "swap", "assert", "add", "sub", "mul", "div", "mod", "load", "store", "print", "exit"};
+
 
     if (!codeAsm.find("exit\n"))
         return false;
+    if (strInstruction)
+        return true;
     return true;
 }

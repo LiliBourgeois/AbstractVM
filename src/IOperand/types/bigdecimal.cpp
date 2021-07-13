@@ -2,29 +2,44 @@
 ** EPITECH PROJECT, 2021
 ** B-SYN-400-BDX-4-1-abstractVM-lili.bourgeois
 ** File description:
-** int8.cpp
+** bigdecimal.cpp
 */
 
-#include <iostream>
 #include <string>
-#include <limits>   
+#include <limits>
+#include <iostream>
 
 #include "Factory.hpp"
 #include "IOperand.hpp"
-#include "int8.hpp"
+#include "bigdecimal.hpp"
 
-avm::myInt8::myInt8(const std::string &value)
+avm::myBigdecimal::myBigdecimal(const std::string &value)
 {
     this->value = &value;
-    this->type = avm::eOperandType::INT8;
-    this->precision = 0;
+    this->type = avm::eOperandType::BIGDECIMAL;
+    this->precision = 200;
 }
 
-avm::myInt8::~myInt8()
+avm::myBigdecimal::~myBigdecimal()
 {
 }
 
-avm::IOperand *avm::myInt8::operator+(const IOperand &other) const
+avm::eOperandType avm::myBigdecimal::getType() const
+{
+    return (avm::eOperandType::BIGDECIMAL);
+}
+
+std::string avm::myBigdecimal::toString() const
+{
+    return (*value);
+}
+
+unsigned int avm::myBigdecimal::getPrecision() const
+{
+    return (200);
+}
+
+avm::IOperand *avm::myBigdecimal::operator+(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
@@ -44,7 +59,7 @@ avm::IOperand *avm::myInt8::operator+(const IOperand &other) const
     return (newOperand);
 }
 
-avm::IOperand *avm::myInt8::operator-(const IOperand &other) const
+avm::IOperand *avm::myBigdecimal::operator-(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
@@ -64,7 +79,7 @@ avm::IOperand *avm::myInt8::operator-(const IOperand &other) const
     return (newOperand);
 }
 
-avm::IOperand *avm::myInt8::operator*(const IOperand &other) const
+avm::IOperand *avm::myBigdecimal::operator*(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
@@ -84,7 +99,7 @@ avm::IOperand *avm::myInt8::operator*(const IOperand &other) const
     return (newOperand);
 }
 
-avm::IOperand *avm::myInt8::operator/(const IOperand &other) const
+avm::IOperand *avm::myBigdecimal::operator/(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
@@ -97,7 +112,7 @@ avm::IOperand *avm::myInt8::operator/(const IOperand &other) const
         std::cerr << "myInt8::operator+ error: overflow or underflow\n";
         return (NULL);
     }
-    if (otherValue = 0) {
+    if (otherValue == 0) {
         std::cerr << "myInt8::operator/ error: division by 0\n";
         return (NULL);
     }
@@ -109,7 +124,7 @@ avm::IOperand *avm::myInt8::operator/(const IOperand &other) const
     return (newOperand);
 }
 
-avm::IOperand *avm::myInt8::operator%(const IOperand &other) const
+avm::IOperand *avm::myBigdecimal::operator%(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
@@ -121,7 +136,7 @@ avm::IOperand *avm::myInt8::operator%(const IOperand &other) const
         std::cerr << "myInt8::operator+ error: overflow or underflow\n";
         return (NULL);
     }
-    if (otherValue = 0) {
+    if (otherValue == 0) {
         std::cerr << "myInt8::operator\% error: modulo by 0\n";
         return (NULL);
     }

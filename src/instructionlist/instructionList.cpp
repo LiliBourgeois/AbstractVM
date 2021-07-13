@@ -6,16 +6,17 @@
 */
 
 #include "AbstractVM.hpp"
-#include "Operand.hpp"
+#include "IOperand.hpp"
 #include "Factory.hpp"
 #include <regex>
 
 avm::eInstruction getInstruction(std::smatch i)
 {
+    static const char *strInstruction[] = {"push", "pop", "dump", "clear", "dup", "swap", "assert", "add", "sub", "mul", "div", "mod", "load", "store", "print", "exit"};
     avm::eInstruction enumInstruction = avm::eInstruction::PUSH;
     std::string instruction = i.str();
 
-    while (avm::strInstruction[enumInstruction] != instruction) {
+    while (strInstruction[enumInstruction] != instruction) {
         enumInstruction = avm::eInstruction(enumInstruction + 1);
     }
     return enumInstruction;
@@ -58,7 +59,7 @@ std::string getValue(std::string value)
 
 avm::Instruction_t *setNewNode(avm::Instruction_t *node)
 {
-    avm::Instruction_t *newNode;
+    avm::Instruction_t *newNode = new(avm::Instruction_t);
 
     node->next = newNode;
     newNode->prev = node;
@@ -69,7 +70,7 @@ avm::Instruction_t *setNewNode(avm::Instruction_t *node)
 avm::Instruction_t *getTab(std::string codeAsm)
 {
     auto f = new avm::Factory;
-    avm::Instruction_t *instructionAsm;
+    avm::Instruction_t *instructionAsm = new(avm::Instruction_t);
     std::smatch tmp;
     avm::eOperandType type;
     std::string value;

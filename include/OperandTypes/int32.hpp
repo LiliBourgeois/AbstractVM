@@ -13,7 +13,7 @@
     #include "IOperand.hpp"
 
     namespace avm {
-        class myInt32 : IOperand
+        class myInt32 : public IOperand
         {
         protected:
             const std::string *value;

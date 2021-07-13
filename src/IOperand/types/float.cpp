@@ -24,6 +24,20 @@ avm::myFloat::~myFloat()
 {
 }
 
+avm::eOperandType avm::myFloat::getType() const
+{
+    return (avm::eOperandType::FLOAT);
+}
+
+std::string avm::myFloat::toString() const
+{
+    return (*value);
+}
+
+unsigned int avm::myFloat::getPrecision() const
+{
+    return (7);
+}
 
 avm::IOperand *avm::myFloat::operator+(const IOperand &other) const
 {
@@ -98,7 +112,7 @@ avm::IOperand *avm::myFloat::operator/(const IOperand &other) const
         std::cerr << "myInt8::operator+ error: overflow or underflow\n";
         return (NULL);
     }
-    if (otherValue = 0) {
+    if (otherValue == 0) {
         std::cerr << "myInt8::operator/ error: division by 0\n";
         return (NULL);
     }
@@ -122,7 +136,7 @@ avm::IOperand *avm::myFloat::operator%(const IOperand &other) const
         std::cerr << "myInt8::operator+ error: overflow or underflow\n";
         return (NULL);
     }
-    if (otherValue = 0) {
+    if (otherValue == 0) {
         std::cerr << "myInt8::operator\% error: modulo by 0\n";
         return (NULL);
     }

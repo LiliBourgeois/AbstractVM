@@ -36,26 +36,22 @@ avm::IOperand *avm::Factory::createInt16(const std::string &value)
 
 avm::IOperand *avm::Factory::createInt32(const std::string &value)
 {
-    (void)(value);
-    return (NULL);
+    return (new myInt32(value));
 }
 
 avm::IOperand *avm::Factory::createFloat(const std::string &value)
 {
-    (void)(value);
-    return (NULL);
+    return (new myFloat(value));
 }
 
 avm::IOperand *avm::Factory::createDouble(const std::string &value)
 {
-    (void)(value);
-    return (NULL);
+    return (new myDouble(value));
 }
 
 avm::IOperand *avm::Factory::createBigDecimal(const std::string &value)
 {
-    (void)(value);
-    return (NULL);
+    return (new myBigdecimal(value));
 }
 
 avm::IOperand *avm::Factory::createOperand(avm::eOperandType type, const std::string &value)

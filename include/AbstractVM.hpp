@@ -18,8 +18,7 @@
         enum eInstruction {
             PUSH, POP, DUMP, CLEAR, DUP, SWAP, ASSERT, ADD, SUB, MUL, DIV, MOD, LOAD, STORE, PRINT, EXIT
         };
-        static const char *strInstruction[] = {"push", "pop", "dump", "clear", "dup", "swap", "assert", "add", "sub", "mul", "div", "mod", "load", "store", "print", "exit"};
-
+ 
         struct Instruction_t {
             eInstruction instruction;
             avm::IOperand *value;

@@ -13,7 +13,7 @@
     #include "IOperand.hpp"
 
     namespace avm {
-        class myFloat : IOperand
+        class myFloat : public IOperand
         {
         protected:
             const std::string *value;
@@ -23,15 +23,15 @@
             myFloat(const std::string &value);
             ~myFloat();
 
-            std::string toString() const;
-            eOperandType getType() const;
-            unsigned int getPrecision() const;
+            std::string toString() const override;
+            eOperandType getType() const override;
+            unsigned int getPrecision() const override;
 
-            avm::IOperand *operator+(const IOperand &rhs) const;
-            avm::IOperand *operator-(const IOperand &rhs) const;
-            avm::IOperand *operator*(const IOperand &rhs) const;
-            avm::IOperand *operator/(const IOperand &rhs) const;
-            avm::IOperand *operator%(const IOperand &rhs) const;
+            avm::IOperand *operator+(const IOperand &rhs) const override;
+            avm::IOperand *operator-(const IOperand &rhs) const override;
+            avm::IOperand *operator*(const IOperand &rhs) const override;
+            avm::IOperand *operator/(const IOperand &rhs) const override;
+            avm::IOperand *operator%(const IOperand &rhs) const override;
         };
     };
 

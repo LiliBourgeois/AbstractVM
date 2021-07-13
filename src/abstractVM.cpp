@@ -10,13 +10,17 @@
 int avm::AbstractVM(std::string codeAsm)
 {
     avm::Instruction_t *instructionsAsm;
+    std::cout << "avant check code\n";
     bool isCodeCorrect = CheckCode(codeAsm);
+    std::cout << "après check code\n";
 
     if (!isCodeCorrect)
         return 84;
+    std::cout << "avant getTab\n";
     instructionsAsm = getTab(codeAsm);
+    std::cout << "après getTab\n";
     while (instructionsAsm->next != NULL) {
-        printf("%d\n", instructionsAsm->instruction);
+        std::cout << instructionsAsm->instruction;
         instructionsAsm = instructionsAsm->next;
     }
     return 0;
