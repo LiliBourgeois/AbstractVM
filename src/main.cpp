@@ -46,11 +46,9 @@ int main(int ac, char **av)
         return 84;
     }
     std::cout << codeAsm;
-    if (codeAsm.compare("") == 0){
-        std::cerr << "code vide\n";
+    if (codeAsm.empty()){
         return 84;
     }
-    std::cout << "ici tranquille\n\n";
     if (avm::AbstractVM(codeAsm) == 84)
         return 84;
     return 0;

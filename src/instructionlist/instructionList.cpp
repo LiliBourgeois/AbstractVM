@@ -12,11 +12,11 @@
 
 avm::eInstruction getInstruction(std::smatch i)
 {
-    static const char *strInstruction[] = {"push", "assert", "load", "store", "pop", "dump", "clear", "dup", "swap", "add", "sub", "mul", "div", "mod", "print", "exit"};
+    const char *strInstruction[] = {"push", "assert", "load", "store", "pop", "dump", "clear", "dup", "swap", "add", "sub", "mul", "div", "mod", "print", "exit"};
     avm::eInstruction enumInstruction = avm::eInstruction::PUSH;
     std::string instruction = i.str();
 
-    while (strInstruction[enumInstruction] != instruction) {
+    while (strInstruction[enumInstruction] != instruction && enumInstruction != 16) {
         enumInstruction = avm::eInstruction(enumInstruction + 1);
     }
     return enumInstruction;
@@ -64,6 +64,8 @@ avm::Instruction_t *getTab(std::string codeAsm)
     auto words_end = std::sregex_iterator();
     for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
         instructionAsm->instruction = getInstruction(*i);
+        if (instructionAsm->instruction == 16)
+            return NULL;
         if (instructionAsm->instruction <= 3) {
             ++i;
             tmp = *i;

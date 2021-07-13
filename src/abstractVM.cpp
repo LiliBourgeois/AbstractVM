@@ -5,9 +5,11 @@
 ** abstractVM.cpp
 */
 
+#include <vector>
+
 #include "AbstractVM.hpp"
 
-std::string getRidOfComment(std::string codeAsm)
+std::string GetRidOfComment(std::string codeAsm)
 {
     size_t semicolonPos = 0;
     size_t endCommentPos = 0;
@@ -24,21 +26,30 @@ std::string getRidOfComment(std::string codeAsm)
     return codeAsm;
 }
 
+/*int avm::AbstractVMCore(Instruction_t *instructions)
+{
+    std::vector<avm::IOperand *> *stack;
+    return 0;
+}*/
+
 int avm::AbstractVM(std::string codeAsm)
 {
     avm::Instruction_t *instructionsAsm;
-    bool isCodeCorrect = CheckCode(codeAsm);
+    bool isCodeCorrect;
 
+    codeAsm = GetRidOfComment(codeAsm);
+    isCodeCorrect = avm::CheckCode(codeAsm);
     if (!isCodeCorrect)
         return 84;
-    codeAsm = getRidOfComment(codeAsm);
-    std::cout << "CODE WITHOUT COMMENT :\n" << codeAsm << "\n";
-    std::cout << "avant getTab\n";
     instructionsAsm = getTab(codeAsm);
-    std::cout << "après getTab\n";
-    while (instructionsAsm->next != NULL) {
-        std::cout << instructionsAsm->instruction;
-        instructionsAsm = instructionsAsm->next;
+    if (instructionsAsm == NULL)
+        return 84;
+    while (instructionsAsm->prev != NULL) {
+        instructionsAsm = instructionsAsm->prev;
     }
-    return 0;
+    /*while (instructionsAsm->next != NULL) {
+        std::cout << "on tente un truc :" << instructionsAsm->instruction << "\n";
+        instructionsAsm = instructionsAsm->next;
+    }*/
+    return (/*AbstractVMCore(instructionsAsm)*/0);
 }

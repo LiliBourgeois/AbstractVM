@@ -26,7 +26,7 @@ OBJ	=	$(SRC:.cpp=.o)
 
 NAME	=	abstractVM
 
-CPPFLAGS	=	-Werror -Wall -Wextra -I ./include -I ./include/OperandTypes
+CPPFLAGS	=	-Werror -Wall -Wextra -g -I ./include -I ./include/OperandTypes
 
 all:	$(NAME)
 

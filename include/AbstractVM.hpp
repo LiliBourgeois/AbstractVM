@@ -16,7 +16,7 @@
     namespace avm {
 
         enum eInstruction {
-            PUSH, ASSERT, LOAD, STORE, POP, DUMP, CLEAR, DUP, SWAP, ADD, SUB, MUL, DIV, MOD, PRINT, EXIT
+            PUSH, ASSERT, LOAD, STORE, POP, DUMP, CLEAR, DUP, SWAP, ADD, SUB, MUL, DIV, MOD, PRINT, EXIT, UNKNOWN_INSTRUCTION
         };
  
         struct Instruction_t {
@@ -26,9 +26,10 @@
             struct Instruction_t *prev; 
         };
         int AbstractVM(std::string codeAsm);
+        int AbstractVMCore(Instruction_t *instructions);
+        bool CheckCode(std::string codeAsm);
     }
 
     avm::Instruction_t *getTab(std::string codeAsm);
-    bool CheckCode(std::string codeAsm);
 
 #endif 
