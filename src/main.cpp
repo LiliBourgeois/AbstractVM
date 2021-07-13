@@ -18,7 +18,6 @@ std::string ReadFromFile(char *filename)
             codeAsm = codeAsm + line + "\n";
         }
         myfile.close();
-        codeAsm = codeAsm + "end\n";
     }
     return codeAsm;
 }
@@ -32,7 +31,6 @@ std::string ReadFromTerminal()
         codeAsm = codeAsm + line + "\n";
         std::cin >> line;
     }
-    codeAsm = codeAsm + "end\n";
     return codeAsm;
 }
 
@@ -47,9 +45,7 @@ int main(int ac, char **av)
         std::cerr << "error: Please enter only one file name or less\n";
         return 84;
     }
-    std::cout << codeAsm;
-    if (codeAsm.compare("")){
-        std::cerr << "code vide\n";
+    if (codeAsm.empty()){
         return 84;
     }
     if (avm::AbstractVM(codeAsm) == 84)

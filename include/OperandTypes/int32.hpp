@@ -10,14 +10,28 @@
 
     #include <string>
 
-    #include "Operand.hpp"
+    #include "IOperand.hpp"
 
     namespace avm {
-        class myInt32 : Operand
+        class myInt32 : public IOperand
         {
+        protected:
+            std::string value;
+            avm::eOperandType type;
+            unsigned int precision;
         public:
             myInt32(const std::string &value);
             ~myInt32();
+
+            std::string toString() const;
+            eOperandType getType() const;
+            unsigned int getPrecision() const;
+
+            avm::IOperand *operator+(const IOperand &rhs) const;
+            avm::IOperand *operator-(const IOperand &rhs) const;
+            avm::IOperand *operator*(const IOperand &rhs) const;
+            avm::IOperand *operator/(const IOperand &rhs) const;
+            avm::IOperand *operator%(const IOperand &rhs) const;
         };
     };
 

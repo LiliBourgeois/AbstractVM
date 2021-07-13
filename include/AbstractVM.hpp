@@ -12,19 +12,24 @@
     #include <iostream>
     #include <fstream>
     #include <string>
+    #include <vector>
 
     namespace avm {
 
         enum eInstruction {
-            PUSH, POP, DUMP, CLEAR, DUP, SWAP, ASSERT, ADD, SUB, MUL, DIV, MOD, LOAD, STORE, PRINT, EXIT
+            PUSH, ASSERT, LOAD, STORE, POP, DUMP, CLEAR, DUP, SWAP, ADD, SUB, MUL, DIV, MOD, PRINT, EXIT, UNKNOWN_INSTRUCTION
         };
-        static const char *strInstruction[] = {"push", "pop", "dump", "clear", "dup", "swap", "assert", "add", "sub", "mul", "div", "mod", "load", "store", "print", "exit"};
-
+ 
         struct Instruction_t {
-            eInstruction instruction;
+            eInstruction i;
             avm::IOperand *value;
         };
+
         int AbstractVM(std::string codeAsm);
+        int AbstractVMCore(std::vector<Instruction_t *> &iList);
+        bool CheckCode(std::string codeAsm);
+        void getTab(std::string codeAsm, std::vector<Instruction_t *> &iList);
     }
+
 
 #endif 

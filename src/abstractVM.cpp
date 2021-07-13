@@ -5,73 +5,65 @@
 ** abstractVM.cpp
 */
 
+#include <vector>
+#include <map>
+
+#include "Stack.hpp"
 #include "AbstractVM.hpp"
-#include "Operand.hpp"
-#include "Factory.hpp"
-#include <regex>
 
-avm::eInstruction getInstruction(std::smatch i)
+std::string GetRidOfComment(std::string codeAsm)
 {
-    avm::eInstruction enumInstruction = avm::eInstruction::push;
-    std::string instruction = i.str();
+    size_t semicolonPos = 0;
+    size_t endCommentPos = 0;
 
-    while (avm::strInstruction[enumInstruction] != instruction) {
-        enumInstruction = avm::eInstruction(enumInstruction + 1);
-    }
-    return enumInstruction;
-}
-
-avm::eOperandType getType(std::string value)
-{
-    if(value.find("int8")) {
-        return avm::eOperandType::INT8;
-    } else if (value.find("int16")) {
-        return avm::eOperandType::INT16;
-    } else if (value.find("int32")) {
-        return avm::eOperandType::INT32;
-    } else if (value.find("Float")) {
-        return avm::eOperandType::FLOAT;
-    } else if (value.find("Double")) {
-        return avm::eOperandType::DOUBLE;
-    } else if (value.find("BigDecimal")) {
-        return avm::eOperandType::BIGDECIMAL;
-    }
-    return avm::eOperandType::UNKNOWN;
-}
-
-avm::eOperandType getValue(std::string value)
-{
-
-}
-
-avm::Instruction_t *getTab(std::string codeAsm)
-{
-    auto f = new avm::Factory;
-    avm::Instruction_t *instructionAsm;
-    std::smatch tmp;
-    avm::eOperandType type;
-    std::string value;
-
-    std::regex word_regex("(\\w+)");
-    auto words_begin = std::sregex_iterator(codeAsm.begin(), codeAsm.end(), word_regex);
-    auto words_end = std::sregex_iterator();
-
-    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
-        instructionAsm->instruction = getInstruction(*i);
-        if (instructionAsm->instruction == (0 || 6 || 12 || 13)) {
-            ++i;
-            tmp = *i;
-            type = getType(tmp.str());
-            value = getValue(tmp.str());
-            instructionAsm->value = f->createOperand(type, value);
+    while (semicolonPos != std::string::npos) {
+        semicolonPos = codeAsm.find_first_of(';', 0);
+        endCommentPos = codeAsm.find_first_of('\n', semicolonPos);
+        if (semicolonPos != std::string::npos) {
+            if (endCommentPos == std::string::npos)
+                endCommentPos = codeAsm.find_first_of('\0', semicolonPos);
+            codeAsm.erase(semicolonPos, endCommentPos);
         }
     }
-    return instructionAsm;
+    return codeAsm;
+}
+
+int avm::AbstractVMCore(std::vector<avm::Instruction_t *> &iList)
+{
+    int (*vpf[])(avm::IOperand *, std::vector<avm::IOperand *> *) = {avm::mpush, avm::massert, avm::mload, avm::mstore};
+    int (*pf[])(std::vector<avm::IOperand *> *) = {avm::mpop, avm::mdump, avm::mclear, avm::mdup, avm::mswap, avm::madd, avm::msub, avm::mmul, avm::mdiv, avm::mmod, avm::mprint};
+    std::vector<avm::IOperand *> stack;
+    int retval;
+    unsigned int idx = 0;
+    bool running = true;
+
+    if (iList.empty())
+        return 84;
+    while (running) {
+        if (iList.at(idx) == iList.back())
+            running = false;
+        if (iList.at(idx)->i <= 3) {
+            retval = vpf[iList.at(idx)->i](iList.at(idx)->value, &stack);
+        } else 
+            retval = pf[iList.at(idx)->i - 4](&stack);
+        if (retval == 84)
+            return 84;
+        idx = idx + 1;
+    }
+    return 0;
 }
 
 int avm::AbstractVM(std::string codeAsm)
 {
-    avm::Instruction_t *instructionsAsm = getTab(codeAsm);
+    std::vector<avm::Instruction_t *> iList;
+    bool isCodeCorrect;
 
-    return 0;
+    codeAsm = GetRidOfComment(codeAsm);
+    isCodeCorrect = avm::CheckCode(codeAsm);
+    if (!isCodeCorrect)
+        return 84;
+    avm::getTab(codeAsm, iList);
+    if (iList.at(0) == NULL)
+        return 84;
+    return (AbstractVMCore(iList));
 }
