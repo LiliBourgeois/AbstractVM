@@ -30,7 +30,7 @@ size_t GetTypeSize(std::string value)
     return 0;
 }
 
-bool CheckTheNb(std::string line)
+bool CheckTheNb(std::string line, avm::eOperandType type)
 {
     double tryConvert;
     size_t i = 0;
@@ -38,9 +38,9 @@ bool CheckTheNb(std::string line)
 
     while (i < line.length())
     {
-        if (line[i] == '.' && dotCount == 0 && i != 0) {
+        if (line[i] == '.' && dotCount == 0 && i != 0 && type >= 3) {
             dotCount += 1;
-        } else if (line[i] == '.' && (dotCount != 0 || i == 0)) { //TODO : check que c'est bien un nombre à virgule
+        } else if (line[i] == '.' && (dotCount > 0 || i == 0 || type < 3)) {
             return false;
         } else {
             tryConvert = std::stoi(line.substr(0, 1));
@@ -57,6 +57,7 @@ bool CheckSyntacticalError(std::string line, avm::eInstruction enumInstruction, 
 {
     size_t instructionSize = strlen(strInstruction[enumInstruction]); //TODO
     size_t typeSize = 0;
+    avm::eOperandType type = avm::getType(line);
 
     if (enumInstruction > 3) {
         if (line.length() != instructionSize) {
@@ -69,8 +70,11 @@ bool CheckSyntacticalError(std::string line, avm::eInstruction enumInstruction, 
            return false;
         }
         line.erase(0, typeSize + 1);
+        if (line[0] <= 48 || line[0] >= 57) {
+            return false;
+        }
         line.pop_back();
-        if (CheckTheNb(line) == false) {
+        if (CheckTheNb(line, type) == false) {
             std::cerr << "error: invalid number\n";
             return false;
         }

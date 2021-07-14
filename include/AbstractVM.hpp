@@ -29,6 +29,7 @@
         int AbstractVMCore(std::vector<Instruction_t *> &iList);
         bool CheckCode(std::string codeAsm);
         void getTab(std::string codeAsm, std::vector<Instruction_t *> &iList);
+        avm::eOperandType getType(std::string value);
     }
 
 

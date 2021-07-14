@@ -22,7 +22,7 @@ avm::eInstruction getInstruction(std::smatch i)
     return enumInstruction;
 }
 
-avm::eOperandType getType(std::string value)
+avm::eOperandType avm::getType(std::string value)
 {
     if(value.find("int8") != std::string::npos) {
         return avm::eOperandType::INT8;
