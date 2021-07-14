@@ -25,6 +25,12 @@ SRC		=	./src/IOperand/checkOverflowUnderflow.cpp	\
 			\
 			./src/abstractVM.cpp
 
+TEST	=	./tests/test_madd.cpp	\
+			./tests/test_msub.cpp	\
+			./tests/test_mmul.cpp	\
+			./tests/test_mdiv.cpp	\
+			./tests/test_mmod.cpp
+
 OBJ	=	$(SRC:.cpp=.o)
 
 NAME	=	abstractVM
@@ -37,15 +43,15 @@ $(NAME): $(OBJ)
 	g++ -o $(NAME) $(OBJ) $(CPPFLAGS) $(MAIN)
 
 tests_run:
-	g++ -o test $(CFLAGS) $(TEST) $(SRC) --coverage -lcriterion
+	g++ -o test $(CPPFLAGS) $(TEST) $(SRC) --coverage -lcriterion
 	./test
 	gcovr --exclude tests/
 	rm test
 
 clean:
 	rm -f $(OBJ)
-	touch test.gcno
-	rm *.gc*
+	rm -f *.gc*
+	rm -f test
 
 fclean:	clean
 	rm -f $(NAME)
