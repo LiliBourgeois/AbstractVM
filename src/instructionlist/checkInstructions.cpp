@@ -32,7 +32,6 @@ size_t GetTypeSize(std::string value)
 
 bool CheckTheNb(std::string line, avm::eOperandType type)
 {
-    double tryConvert;
     size_t i = 0;
     int dotCount = 0;
 
@@ -41,10 +40,11 @@ bool CheckTheNb(std::string line, avm::eOperandType type)
         if (line[i] == '.' && dotCount == 0 && i != 0 && type >= 3) {
             dotCount += 1;
         } else if (line[i] == '.' && (dotCount > 0 || i == 0 || type < 3)) {
+            std::cout << "else if\n";
             return false;
         } else {
-            tryConvert = std::stoi(line.substr(0, 1));
-            if (tryConvert == 0) {
+            if (line[i] < 48 || line[i] > 57) {
+                std::cout << "if du else\n";
                 return false;
             }
         }
@@ -70,7 +70,7 @@ bool CheckSyntacticalError(std::string line, avm::eInstruction enumInstruction, 
            return false;
         }
         line.erase(0, typeSize + 1);
-        if (line[0] <= 48 || line[0] >= 57) {
+        if (line[0] < 48 || line[0] > 57) {
             return false;
         }
         line.pop_back();

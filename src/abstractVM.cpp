@@ -22,7 +22,7 @@ std::string GetRidOfComment(std::string codeAsm)
         if (semicolonPos != std::string::npos) {
             if (endCommentPos == std::string::npos)
                 endCommentPos = codeAsm.find_first_of('\0', semicolonPos);
-            codeAsm.erase(semicolonPos, endCommentPos);
+            codeAsm.erase(semicolonPos, endCommentPos - semicolonPos);
         }
     }
     return codeAsm;
