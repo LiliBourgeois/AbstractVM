@@ -29,7 +29,14 @@ TEST	=	./tests/test_madd.cpp	\
 			./tests/test_msub.cpp	\
 			./tests/test_mmul.cpp	\
 			./tests/test_mdiv.cpp	\
-			./tests/test_mmod.cpp
+			./tests/test_mmod.cpp	\
+			./tests/test_mpush.cpp	\
+			./tests/test_mpop.cpp	\
+			./tests/test_mswap.cpp	\
+			./tests/test_mdup.cpp	\
+			./tests/test_massert.cpp	\
+			./tests/test_mload.cpp	\
+			./tests/test_mclear.cpp
 
 OBJ	=	$(SRC:.cpp=.o)
 
