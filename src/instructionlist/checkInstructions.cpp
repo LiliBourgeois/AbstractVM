@@ -40,14 +40,15 @@ bool CheckTheNb(std::string line)
     {
         if (line[i] == '.' && dotCount == 0 && i != 0) {
             dotCount += 1;
-        } else if (line[i] == '.' && (dotCount != 0 || i == 0)) {
+        } else if (line[i] == '.' && (dotCount != 0 || i == 0)) { //TODO : check que c'est bien un nombre à virgule
             return false;
         } else {
             tryConvert = std::stoi(line.substr(0, 1));
-            if (tryConvert == 0)
+            if (tryConvert == 0) {
                 return false;
-            line.erase(0, 1);
+            }
         }
+        i += 1;
     }
     return true;
 }
@@ -68,9 +69,11 @@ bool CheckSyntacticalError(std::string line, avm::eInstruction enumInstruction, 
            return false;
         }
         line.erase(0, typeSize + 1);
-        /*line.pop_back();
-        if (CheckTheNb(line) == 0)
-            return false;*/
+        line.pop_back();
+        if (CheckTheNb(line) == false) {
+            std::cerr << "error: invalid number\n";
+            return false;
+        }
     }
     return true;
 }
@@ -87,7 +90,7 @@ bool FindInstruction(std::string codeAsm, const char *strInstruction[])
             if (!line.empty() && line.find(strInstruction[enumInstruction]) != std::string::npos) {
                 foundInstruction = 1;
                 if (CheckSyntacticalError(line, enumInstruction, strInstruction) == false) {
-                    std::cerr << "syntactical error\n";
+                    std::cerr << "error: syntactical error\n";
                     return false;
                 }
                 enumInstruction = avm::eInstruction(18);
@@ -95,7 +98,8 @@ bool FindInstruction(std::string codeAsm, const char *strInstruction[])
             enumInstruction = avm::eInstruction(enumInstruction + 1);
         }
         if (!line.empty() && foundInstruction == 0) {
-                return false;
+            std::cerr << "error: wrong instruction\n";
+            return false;
         }
         foundInstruction = 0;
         enumInstruction = avm::eInstruction(0);
@@ -108,7 +112,7 @@ bool avm::CheckCode(std::string codeAsm)
     const char *strInstruction[] = {"push", "assert", "load", "store", "pop", "dump", "clear", "dup", "swap", "add", "sub", "mul", "div", "mod", "print", "exit"};
 
     if (codeAsm.find("exit") == std::string::npos) {
-        std::cerr << "no exit\n"; //TODO : check tout
+        std::cerr << "error: no exit\n";
         return false;
     }
     if (!FindInstruction(codeAsm, strInstruction))

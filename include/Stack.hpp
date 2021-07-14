@@ -30,6 +30,7 @@
         int mmod(std::vector<avm::IOperand *> *OList);
         int mprint(std::vector<avm::IOperand *> *OList);
 
+        std::string checkNumber(std::string number, avm::eOperandType numberType, int precision);
     };
 
 #endif
