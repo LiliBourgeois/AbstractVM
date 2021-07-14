@@ -52,7 +52,7 @@ avm::IOperand *avm::myInt16::operator+(const IOperand &other) const
         std::cerr << "myInt16::operator+ error: overflow or underflow\n";
         return (NULL);
     }
-    result = std::to_string(thisValue + otherValue);
+    result = std::to_string(otherValue + thisValue);
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else
@@ -72,7 +72,7 @@ avm::IOperand *avm::myInt16::operator-(const IOperand &other) const
         std::cerr << "myInt16::operator- error: overflow or underflow\n";
         return (NULL);
     }
-    result = std::to_string(thisValue - otherValue);
+    result = std::to_string(otherValue - thisValue);
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else
@@ -92,7 +92,7 @@ avm::IOperand *avm::myInt16::operator*(const IOperand &other) const
         std::cerr << "myInt16::operator* error: overflow or underflow\n";
         return (NULL);
     }
-    result = std::to_string(thisValue * otherValue);
+    result = std::to_string(otherValue * thisValue);
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else
@@ -113,7 +113,7 @@ avm::IOperand *avm::myInt16::operator/(const IOperand &other) const
         std::cerr << "myInt16::operator/ error: division by 0\n";
         return (NULL);
     }
-    result = std::to_string(thisValue / otherValue);
+    result = std::to_string(otherValue / thisValue);
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else
@@ -133,7 +133,7 @@ avm::IOperand *avm::myInt16::operator%(const IOperand &other) const
         std::cerr << "myInt16::operator\% error: modulo by 0\n";
         return (NULL);
     }
-    result = std::to_string(thisValue % otherValue);
+    result = std::to_string(otherValue % thisValue);
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else

@@ -52,7 +52,9 @@ avm::IOperand *avm::myInt8::operator+(const IOperand &other) const
         std::cerr << "myInt8::operator+ error: overflow or underflow\n";
         return (NULL);
     }
-    result = std::to_string(thisValue + otherValue);
+    result = std::to_string(otherValue + thisValue);
+    if (this->getPrecision() + other.getPrecision() == 0)
+        result.substr(0, result.find(".", 0));
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else
@@ -72,7 +74,9 @@ avm::IOperand *avm::myInt8::operator-(const IOperand &other) const
         std::cerr << "myInt8::operator- error: overflow or underflow\n";
         return (NULL);
     }
-    result = std::to_string(thisValue - otherValue);
+    result = std::to_string(otherValue - thisValue);
+    if (this->getPrecision() + other.getPrecision() == 0)
+        result.substr(0, result.find(".", 0));
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else
@@ -92,7 +96,9 @@ avm::IOperand *avm::myInt8::operator*(const IOperand &other) const
         std::cerr << "myInt8::operator* error: overflow or underflow\n";
         return (NULL);
     }
-    result = std::to_string(thisValue * otherValue);
+    result = std::to_string(otherValue * thisValue);
+    if (this->getPrecision() + other.getPrecision() == 0)
+        result.substr(0, result.find(".", 0));
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else
@@ -113,7 +119,9 @@ avm::IOperand *avm::myInt8::operator/(const IOperand &other) const
         std::cerr << "myInt8::operator/ error: division by 0\n";
         return (NULL);
     }
-    result = std::to_string(thisValue / otherValue);
+    result = std::to_string(otherValue / thisValue);
+    if (this->getPrecision() + other.getPrecision() == 0)
+        result.substr(0, result.find(".", 0));
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else
@@ -133,7 +141,9 @@ avm::IOperand *avm::myInt8::operator%(const IOperand &other) const
         std::cerr << "myInt8::operator\% error: modulo by 0\n";
         return (NULL);
     }
-    result = std::to_string(thisValue % otherValue);
+    result = std::to_string(otherValue % thisValue);
+    if (this->getPrecision() + other.getPrecision() == 0)
+        result.substr(0, result.find(".", 0));
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else

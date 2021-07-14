@@ -40,8 +40,6 @@ int avm::AbstractVMCore(std::vector<avm::Instruction_t *> &iList)
     if (iList.empty())
         return 84;
     while (running) {
-        if (iList.at(idx) == iList.back())
-            running = false;
         if (iList.at(idx)->i <= 3) {
             retval = vpf[iList.at(idx)->i](iList.at(idx)->value, &stack);
         } else 
@@ -49,6 +47,8 @@ int avm::AbstractVMCore(std::vector<avm::Instruction_t *> &iList)
         if (retval == 84)
             return 84;
         idx = idx + 1;
+        if (iList.at(idx) == iList.back())
+            running = false;
     }
     return 0;
 }
