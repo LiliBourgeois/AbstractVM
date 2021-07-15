@@ -41,8 +41,10 @@ int avm::massert(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 {
     avm::myException exc;
 
-    if (OList->size() < 1)
+    if (OList->size() < 1) {
+        exc.printError("'ASSERT' error: no data in stack\n");
         return 84;
+    }
     if (OList->at(0)->toString() == data->toString())
         return 0; 
     exc.printError("'ASSERT' error: data doesn't match\n");
@@ -51,20 +53,31 @@ int avm::massert(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 
 int avm::mload(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 {
-    if (data == NULL || OList->size() >= 16)
+    avm::myException exc;
+    if (data == NULL || OList->size() >= 16) {
+        exc.printError("'LOAD' error: data is null or stack is full\n");
         return 84;
-    if (std::stod(data->toString()) >= OList->size())
+    }
+    if (std::stod(data->toString()) >= OList->size()){
+        exc.printError("'LOAD' error: unreachable register\n");
         return 84;
+    }
     avm::mpush(OList->at(std::stod(data->toString())), OList);
     return 0;
 }
 
 int avm::mstore(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 {
-    if (data == NULL)
+    avm::myException exc;
+
+    if (data == NULL) {
+        exc.printError("'STORE' error: data is null\n");
         return 84;
-    if (std::stod(data->toString()) > OList->size())
+    }
+    if (std::stod(data->toString()) > OList->size()) {
+        exc.printError("'STORE' error: unreachable register\n");
         return 84;
+    }
     OList->insert(OList->begin() + std::stod(data->toString()) + 1, OList->at(0));
     mpop(OList);
     return 0;
@@ -73,14 +86,19 @@ int avm::mstore(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 int avm::madd(std::vector<avm::IOperand *> *OList)
 {
     avm::IOperand *newValue;
+    avm::myException exc;
 
-    if (OList->size() < 2)
+    if (OList->size() < 2) {
+        exc.printError("'ADD' error: not enough data in the stack\n");
         return 84;
+    }
     newValue = OList->at(0)->operator+(*OList->at(1));
     mpop(OList);
     mpop(OList);
-    if (newValue == NULL)
+    if (newValue == NULL) {
+        exc.printError("'ADD' error: operator+ error\n");
         return 84;
+    }
     mpush(newValue, OList);
     return 0;
 }
@@ -88,14 +106,19 @@ int avm::madd(std::vector<avm::IOperand *> *OList)
 int avm::msub(std::vector<avm::IOperand *> *OList)
 {
     avm::IOperand *newValue;
+    avm::myException exc;
 
-    if (OList->size() < 2)
+    if (OList->size() < 2) {
+        exc.printError("'SUB' error: not enough data in the stack\n");
         return 84;
+    }
     newValue = OList->at(0)->operator-(*OList->at(1));
     mpop(OList);
     mpop(OList);
-    if (newValue == NULL)
+    if (newValue == NULL) {
+        exc.printError("'SUB' error: operator+ error\n");
         return 84;
+    }
     mpush(newValue, OList);
     return 0;
 }
@@ -103,14 +126,19 @@ int avm::msub(std::vector<avm::IOperand *> *OList)
 int avm::mmul(std::vector<avm::IOperand *> *OList)
 {
     avm::IOperand *newValue;
+    avm::myException exc;
 
-    if (OList->size() < 2)
+    if (OList->size() < 2) {
+        exc.printError("'MUL' error: not enough data in the stack\n");
         return 84;
+    }
     newValue = OList->at(0)->operator*(*OList->at(1));
     mpop(OList);
     mpop(OList);
-    if (newValue == NULL)
+    if (newValue == NULL) {
+        exc.printError("'MUL' error: operator+ error\n");
         return 84;
+    }
     mpush(newValue, OList);
     return 0;
 }
@@ -118,14 +146,19 @@ int avm::mmul(std::vector<avm::IOperand *> *OList)
 int avm::mdiv(std::vector<avm::IOperand *> *OList)
 {
     avm::IOperand *newValue;
+    avm::myException exc;
 
-    if (OList->size() < 2)
+    if (OList->size() < 2) {
+        exc.printError("'DIV' error: not enough data in the stack\n");
         return 84;
+    }
     newValue = OList->at(0)->operator/(*OList->at(1));
     mpop(OList);
     mpop(OList);
-    if (newValue == NULL)
+    if (newValue == NULL) {
+        exc.printError("'DIV' error: operator+ error\n");
         return 84;
+    }
     mpush(newValue, OList);
     return 0;
 }
@@ -133,14 +166,19 @@ int avm::mdiv(std::vector<avm::IOperand *> *OList)
 int avm::mmod(std::vector<avm::IOperand *> *OList)
 {
     avm::IOperand *newValue;
+    avm::myException exc;
 
-    if (OList->size() < 2)
+    if (OList->size() < 2) {
+        exc.printError("'MOD' error: not enough data in the stack\n");
         return 84;
+    }
     newValue = OList->at(0)->operator%(*OList->at(1));
     mpop(OList);
     mpop(OList);
-    if (newValue == NULL)
+    if (newValue == NULL) {
+        exc.printError("'MOD' error: operator+ error\n");
         return 84;
+    }
     mpush(newValue, OList);
     return 0;
 }
@@ -153,8 +191,12 @@ int avm::mclear(std::vector<avm::IOperand *> *OList)
 
 int avm::mdup(std::vector<avm::IOperand *> *OList)
 {
-    if (OList->size() >= 16)
+    avm::myException exc;
+
+    if (OList->size() >= 16) {
+        exc.printError("'DUP' error: stack is full\n");
         return 84;
+    }
     OList->insert(OList->begin(), OList->at(0));
     return 0;
 }
@@ -189,11 +231,16 @@ int avm::mdump(std::vector<avm::IOperand *> *OList)
 int avm::mprint(std::vector<avm::IOperand *> *OList)
 {
     char c;
+    avm::myException exc;
 
-    if (OList->size() < 1)
+    if (OList->size() < 1) {
+        exc.printError("'PRINT' error: not enough data\n");
         return 84;
-    if (OList->at(0)->getType() != avm::eOperandType::INT8)
+    }
+    if (OList->at(0)->getType() != avm::eOperandType::INT8) {
+        exc.printError("'PRINT' error: top data is not a int8\n");
         return 84;
+    }
     c = std::stod(avm::checkNumber(OList->at(0)->toString(), OList->at(0)->getType(), OList->at(0)->getPrecision()));
     std::cout << c;
     return 0;
