@@ -15,10 +15,10 @@ std::string avm::checkNumber(std::string number, avm::eOperandType numberType, i
     int countNb = 0;
 
     while (number[i] != '\0' && number[i] != '.') {
-        if (number[i] == '.' && numberType < 3) {
-            return number.erase(i, number.length());
-        }
         i += 1;
+    }
+    if (numberType < 3 && number[i] == '.') {
+        return number.erase(i);
     }
     if (numberType < 3) {
         return (number);
