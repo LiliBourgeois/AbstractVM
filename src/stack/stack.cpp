@@ -164,10 +164,10 @@ int avm::mdump(std::vector<avm::IOperand *> *OList)
     if (OList->size() <= 0)
         return 0;
     while (OList->at(OList->size() - 1) != OList->at(idx)) {
-        std::cout << avm::checkNumber(OList->at(idx)->toString(), OList->at(idx)->getType(), OList->at(idx)->getPrecision()) << "\n"; //<< "mdump in while\n";
+        std::cout << avm::checkNumber(OList->at(idx)->toString(), OList->at(idx)->getType(), OList->at(idx)->getPrecision()) << "\n";
         idx = idx + 1;
     }
-    std::cout << avm::checkNumber(OList->at(idx)->toString(), OList->at(idx)->getType(), OList->at(idx)->getPrecision()) << "\n"; //<< "mdump\n";
+    std::cout << avm::checkNumber(OList->at(idx)->toString(), OList->at(idx)->getType(), OList->at(idx)->getPrecision()) << "\n";
     return 0;
 }
 
@@ -177,10 +177,10 @@ int msdump(std::vector<avm::IOperand *> *OList)
     if (OList->size() <= 0)
         return 0;
     while (OList->at(OList->size() - 1) != OList->at(idx)) {
-        std::cout << avm::checkNumber(OList->at(idx)->toString(), OList->at(idx)->getType(), OList->at(idx)->getPrecision()) << " | " << OList->at(idx)->getType() << "\n"; //<< "msdump in while\n";
+        std::cout << avm::checkNumber(OList->at(idx)->toString(), OList->at(idx)->getType(), OList->at(idx)->getPrecision()) << " | " << OList->at(idx)->getType() << "\n";
         idx = idx + 1;
     }
-    std::cout << avm::checkNumber(OList->at(idx)->toString(), OList->at(idx)->getType(), OList->at(idx)->getPrecision()) << "\n"; // << "msdump\n";
+    std::cout << avm::checkNumber(OList->at(idx)->toString(), OList->at(idx)->getType(), OList->at(idx)->getPrecision()) << "\n";
     return 0;
 }
 
@@ -193,7 +193,7 @@ int avm::mprint(std::vector<avm::IOperand *> *OList)
     if (OList->at(0)->getType() != avm::eOperandType::INT8)
         return 84;
     c = std::stod(avm::checkNumber(OList->at(0)->toString(), OList->at(0)->getType(), OList->at(0)->getPrecision()));
-    std::cout << c; // << "mprint\n";
+    std::cout << c;
     return 0;
 }
 

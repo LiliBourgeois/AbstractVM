@@ -58,7 +58,7 @@ bool CheckTheNb(std::string line, avm::eOperandType type)
 
 bool CheckSyntacticalError(std::string line, avm::eInstruction enumInstruction, const char *strInstruction[])
 {
-    size_t instructionSize = strlen(strInstruction[enumInstruction]); //TODO
+    size_t instructionSize = strlen(strInstruction[enumInstruction]); 
     size_t typeSize = 0;
     avm::eOperandType type = avm::getType(line);
 
