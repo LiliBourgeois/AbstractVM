@@ -23,7 +23,9 @@ SRC		=	./src/IOperand/checkOverflowUnderflow.cpp	\
 			./src/stack/stack.cpp	\
 			./src/stack/checkZero.cpp	\
 			\
-			./src/abstractVM.cpp
+			./src/abstractVM.cpp	\
+			\
+			./src/exception/exception.cpp	\
 
 TEST	=	./tests/test_madd.cpp	\
 			./tests/test_msub.cpp	\

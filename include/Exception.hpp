@@ -16,22 +16,7 @@
         {
         public:
             void printError(const char *);
-            myException();
-            ~myException();
         };
-
-        void printError(const char *error)
-        {
-            std::cerr << error;
-        }
-
-        myException::myException()
-        {
-        }
-
-        myException::~myException()
-        {
-        }
     };
 
 #endif

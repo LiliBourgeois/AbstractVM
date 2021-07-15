@@ -49,6 +49,7 @@ int main(int ac, char **av)
         return 84;
     }
     if (codeAsm.empty()){
+        exc.printError("error: bad file\n");
         return 84;
     }
     if (avm::AbstractVM(codeAsm) == 84)
