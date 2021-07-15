@@ -53,6 +53,7 @@ int avm::massert(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 
 int avm::mload(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 {
+    avm::Factory fct;
     avm::myException exc;
     if (data == NULL || OList->size() >= 16) {
         exc.printError("'LOAD' error: data is null or stack is full\n");
@@ -62,23 +63,29 @@ int avm::mload(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
         exc.printError("'LOAD' error: unreachable register\n");
         return 84;
     }
-    avm::mpush(OList->at(std::stod(data->toString())), OList);
+    
+    avm::mpush(fct.createOperand(OList->at(std::stod(data->toString()))->getType(), OList->at(std::stod(data->toString()))->toString()), OList);
     return 0;
 }
 
 int avm::mstore(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 {
+    avm::Factory fct;
     avm::myException exc;
 
     if (data == NULL) {
         exc.printError("'STORE' error: data is null\n");
         return 84;
     }
+    if (std::stod(data->toString()) < 0) {
+        exc.printError("'STORE' error: negative register index\n");
+        return 84;
+    }
     if (std::stod(data->toString()) >= OList->size()) {
         exc.printError("'STORE' error: unreachable register\n");
         return 84;
     }
-    OList->insert(OList->begin() + std::stod(data->toString()) + 1, OList->at(0));
+    OList->insert(OList->begin() + std::stod(data->toString()) + 1, fct.createOperand(OList->at(0)->getType(), OList->at(0)->toString()));
     mpop(OList);
     return 0;
 }
