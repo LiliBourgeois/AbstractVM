@@ -27,6 +27,12 @@ int avm::mpop(std::vector<avm::IOperand *> *OList)
 
 int avm::mpush(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 {
+    avm::myException exc;
+
+    if (OList->size() >= 16) {
+        exc.printError("'PUSH' error: max register is 16");
+        return 84;
+    }
     OList->insert(OList->begin(), data);
     return 0;
 }
@@ -45,7 +51,7 @@ int avm::massert(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 
 int avm::mload(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 {
-    if (data == NULL)
+    if (data == NULL || OList->size() >= 16)
         return 84;
     if (std::stod(data->toString()) >= OList->size())
         return 84;
@@ -147,6 +153,8 @@ int avm::mclear(std::vector<avm::IOperand *> *OList)
 
 int avm::mdup(std::vector<avm::IOperand *> *OList)
 {
+    if (OList->size() >= 16)
+        return 84;
     OList->insert(OList->begin(), OList->at(0));
     return 0;
 }
@@ -172,19 +180,6 @@ int avm::mdump(std::vector<avm::IOperand *> *OList)
         return 0;
     while (OList->at(OList->size() - 1) != OList->at(idx)) {
         std::cout << avm::checkNumber(OList->at(idx)->toString(), OList->at(idx)->getType(), OList->at(idx)->getPrecision()) << "\n";
-        idx = idx + 1;
-    }
-    std::cout << avm::checkNumber(OList->at(idx)->toString(), OList->at(idx)->getType(), OList->at(idx)->getPrecision()) << "\n";
-    return 0;
-}
-
-int msdump(std::vector<avm::IOperand *> *OList)
-{
-    unsigned int idx = 0;
-    if (OList->size() <= 0)
-        return 0;
-    while (OList->at(OList->size() - 1) != OList->at(idx)) {
-        std::cout << avm::checkNumber(OList->at(idx)->toString(), OList->at(idx)->getType(), OList->at(idx)->getPrecision()) << " | " << OList->at(idx)->getType() << "\n";
         idx = idx + 1;
     }
     std::cout << avm::checkNumber(OList->at(idx)->toString(), OList->at(idx)->getType(), OList->at(idx)->getPrecision()) << "\n";
