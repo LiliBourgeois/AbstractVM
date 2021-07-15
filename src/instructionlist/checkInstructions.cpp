@@ -34,17 +34,20 @@ bool CheckTheNb(std::string line, avm::eOperandType type)
 {
     size_t i = 0;
     int dotCount = 0;
+    int operatorCount = 0;
 
     while (i < line.length())
     {
         if (line[i] == '.' && dotCount == 0 && i != 0 && type >= 3) {
             dotCount += 1;
+        } else if ((line[i] == '+' || line[i] == '-') && operatorCount == 0) {
+            operatorCount += 1;
+        } else if ((line[i] == '+' || line[i] == '-') && operatorCount > 0) {
+            return false;
         } else if (line[i] == '.' && (dotCount > 0 || i == 0 || type < 3)) {
-            std::cout << "else if\n";
             return false;
         } else {
             if (line[i] < 48 || line[i] > 57) {
-                std::cout << "if du else\n";
                 return false;
             }
         }
@@ -69,10 +72,11 @@ bool CheckSyntacticalError(std::string line, avm::eInstruction enumInstruction, 
         if (typeSize == 0) {
            return false;
         }
-        line.erase(0, typeSize + 1);
-        if (line[0] < 48 || line[0] > 57) {
+        line.erase(0, typeSize);
+        if (line[0] != '(' || line.back() != ')') {
             return false;
         }
+        line.erase(0, 1);
         line.pop_back();
         if (CheckTheNb(line, type) == false) {
             std::cerr << "error: invalid number\n";

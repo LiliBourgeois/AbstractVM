@@ -7,9 +7,9 @@
 
 #include <vector>
 #include <map>
-
 #include "Stack.hpp"
 #include "AbstractVM.hpp"
+#include <regex>
 
 std::string GetRidOfComment(std::string codeAsm)
 {

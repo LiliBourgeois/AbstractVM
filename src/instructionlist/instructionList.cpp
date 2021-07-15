@@ -10,11 +10,10 @@
 #include "Factory.hpp"
 #include <regex>
 
-avm::eInstruction getInstruction(std::smatch i)
+avm::eInstruction getInstruction(std::string instruction)
 {
     const char *strInstruction[] = {"push", "assert", "load", "store", "pop", "dump", "clear", "dup", "swap", "add", "sub", "mul", "div", "mod", "print", "exit"};
     avm::eInstruction enumInstruction = avm::eInstruction::PUSH;
-    std::string instruction = i.str();
 
     while (strInstruction[enumInstruction] != instruction && enumInstruction != 16) {
         enumInstruction = avm::eInstruction(enumInstruction + 1);
@@ -40,37 +39,50 @@ avm::eOperandType avm::getType(std::string value)
     return avm::eOperandType::UNKNOWN;
 }
 
+std::string getFirstWord(std::string line)
+{
+    size_t firstSpace = line.find_first_of(' ');
+
+    if (firstSpace != std::string::npos)
+        line.erase(firstSpace);
+    std::cout << "line = " << line << "\n";
+    return line;
+}
+
+std::string getValue(std::string line)
+{
+    size_t i = 0;
+
+    while (line[i] != '(' &&  i != line.length()) {
+        std::cout << "the line = " << line << " i = " << i << "\n";
+        i += 1;
+    }
+    line.erase(0, i + 1);
+    line.pop_back();
+    std::cout << "nb = " << line << "\n";
+    return line;
+}
+
 void avm::getTab(std::string codeAsm, std::vector<avm::Instruction_t *> &iList)
 {
-    avm::Factory f;
-    std::smatch tmp;
-    avm::Instruction_t *newInstruction;
+    std::istringstream tmp;
     avm::eOperandType type;
     std::string value;
+    avm::Instruction_t *newInstruction;
+    avm::Factory f;
 
-    std::regex word_regex("(\\w+)");
-    auto words_begin = std::sregex_iterator(codeAsm.begin(), codeAsm.end(), word_regex);
-    auto words_end = std::sregex_iterator();
-    for (std::sregex_iterator idx = words_begin; idx != words_end; ++idx) {
-        newInstruction = new(avm::Instruction_t);
-        newInstruction->i = getInstruction(*idx);
-        if (newInstruction->i == 16)
-            return;
-        if (newInstruction->i <= 3) {
-            ++idx;
-            tmp = *idx;
-            type = getType(tmp.str());
-            ++idx;
-            tmp = *idx;
-            value = tmp.str();
-            if (type >= 3 && type <= 5){
-                ++idx;
-                tmp = *idx;
-                value.append(".");
-                value.append(tmp.str());
+    tmp.str(codeAsm);
+    for (std::string line; std::getline(tmp, line); ) {
+        if (line.compare("") != 0) {
+            value = getFirstWord(line);
+            newInstruction = new(avm::Instruction_t);
+            newInstruction->i = getInstruction(value);
+            type = getType(line);
+            if (newInstruction->i <= 3){
+                value = getValue(line);
             }
             newInstruction->value = f.createOperand(type, value);
+            iList.push_back(newInstruction);
         }
-        iList.push_back(newInstruction);
     }
 }
