@@ -40,11 +40,6 @@ unsigned int avm::myInt8::getPrecision() const
     return (0);
 }
 
-void avm::myInt8::setValue(const std::string &value)
-{
-    this->value = value;
-}
-
 avm::IOperand *avm::myInt8::operator+(const IOperand &other) const
 {
     std::string result;
