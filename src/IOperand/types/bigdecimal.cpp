@@ -40,6 +40,11 @@ unsigned int avm::myBigdecimal::getPrecision() const
     return (200);
 }
 
+void avm::myBigdecimal::setValue(const std::string &value)
+{
+    this->value = value;
+}
+
 avm::IOperand *avm::myBigdecimal::operator+(const IOperand &other) const
 {
     std::string result;

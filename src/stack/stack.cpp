@@ -58,9 +58,9 @@ int avm::mstore(avm::IOperand *dest, std::vector<avm::IOperand *> *OList)
 {
     avm::Factory fct;
 
-    dest = fct.createOperand(OList->at(0)->getType(), OList->at(0)->toString());
     if (dest == NULL)
         return 84;
+    dest->setValue(OList->at(0)->toString());
     if (mpop(OList) == 84)
         return 84;
     return 0;
@@ -149,10 +149,6 @@ int avm::mclear(std::vector<avm::IOperand *> *OList)
 
 int avm::mdup(std::vector<avm::IOperand *> *OList)
 {
-    if (OList->size() < 1) {
-        std::cerr << "'DUP' error: list is empty\n";
-        return 84;
-    }
     OList->insert(OList->begin(), OList->at(0));
     return 0;
 }

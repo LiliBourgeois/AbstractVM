@@ -23,15 +23,16 @@
             myInt8(const std::string &value);
             ~myInt8();
 
-            std::string toString() const;
-            eOperandType getType() const;
-            unsigned int getPrecision() const;
+            std::string toString() const override;
+            eOperandType getType() const override;
+            unsigned int getPrecision() const override;
+            void setValue(const std::string &value) override;
 
-            avm::IOperand *operator+(const IOperand &rhs) const;
-            avm::IOperand *operator-(const IOperand &rhs) const;
-            avm::IOperand *operator*(const IOperand &rhs) const;
-            avm::IOperand *operator/(const IOperand &rhs) const;
-            avm::IOperand *operator%(const IOperand &rhs) const;
+            avm::IOperand *operator+(const IOperand &rhs) const override;
+            avm::IOperand *operator-(const IOperand &rhs) const override;
+            avm::IOperand *operator*(const IOperand &rhs) const override;
+            avm::IOperand *operator/(const IOperand &rhs) const override;
+            avm::IOperand *operator%(const IOperand &rhs) const override;
         };
     };
 
