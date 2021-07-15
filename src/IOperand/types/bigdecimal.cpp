@@ -40,6 +40,16 @@ unsigned int avm::myBigdecimal::getPrecision() const
     return (200);
 }
 
+long double avm::myBigdecimal::getMinValue() const
+{
+    return (std::numeric_limits<int64_t>::min());
+}
+
+long double avm::myBigdecimal::getMaxValue() const
+{
+    return (std::numeric_limits<int64_t>::max());
+}
+
 avm::IOperand *avm::myBigdecimal::operator+(const IOperand &other) const
 {
     std::string result;
@@ -48,10 +58,17 @@ avm::IOperand *avm::myBigdecimal::operator+(const IOperand &other) const
     avm::myException exc;
 
     int64_t thisValue = static_cast<int64_t>(std::stod(this->value));
-    int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
-    if (isAddOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
-        exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
-        return (NULL);
+    long double otherValue = static_cast<long double>(std::stod(other.toString()));
+    if (this->type >= other.getType()) {
+        if (isAddOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
+            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            return (NULL);
+        }
+    } else {
+        if (isAddOverflowing(other.getMaxValue(), other.getMinValue(), thisValue, otherValue)) {
+            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            return (NULL);
+        }
     }
     result = std::to_string(otherValue + thisValue);
     if (this->getType() > other.getType())
@@ -69,10 +86,17 @@ avm::IOperand *avm::myBigdecimal::operator-(const IOperand &other) const
     avm::myException exc;
 
     int64_t thisValue = static_cast<int64_t>(std::stod(this->value));
-    int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
-    if (isSubOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
-        exc.printError("myBigDecimal::operator- error: overflow or underflow\n");
-        return (NULL);
+    long double otherValue = static_cast<long double>(std::stod(other.toString()));
+    if (this->type >= other.getType()) {
+        if (isSubOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
+            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            return (NULL);
+        }
+    } else {
+        if (isSubOverflowing(other.getMaxValue(), other.getMinValue(), thisValue, otherValue)) {
+            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            return (NULL);
+        }
     }
     result = std::to_string(otherValue - thisValue);
     if (this->getType() > other.getType())
@@ -90,10 +114,17 @@ avm::IOperand *avm::myBigdecimal::operator*(const IOperand &other) const
     avm::myException exc;
 
     int64_t thisValue = static_cast<int64_t>(std::stod(this->value));
-    int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
-    if (avm::isMulOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
-        exc.printError("myBigDecimal::operator* error: overflow or underflow\n");
-        return (NULL);
+    long double otherValue = static_cast<long double>(std::stod(other.toString()));
+    if (this->type >= other.getType()) {
+        if (isMulOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
+            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            return (NULL);
+        }
+    } else {
+        if (isMulOverflowing(other.getMaxValue(), other.getMinValue(), thisValue, otherValue)) {
+            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            return (NULL);
+        }
     }
     result = std::to_string(otherValue * thisValue);
     if (this->getType() > other.getType())
@@ -112,7 +143,7 @@ avm::IOperand *avm::myBigdecimal::operator/(const IOperand &other) const
 
 
     int64_t thisValue = static_cast<int64_t>(std::stod(this->value));
-    int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
+    long double otherValue = static_cast<long double>(std::stod(other.toString()));
     if (thisValue == 0) {
         exc.printError("myBigDecimal::operator/ error: division by 0\n");
         return (NULL);

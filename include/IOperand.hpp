@@ -22,6 +22,8 @@
             virtual std::string toString() const = 0;
             virtual eOperandType getType() const = 0;
             virtual unsigned int getPrecision() const = 0;
+            virtual long double getMaxValue() const = 0;
+            virtual long double getMinValue() const = 0;
             virtual IOperand* operator+(const IOperand &rhs) const = 0;
             virtual IOperand* operator-(const IOperand &rhs) const = 0;
             virtual IOperand* operator*(const IOperand &rhs) const = 0;

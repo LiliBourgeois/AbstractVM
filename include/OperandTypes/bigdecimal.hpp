@@ -26,6 +26,8 @@
             std::string toString() const override;
             eOperandType getType() const override;
             unsigned int getPrecision() const override;
+            long double getMaxValue() const override;
+            long double getMinValue() const override;
 
             avm::IOperand *operator+(const IOperand &rhs) const override;
             avm::IOperand *operator-(const IOperand &rhs) const override;

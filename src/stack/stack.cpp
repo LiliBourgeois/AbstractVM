@@ -74,7 +74,7 @@ int avm::mstore(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
         exc.printError("'STORE' error: data is null\n");
         return 84;
     }
-    if (std::stod(data->toString()) > OList->size()) {
+    if (std::stod(data->toString()) >= OList->size()) {
         exc.printError("'STORE' error: unreachable register\n");
         return 84;
     }
