@@ -63,12 +63,12 @@ avm::IOperand *avm::myInt16::operator+(const IOperand &other) const
     long double otherValue = static_cast<long double>(std::stod(other.toString()));
     if (this->type >= other.getType()) {
         if (isAddOverflowing(std::numeric_limits<int16_t>::max(), std::numeric_limits<int16_t>::min(), thisValue, otherValue)) {
-            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            exc.printError("myInt16::operator+ error: overflow or underflow\n");
             return (NULL);
         }
     } else {
         if (isAddOverflowing(other.getMaxValue(), other.getMinValue(), thisValue, otherValue)) {
-            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            exc.printError("myInt16::operator+ error: overflow or underflow\n");
             return (NULL);
         }
     }
@@ -91,12 +91,12 @@ avm::IOperand *avm::myInt16::operator-(const IOperand &other) const
     long double otherValue = static_cast<long double>(std::stod(other.toString()));
     if (this->type >= other.getType()) {
         if (isSubOverflowing(std::numeric_limits<int16_t>::max(), std::numeric_limits<int16_t>::min(), thisValue, otherValue)) {
-            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            exc.printError("myInt16::operator+ error: overflow or underflow\n");
             return (NULL);
         }
     } else {
         if (isSubOverflowing(other.getMaxValue(), other.getMinValue(), thisValue, otherValue)) {
-            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            exc.printError("myInt16::operator+ error: overflow or underflow\n");
             return (NULL);
         }
     }
@@ -119,12 +119,12 @@ avm::IOperand *avm::myInt16::operator*(const IOperand &other) const
     long double otherValue = static_cast<long double>(std::stod(other.toString()));
     if (this->type >= other.getType()) {
         if (isMulOverflowing(std::numeric_limits<int16_t>::max(), std::numeric_limits<int16_t>::min(), thisValue, otherValue)) {
-            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            exc.printError("myInt16::operator+ error: overflow or underflow\n");
             return (NULL);
         }
     } else {
         if (isMulOverflowing(other.getMaxValue(), other.getMinValue(), thisValue, otherValue)) {
-            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            exc.printError("myInt16::operator+ error: overflow or underflow\n");
             return (NULL);
         }
     }
