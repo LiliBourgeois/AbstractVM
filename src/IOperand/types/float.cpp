@@ -133,11 +133,11 @@ avm::IOperand *avm::myFloat::operator%(const IOperand &other) const
         std::cerr << "myFloat::operator\% error: modulo by 0\n";
         return (NULL);
     }
-    (void)(otherValue);//TODO
-//    result = std::to_string(otherValue % thisValue);
+    (void)(otherValue);
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else
         newOperand = fct.createOperand(other.getType(), result);
-    return (newOperand);
+    (void)(newOperand);
+    return (NULL);
 }
