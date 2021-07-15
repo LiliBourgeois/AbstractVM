@@ -43,6 +43,10 @@ std::string getFirstWord(std::string line)
 {
     size_t firstSpace = line.find_first_of(' ');
 
+    while (firstSpace == 0 || line[0] == '\t') {
+        line.erase(firstSpace, 1);
+        firstSpace = line.find_first_of(' ');
+    }
     if (firstSpace != std::string::npos)
         line.erase(firstSpace);
     return line;

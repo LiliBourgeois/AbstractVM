@@ -28,6 +28,12 @@ std::string GetRidOfComment(std::string codeAsm)
     return codeAsm;
 }
 
+std::string GetRidOfTabs(std::string codeAsm)
+{
+    std::replace(codeAsm.begin(), codeAsm.end(), '\t', ' ');
+    return codeAsm;
+}
+
 int avm::AbstractVMCore(std::vector<avm::Instruction_t *> &iList)
 {
     int (*vpf[])(avm::IOperand *, std::vector<avm::IOperand *> *) = {avm::mpush, avm::massert, avm::mload, avm::mstore};
@@ -56,10 +62,11 @@ int avm::AbstractVMCore(std::vector<avm::Instruction_t *> &iList)
 int avm::AbstractVM(std::string codeAsm)
 {
     std::vector<avm::Instruction_t *> iList;
-    bool isCodeCorrect;
+    bool isCodeCorrect = true;
 
     codeAsm = GetRidOfComment(codeAsm);
-    isCodeCorrect = avm::CheckCode(codeAsm);
+    codeAsm = GetRidOfTabs(codeAsm);
+    //isCodeCorrect = avm::CheckCode(codeAsm);
     if (!isCodeCorrect)
         return 84;
     avm::getTab(codeAsm, iList);
