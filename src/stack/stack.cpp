@@ -40,29 +40,22 @@ int avm::massert(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 
 int avm::mload(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 {
-    avm::Factory fct;
-    avm::IOperand *newValue;
-
     if (data == NULL)
         return 84;
-    if (data->toString().empty())
+    if (std::stod(data->toString()) >= OList->size())
         return 84;
-    newValue = fct.createOperand(data->getType(), data->toString());
-    if (newValue == NULL)
-        return 84;
-    mpush(newValue, OList);
+    avm::mpush(OList->at(std::stod(data->toString())), OList);
     return 0;
 }
 
-int avm::mstore(avm::IOperand *dest, std::vector<avm::IOperand *> *OList)
+int avm::mstore(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 {
-    avm::Factory fct;
-
-    if (dest == NULL)
+    if (data == NULL)
         return 84;
-    dest->setValue(OList->at(0)->toString());
-    if (mpop(OList) == 84)
+    if (std::stod(data->toString()) > OList->size())
         return 84;
+    OList->insert(OList->begin() + std::stod(data->toString()) + 1, OList->at(0));
+    mpop(OList);
     return 0;
 }
 
