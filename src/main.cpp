@@ -5,6 +5,7 @@
 ** main.cpp
 */
 
+#include "Exception.hpp"
 #include "AbstractVM.hpp"
 
 std::string ReadFromFile(char *filename)

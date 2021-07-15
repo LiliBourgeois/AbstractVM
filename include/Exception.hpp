@@ -8,15 +8,22 @@
 #ifndef ABSTRACTVM_EXCEPTION_HPP_
     #define ABSTRACTVM_EXCEPTION_HPP_
 
+    #include <iostream>
     #include <exception>
 
     namespace avm {
-        class myException : std::exception 
+        class myException : std::exception
         {
         public:
+            void printError(const char *);
             myException();
             ~myException();
         };
+
+        void printError(const char *error)
+        {
+            std::cerr << error << "\n";
+        }
 
         myException::myException()
         {
