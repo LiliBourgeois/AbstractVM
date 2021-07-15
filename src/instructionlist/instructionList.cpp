@@ -45,7 +45,6 @@ std::string getFirstWord(std::string line)
 
     if (firstSpace != std::string::npos)
         line.erase(firstSpace);
-    std::cout << "line = " << line << "\n";
     return line;
 }
 
@@ -54,12 +53,10 @@ std::string getValue(std::string line)
     size_t i = 0;
 
     while (line[i] != '(' &&  i != line.length()) {
-        std::cout << "the line = " << line << " i = " << i << "\n";
         i += 1;
     }
     line.erase(0, i + 1);
     line.pop_back();
-    std::cout << "nb = " << line << "\n";
     return line;
 }
 

@@ -114,7 +114,7 @@ avm::IOperand *avm::myInt8::operator/(const IOperand &other) const
 
     int8_t thisValue = static_cast<int8_t>(std::stod(this->value));
     int8_t otherValue = static_cast<int8_t>(std::stod(other.toString()));
-    if (otherValue == 0) {
+    if (thisValue == 0) {
         std::cerr << "myInt8::operator/ error: division by 0\n";
         return (NULL);
     }
@@ -134,7 +134,7 @@ avm::IOperand *avm::myInt8::operator%(const IOperand &other) const
 
     int8_t thisValue = static_cast<int8_t>(std::stod(this->value));
     int8_t otherValue = static_cast<int8_t>(std::stod(other.toString()));
-    if (otherValue == 0) {
+    if (thisValue == 0) {
         std::cerr << "myInt8::operator\% error: modulo by 0\n";
         return (NULL);
     }

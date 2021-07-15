@@ -114,7 +114,7 @@ avm::IOperand *avm::myInt16::operator/(const IOperand &other) const
 
     int16_t thisValue = static_cast<int16_t>(std::stod(this->value));
     int16_t otherValue = static_cast<int16_t>(std::stod(other.toString()));
-    if (otherValue == 0) {
+    if (thisValue == 0) {
         std::cerr << "myInt16::operator/ error: division by 0\n";
         return (NULL);
     }
@@ -134,7 +134,7 @@ avm::IOperand *avm::myInt16::operator%(const IOperand &other) const
 
     int16_t thisValue = static_cast<int16_t>(std::stod(this->value));
     int16_t otherValue = static_cast<int16_t>(std::stod(other.toString()));
-    if (otherValue == 0) {
+    if (thisValue == 0) {
         std::cerr << "myInt16::operator\% error: modulo by 0\n";
         return (NULL);
     }

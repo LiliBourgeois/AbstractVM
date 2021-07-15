@@ -5,14 +5,17 @@
 ** checkOverflowUnderflow.cpp
 */
 
+#include <iostream>
+
 #include "Overflow.hpp"
 
 bool avm::isAddOverflowing(long double max, long double min, long double x, long double y)
 {
     if ((x > 0) && (y > max - x))
         return true;
-    if ((x < 0) && (y < min - x))
+    if ((x < 0) && (y < min - x)) {
         return true;
+    }
     return false;
 }
 
