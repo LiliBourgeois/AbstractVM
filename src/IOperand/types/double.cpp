@@ -62,12 +62,12 @@ avm::IOperand *avm::myDouble::operator+(const IOperand &other) const
     long double otherValue = static_cast<long double>(std::stod(other.toString()));
     if (this->type >= other.getType()) {
         if (isAddOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::min(), thisValue, otherValue)) {
-            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            exc.printError("double::operator+ error: overflow or underflow\n");
             return (NULL);
         }
     } else {
         if (isAddOverflowing(other.getMaxValue(), other.getMinValue(), thisValue, otherValue)) {
-            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            exc.printError("double::operator+ error: overflow or underflow\n");
             return (NULL);
         }
     }
@@ -90,12 +90,12 @@ avm::IOperand *avm::myDouble::operator-(const IOperand &other) const
     long double otherValue = static_cast<long double>(std::stod(other.toString()));
     if (this->type >= other.getType()) {
         if (isSubOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::min(), thisValue, otherValue)) {
-            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            exc.printError("double::operator+ error: overflow or underflow\n");
             return (NULL);
         }
     } else {
         if (isSubOverflowing(other.getMaxValue(), other.getMinValue(), thisValue, otherValue)) {
-            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            exc.printError("double::operator+ error: overflow or underflow\n");
             return (NULL);
         }
     }
@@ -118,12 +118,12 @@ avm::IOperand *avm::myDouble::operator*(const IOperand &other) const
     long double otherValue = std::stod(other.toString());
     if (this->type >= other.getType()) {
         if (isMulOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::min(), thisValue, otherValue)) {
-            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            exc.printError("double::operator+ error: overflow or underflow\n");
             return (NULL);
         }
     } else {
         if (isMulOverflowing(other.getMaxValue(), other.getMinValue(), thisValue, otherValue)) {
-            exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
+            exc.printError("double::operator+ error: overflow or underflow\n");
             return (NULL);
         }
     }
