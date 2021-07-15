@@ -18,7 +18,7 @@ Test(test_mstore, test_store)
     avm::Factory fct;
     avm::IOperand *v1 = fct.createOperand(avm::eOperandType::FLOAT, "0");
     avm::IOperand *v2 = fct.createOperand(avm::eOperandType::BIGDECIMAL, "99");
-    avm::IOperand *dest = fct.createOperand(avm::eOperandType::INT8, "42");
+    avm::IOperand *dest = fct.createOperand(avm::eOperandType::BIGDECIMAL, "42");
 
     avm::mpush(v1, &stack);
     avm::mpush(v2, &stack);

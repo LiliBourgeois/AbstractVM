@@ -40,6 +40,11 @@ unsigned int avm::myFloat::getPrecision() const
     return (7);
 }
 
+void avm::myFloat::setValue(const std::string &value)
+{
+    this->value = value;
+}
+
 avm::IOperand *avm::myFloat::operator+(const IOperand &other) const
 {
     std::string result;

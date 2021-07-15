@@ -40,6 +40,11 @@ unsigned int avm::myInt16::getPrecision() const
     return (0);
 }
 
+void avm::myInt16::setValue(const std::string &value)
+{
+    this->value = value;
+}
+
 avm::IOperand *avm::myInt16::operator+(const IOperand &other) const
 {
     std::string result;

@@ -36,7 +36,8 @@ TEST	=	./tests/test_madd.cpp	\
 			./tests/test_mdup.cpp	\
 			./tests/test_massert.cpp	\
 			./tests/test_mload.cpp	\
-			./tests/test_mclear.cpp
+			./tests/test_mclear.cpp	\
+			./tests/test_mstore.cpp
 
 OBJ	=	$(SRC:.cpp=.o)
 

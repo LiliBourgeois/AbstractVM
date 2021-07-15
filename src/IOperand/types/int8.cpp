@@ -40,6 +40,11 @@ unsigned int avm::myInt8::getPrecision() const
     return (0);
 }
 
+void avm::myInt8::setValue(const std::string &value)
+{
+    this->value = value;
+}
+
 avm::IOperand *avm::myInt8::operator+(const IOperand &other) const
 {
     std::string result;
@@ -53,8 +58,6 @@ avm::IOperand *avm::myInt8::operator+(const IOperand &other) const
         return (NULL);
     }
     result = std::to_string(otherValue + thisValue);
-    if (this->getPrecision() + other.getPrecision() == 0)
-        result.substr(0, result.find(".", 0));
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else
@@ -75,8 +78,6 @@ avm::IOperand *avm::myInt8::operator-(const IOperand &other) const
         return (NULL);
     }
     result = std::to_string(otherValue - thisValue);
-    if (this->getPrecision() + other.getPrecision() == 0)
-        result.substr(0, result.find(".", 0));
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else
@@ -97,8 +98,6 @@ avm::IOperand *avm::myInt8::operator*(const IOperand &other) const
         return (NULL);
     }
     result = std::to_string(otherValue * thisValue);
-    if (this->getPrecision() + other.getPrecision() == 0)
-        result.substr(0, result.find(".", 0));
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else
@@ -120,8 +119,6 @@ avm::IOperand *avm::myInt8::operator/(const IOperand &other) const
         return (NULL);
     }
     result = std::to_string(otherValue / thisValue);
-    if (this->getPrecision() + other.getPrecision() == 0)
-        result.substr(0, result.find(".", 0));
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else
@@ -142,8 +139,6 @@ avm::IOperand *avm::myInt8::operator%(const IOperand &other) const
         return (NULL);
     }
     result = std::to_string(otherValue % thisValue);
-    if (this->getPrecision() + other.getPrecision() == 0)
-        result.substr(0, result.find(".", 0));
     if (this->getType() > other.getType())
         newOperand = fct.createOperand(this->getType(), result);
     else

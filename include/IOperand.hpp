@@ -22,6 +22,7 @@
             virtual std::string toString() const = 0;
             virtual eOperandType getType() const = 0;
             virtual unsigned int getPrecision() const = 0;
+            virtual void setValue(const std::string &value) = 0;
             virtual IOperand* operator+(const IOperand &rhs) const = 0;
             virtual IOperand* operator-(const IOperand &rhs) const = 0;
             virtual IOperand* operator*(const IOperand &rhs) const = 0;

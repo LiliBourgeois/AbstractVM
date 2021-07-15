@@ -40,6 +40,11 @@ unsigned int avm::myDouble::getPrecision() const
     return (15);
 }
 
+void avm::myDouble::setValue(const std::string &value)
+{
+    this->value = value;
+}
+
 avm::IOperand *avm::myDouble::operator+(const IOperand &other) const
 {
     std::string result;
