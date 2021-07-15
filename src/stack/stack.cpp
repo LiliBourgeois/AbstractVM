@@ -248,7 +248,7 @@ int avm::mprint(std::vector<avm::IOperand *> *OList)
         exc.printError("'PRINT' error: top data is not a int8\n");
         return 84;
     }
-    c = std::stod(avm::checkNumber(OList->at(0)->toString(), OList->at(0)->getType(), OList->at(0)->getPrecision()));
+    c = std::stod(OList->at(0)->toString());
     std::cout << c;
     return 0;
 }
