@@ -18,7 +18,7 @@ Test(test_mstore, test_store)
     avm::Factory fct;
     avm::IOperand *v1 = fct.createOperand(avm::eOperandType::FLOAT, "0");
     avm::IOperand *v2 = fct.createOperand(avm::eOperandType::BIGDECIMAL, "99");
-    avm::IOperand *dest = fct.createOperand(avm::eOperandType::BIGDECIMAL, "42");
+    avm::IOperand *dest = fct.createOperand(avm::eOperandType::INT8, "1");
 
     avm::mpush(v1, &stack);
     avm::mpush(v2, &stack);
@@ -27,6 +27,6 @@ Test(test_mstore, test_store)
 
     cr_assert_eq(0, std::stod(stack.at(0)->toString()));
     cr_assert_eq(avm::eOperandType::FLOAT, stack.at(0)->getType());
-    cr_assert_eq(99, std::stod(dest->toString()));
-    cr_assert_eq(avm::eOperandType::BIGDECIMAL, dest->getType());
+    cr_assert_eq(99, std::stod(stack.at(1)->toString()));
+    cr_assert_eq(avm::eOperandType::BIGDECIMAL, stack.at(1)->getType());
 }
