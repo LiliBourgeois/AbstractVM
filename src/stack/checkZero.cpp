@@ -37,7 +37,7 @@ std::string avm::checkNumber(std::string number, avm::eOperandType numberType, i
         return number;
     }
     if (countZero != 0) {
-        number.erase(i - countZero, i);
+        number.erase(i - (countZero + 1), i);
         return number;
     }
     return number;
