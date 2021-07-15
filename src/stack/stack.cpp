@@ -11,11 +11,14 @@
 #include "Stack.hpp"
 #include "Factory.hpp"
 #include "IOperand.hpp"
+#include "Exception.hpp"
 
 int avm::mpop(std::vector<avm::IOperand *> *OList)
 {
+    avm::myException exc;
+
     if (OList->size() < 1) {
-        std::cerr << "'POP' error: list is empty\n";
+        exc.printError("'POP' error: list is empty\n");
         return 84;
     }
     OList->erase(OList->begin());
@@ -30,11 +33,13 @@ int avm::mpush(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 
 int avm::massert(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
 {
+    avm::myException exc;
+
     if (OList->size() < 1)
         return 84;
     if (OList->at(0)->toString() == data->toString())
         return 0; 
-    std::cerr << "'ASSERT' error: data doesn't match\n";
+    exc.printError("'ASSERT' error: data doesn't match\n");
     return 84;
 }
 
@@ -148,8 +153,10 @@ int avm::mdup(std::vector<avm::IOperand *> *OList)
 
 int avm::mswap(std::vector<avm::IOperand *> *OList)
 {
+    avm::myException exc;
+
     if (OList->size() < 2) {
-        std::cerr << "'SWAP' error: not enough value on the stack\n";
+        exc.printError("'SWAP' error: not enough value on the stack\n");
         return 84;
     }
     OList->insert(OList->begin(), OList->at(1));

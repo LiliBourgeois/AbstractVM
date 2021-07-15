@@ -11,6 +11,7 @@
 #include <string.h>
 
 #include "AbstractVM.hpp"
+#include "Exception.hpp"
 
 size_t GetTypeSize(std::string value)
 {
@@ -61,6 +62,7 @@ bool CheckSyntacticalError(std::string line, avm::eInstruction enumInstruction, 
     size_t instructionSize = strlen(strInstruction[enumInstruction]); 
     size_t typeSize = 0;
     avm::eOperandType type = avm::getType(line);
+    avm::myException exc;
 
     if (enumInstruction > 3) {
         if (line.length() != instructionSize) {
@@ -79,7 +81,7 @@ bool CheckSyntacticalError(std::string line, avm::eInstruction enumInstruction, 
         line.erase(0, 1);
         line.pop_back();
         if (CheckTheNb(line, type) == false) {
-            std::cerr << "error: invalid number\n";
+            exc.printError("error: invalid number\n");
             return false;
         }
     }
@@ -91,6 +93,7 @@ bool FindInstruction(std::string codeAsm, const char *strInstruction[])
     avm::eInstruction enumInstruction = avm::eInstruction(0);
     std::istringstream tmp;
     int foundInstruction = 0;
+    avm::myException exc;
 
     tmp.str(codeAsm);
     for (std::string line; std::getline(tmp, line); ) {
@@ -98,7 +101,7 @@ bool FindInstruction(std::string codeAsm, const char *strInstruction[])
             if (!line.empty() && line.find(strInstruction[enumInstruction]) != std::string::npos) {
                 foundInstruction = 1;
                 if (CheckSyntacticalError(line, enumInstruction, strInstruction) == false) {
-                    std::cerr << "error: syntactical error\n";
+                    exc.printError("error: syntactical error\n");
                     return false;
                 }
                 enumInstruction = avm::eInstruction(18);
@@ -106,7 +109,7 @@ bool FindInstruction(std::string codeAsm, const char *strInstruction[])
             enumInstruction = avm::eInstruction(enumInstruction + 1);
         }
         if (!line.empty() && foundInstruction == 0) {
-            std::cerr << "error: wrong instruction\n";
+            exc.printError("error: wrong instruction\n");
             return false;
         }
         foundInstruction = 0;
@@ -118,9 +121,10 @@ bool FindInstruction(std::string codeAsm, const char *strInstruction[])
 bool avm::CheckCode(std::string codeAsm)
 {
     const char *strInstruction[] = {"push", "assert", "load", "store", "pop", "dump", "clear", "dup", "swap", "add", "sub", "mul", "div", "mod", "print", "exit"};
+    avm::myException exc;
 
     if (codeAsm.find("exit") == std::string::npos) {
-        std::cerr << "error: no exit\n";
+        exc.printError("error: no exit\n");
         return false;
     }
     if (!FindInstruction(codeAsm, strInstruction))

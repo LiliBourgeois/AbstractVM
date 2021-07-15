@@ -22,7 +22,7 @@
 
         void printError(const char *error)
         {
-            std::cerr << error << "\n";
+            std::cerr << error;
         }
 
         myException::myException()

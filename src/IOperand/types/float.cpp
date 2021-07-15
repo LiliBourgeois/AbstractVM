@@ -13,6 +13,7 @@
 #include "Factory.hpp"
 #include "IOperand.hpp"
 #include "float.hpp"
+#include "Exception.hpp"
 
 avm::myFloat::myFloat(const std::string &value)
 {
@@ -45,11 +46,12 @@ avm::IOperand *avm::myFloat::operator+(const IOperand &other) const
     std::string result;
     avm::IOperand *newOperand;
     avm::Factory fct;
+    avm::myException exc;
 
     float thisValue = std::stof(this->value);
     float otherValue = std::stof(other.toString());
     if (avm::isAddOverflowing(std::numeric_limits<float>::max(), std::numeric_limits<float>::lowest(), thisValue, otherValue)) {
-        std::cerr << "myFloat::operator+ error: overflow or underflow\n";
+        exc.printError("myFloat::operator+ error: overflow or underflow\n");
         return (NULL);
     }
     result = std::to_string(otherValue + thisValue);
@@ -65,11 +67,12 @@ avm::IOperand *avm::myFloat::operator-(const IOperand &other) const
     std::string result;
     avm::IOperand *newOperand;
     avm::Factory fct;
+    avm::myException exc;
 
     float thisValue = std::stof(this->value);
     float otherValue = std::stof(other.toString());
     if (avm::isSubOverflowing(std::numeric_limits<float>::max(), std::numeric_limits<float>::lowest(), thisValue, otherValue)) {
-        std::cerr << "myFloat::operator- error: overflow or underflow\n";
+        exc.printError("myFloat::operator- error: overflow or underflow\n");
         return (NULL);
     }
     result = std::to_string(otherValue - thisValue);
@@ -85,11 +88,12 @@ avm::IOperand *avm::myFloat::operator*(const IOperand &other) const
     std::string result;
     avm::IOperand *newOperand;
     avm::Factory fct;
+    avm::myException exc;
 
     float thisValue = std::stof(this->value);
     float otherValue = std::stof(other.toString());
     if (avm::isMulOverflowing(std::numeric_limits<float>::max(), std::numeric_limits<float>::lowest(), thisValue, otherValue)) {
-        std::cerr << "myFloat::operator* error: overflow or underflow\n";
+        exc.printError("myFloat::operator* error: overflow or underflow\n");
         return (NULL);
     }
     result = std::to_string(otherValue * thisValue);
@@ -105,12 +109,13 @@ avm::IOperand *avm::myFloat::operator/(const IOperand &other) const
     std::string result;
     avm::IOperand *newOperand;
     avm::Factory fct;
+    avm::myException exc;
 
 
     float thisValue = std::stod(this->value);
     float otherValue = std::stod(other.toString());
     if (thisValue == 0) {
-        std::cerr << "myFloat::operator/ error: division by 0\n";
+        exc.printError("myFloat::operator/ error: division by 0\n");
         return (NULL);
     }
     result = std::to_string(otherValue / thisValue);
@@ -126,11 +131,12 @@ avm::IOperand *avm::myFloat::operator%(const IOperand &other) const
     std::string result;
     avm::IOperand *newOperand;
     avm::Factory fct;
+    avm::myException exc;
 
     float thisValue = std::stof(this->value);
     float otherValue = std::stof(other.toString());
     if (thisValue == 0) {
-        std::cerr << "myFloat::operator\% error: modulo by 0\n";
+        exc.printError("myFloat::operator\% error: modulo by 0\n");
         return (NULL);
     }
     (void)(otherValue);

@@ -8,7 +8,7 @@
 #include <string>
 #include <limits>
 #include <iostream>
-
+#include "Exception.hpp"
 #include "Overflow.hpp"
 #include "Factory.hpp"
 #include "IOperand.hpp"
@@ -45,11 +45,12 @@ avm::IOperand *avm::myBigdecimal::operator+(const IOperand &other) const
     std::string result;
     avm::IOperand *newOperand;
     avm::Factory fct;
+    avm::myException exc;
 
     int64_t thisValue = static_cast<int64_t>(std::stod(this->value));
     int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
     if (isAddOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
-        std::cerr << "myBigDecimal::operator+ error: overflow or underflow\n";
+        exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
         return (NULL);
     }
     result = std::to_string(otherValue + thisValue);
@@ -65,11 +66,12 @@ avm::IOperand *avm::myBigdecimal::operator-(const IOperand &other) const
     std::string result;
     avm::IOperand *newOperand;
     avm::Factory fct;
+    avm::myException exc;
 
     int64_t thisValue = static_cast<int64_t>(std::stod(this->value));
     int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
     if (isSubOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
-        std::cerr << "myBigDecimal::operator- error: overflow or underflow\n";
+        exc.printError("myBigDecimal::operator- error: overflow or underflow\n");
         return (NULL);
     }
     result = std::to_string(otherValue - thisValue);
@@ -85,11 +87,12 @@ avm::IOperand *avm::myBigdecimal::operator*(const IOperand &other) const
     std::string result;
     avm::IOperand *newOperand;
     avm::Factory fct;
+    avm::myException exc;
 
     int64_t thisValue = static_cast<int64_t>(std::stod(this->value));
     int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
     if (avm::isMulOverflowing(std::numeric_limits<int64_t>::max(), std::numeric_limits<int64_t>::min(), thisValue, otherValue)) {
-        std::cerr << "myBigDecimal::operator* error: overflow or underflow\n";
+        exc.printError("myBigDecimal::operator* error: overflow or underflow\n");
         return (NULL);
     }
     result = std::to_string(otherValue * thisValue);
@@ -105,12 +108,13 @@ avm::IOperand *avm::myBigdecimal::operator/(const IOperand &other) const
     std::string result;
     avm::IOperand *newOperand;
     avm::Factory fct;
+    avm::myException exc;
 
 
     int64_t thisValue = static_cast<int64_t>(std::stod(this->value));
     int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
     if (thisValue == 0) {
-        std::cerr << "myBigDecimal::operator/ error: division by 0\n";
+        exc.printError("myBigDecimal::operator/ error: division by 0\n");
         return (NULL);
     }
     result = std::to_string(otherValue / thisValue);
@@ -126,11 +130,12 @@ avm::IOperand *avm::myBigdecimal::operator%(const IOperand &other) const
     std::string result;
     avm::IOperand *newOperand;
     avm::Factory fct;
+    avm::myException exc;
 
     int64_t thisValue = static_cast<int64_t>(std::stod(this->value));
     int64_t otherValue = static_cast<int64_t>(std::stod(other.toString()));
     if (thisValue == 0) {
-        std::cerr << "myBigDecimal::operator\% error: modulo by 0\n";
+        exc.printError("myBigDecimal::operator\% error: modulo by 0\n");
         return (NULL);
     }
     result = std::to_string(otherValue % thisValue);

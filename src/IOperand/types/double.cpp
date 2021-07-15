@@ -13,6 +13,7 @@
 #include "IOperand.hpp"
 #include "Factory.hpp"
 #include "double.hpp"
+#include "Exception.hpp"
 
 avm::myDouble::myDouble(const std::string &value)
 {
@@ -45,11 +46,12 @@ avm::IOperand *avm::myDouble::operator+(const IOperand &other) const
     std::string result;
     avm::IOperand *newOperand;
     avm::Factory fct;
+    avm::myException exc;
 
     double thisValue = std::stod(this->value);
     double otherValue = std::stod(other.toString());
     if (isAddOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), thisValue, otherValue)) {
-        std::cerr << "myDouble::operator+ error: overflow or underflow\n";
+        exc.printError("myDouble::operator+ error: overflow or underflow\n");
         return (NULL);
     }
     result = std::to_string(otherValue + thisValue);
@@ -65,11 +67,12 @@ avm::IOperand *avm::myDouble::operator-(const IOperand &other) const
     std::string result;
     avm::IOperand *newOperand;
     avm::Factory fct;
+    avm::myException exc;
 
     double thisValue = std::stod(this->value);
     double otherValue = std::stod(other.toString());
     if (avm::isSubOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), thisValue, otherValue)) {
-        std::cerr << "myDouble::operator- error: overflow or underflow\n";
+        exc.printError("myDouble::operator- error: overflow or underflow\n");
         return (NULL);
     }
     result = std::to_string(otherValue - thisValue);
@@ -85,11 +88,12 @@ avm::IOperand *avm::myDouble::operator*(const IOperand &other) const
     std::string result;
     avm::IOperand *newOperand;
     avm::Factory fct;
+    avm::myException exc;
 
     double thisValue = std::stod(this->value);
     double otherValue = std::stod(other.toString());
     if (avm::isMulOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), thisValue, otherValue)) {
-        std::cerr << "myDouble::operator* error: overflow or underflow\n";
+        exc.printError("myDouble::operator* error: overflow or underflow\n");
         return (NULL);
     }
     result = std::to_string(otherValue * thisValue);
@@ -105,12 +109,13 @@ avm::IOperand *avm::myDouble::operator/(const IOperand &other) const
     std::string result;
     avm::IOperand *newOperand;
     avm::Factory fct;
+    avm::myException exc;
 
 
     double thisValue = std::stod(this->value);
     double otherValue = std::stod(other.toString());
     if (thisValue == 0) {
-        std::cerr << "myDouble::operator/ error: division by 0\n";
+        exc.printError("myDouble::operator/ error: division by 0\n");
         return (NULL);
     }
     result = std::to_string(otherValue / thisValue);
@@ -126,11 +131,12 @@ avm::IOperand *avm::myDouble::operator%(const IOperand &other) const
     std::string result;
     avm::IOperand *newOperand;
     avm::Factory fct;
+    avm::myException exc;
 
     double thisValue = std::stod(this->value);
     double otherValue = std::stod(other.toString());
     if (thisValue == 0) {
-        std::cerr << "myDouble::operator\% error: modulo by 0\n";
+        exc.printError("myDouble::operator\% error: modulo by 0\n");
         return (NULL);
     }
     (void)(otherValue);

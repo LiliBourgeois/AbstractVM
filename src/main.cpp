@@ -37,13 +37,15 @@ std::string ReadFromTerminal()
 
 int main(int ac, char **av)
 {
+    avm::myException exc;
     std::string codeAsm;
+
     if (ac == 2) {
         codeAsm = ReadFromFile(av[1]);
     } else if (ac == 1) {
         codeAsm = ReadFromTerminal();
     } else {
-        std::cerr << "error: Please enter only one file name or less\n";
+        exc.printError("error: Please enter only one file name or less\n");
         return 84;
     }
     if (codeAsm.empty()){
