@@ -56,6 +56,10 @@ int avm::mload(avm::IOperand *data, std::vector<avm::IOperand *> *OList, std::ve
 {
     avm::Factory fct;
     avm::myException exc;
+    if (registers->at(std::stold(data->toString()))->isEmpty()) {
+        exc.printError("'LOAD' error: register is empty\n");
+        return 84;
+    }
     if (data == NULL) {
         exc.printError("'LOAD' error: data is null or stack is full\n");
         return 84;
