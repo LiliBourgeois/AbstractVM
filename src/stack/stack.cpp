@@ -64,11 +64,10 @@ int avm::mload(avm::IOperand *data, std::vector<avm::IOperand *> *OList, std::ve
         exc.printError("'LOAD' error: data is null or stack is full\n");
         return 84;
     }
-    if (std::stold(data->toString()) >= OList->size()){
+    if (std::stold(data->toString()) >= registers->size()){
         exc.printError("'LOAD' error: unreachable register\n");
         return 84;
     }
-
     avm::mpush(fct.createOperand(registers->at(stold(data->toString()))->getData()->getType(), registers->at(stold(data->toString()))->getData()->toString()), OList);
     return 0;
 }
