@@ -88,7 +88,7 @@ avm::IOperand *avm::myBigdecimal::operator-(const IOperand &other) const
     long double thisValue = static_cast<long double>(std::stold(this->value));
     long double otherValue = static_cast<long double>(std::stold(other.toString()));
     if (this->type >= other.getType()) {
-        if (isSubOverflowing(std::numeric_limits<long double>::max(), std::numeric_limits<long double>::min(), thisValue, otherValue)) {
+        if (isSubOverflowing(std::numeric_limits<long double>::max(), std::numeric_limits<long double>::lowest(), thisValue, otherValue)) {
             exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
             return (NULL);
         }

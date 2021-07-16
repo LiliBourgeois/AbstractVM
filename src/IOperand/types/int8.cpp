@@ -43,7 +43,7 @@ unsigned int avm::myInt8::getPrecision() const
 
 long double avm::myInt8::getMinValue() const
 {
-    return (std::numeric_limits<int8_t>::min());
+    return (std::numeric_limits<int8_t>::lowest());
 }
 
 long double avm::myInt8::getMaxValue() const
@@ -62,7 +62,7 @@ avm::IOperand *avm::myInt8::operator+(const IOperand &other) const
     int8_t thisValue = static_cast<int8_t>(std::stold(this->value));
     long double otherValue = static_cast<long double>(std::stold(other.toString()));
     if (this->type >= other.getType()) {
-        if (isAddOverflowing(std::numeric_limits<int8_t>::max(), std::numeric_limits<int8_t>::min(), thisValue, otherValue)) {
+        if (isAddOverflowing(std::numeric_limits<int8_t>::max(), std::numeric_limits<int8_t>::lowest(), thisValue, otherValue)) {
             exc.printError("myInt8::operator+ error: overflow or underflow\n");
             return (NULL);
         }
@@ -90,7 +90,7 @@ avm::IOperand *avm::myInt8::operator-(const IOperand &other) const
     int8_t thisValue = static_cast<int8_t>(std::stold(this->value));
     long double otherValue = static_cast<long double>(std::stold(other.toString()));
     if (this->type >= other.getType()) {
-        if (isSubOverflowing(std::numeric_limits<int8_t>::max(), std::numeric_limits<int8_t>::min(), thisValue, otherValue)) {
+        if (isSubOverflowing(std::numeric_limits<int8_t>::max(), std::numeric_limits<int8_t>::lowest(), thisValue, otherValue)) {
             exc.printError("myInt8::operator+ error: overflow or underflow\n");
             return (NULL);
         }
@@ -118,7 +118,7 @@ avm::IOperand *avm::myInt8::operator*(const IOperand &other) const
     int8_t thisValue = static_cast<int8_t>(std::stold(this->value));
     long double otherValue = static_cast<long double>(std::stold(other.toString()));
     if (this->type >= other.getType()) {
-        if (isMulOverflowing(std::numeric_limits<int8_t>::max(), std::numeric_limits<int8_t>::min(), thisValue, otherValue)) {
+        if (isMulOverflowing(std::numeric_limits<int8_t>::max(), std::numeric_limits<int8_t>::lowest(), thisValue, otherValue)) {
             exc.printError("myInt8::operator+ error: overflow or underflow\n");
             return (NULL);
         }

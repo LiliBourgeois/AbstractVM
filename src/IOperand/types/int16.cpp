@@ -43,7 +43,7 @@ unsigned int avm::myInt16::getPrecision() const
 
 long double avm::myInt16::getMinValue() const
 {
-    return (std::numeric_limits<int16_t>::min());
+    return (std::numeric_limits<int16_t>::lowest());
 }
 
 long double avm::myInt16::getMaxValue() const
@@ -62,7 +62,7 @@ avm::IOperand *avm::myInt16::operator+(const IOperand &other) const
     int16_t thisValue = static_cast<int16_t>(std::stold(this->value));
     long double otherValue = static_cast<long double>(std::stold(other.toString()));
     if (this->type >= other.getType()) {
-        if (isAddOverflowing(std::numeric_limits<int16_t>::max(), std::numeric_limits<int16_t>::min(), thisValue, otherValue)) {
+        if (isAddOverflowing(std::numeric_limits<int16_t>::max(), std::numeric_limits<int16_t>::lowest(), thisValue, otherValue)) {
             exc.printError("myInt16::operator+ error: overflow or underflow\n");
             return (NULL);
         }
@@ -90,7 +90,7 @@ avm::IOperand *avm::myInt16::operator-(const IOperand &other) const
     int16_t thisValue = static_cast<int16_t>(std::stold(this->value));
     long double otherValue = static_cast<long double>(std::stold(other.toString()));
     if (this->type >= other.getType()) {
-        if (isSubOverflowing(std::numeric_limits<int16_t>::max(), std::numeric_limits<int16_t>::min(), thisValue, otherValue)) {
+        if (isSubOverflowing(std::numeric_limits<int16_t>::max(), std::numeric_limits<int16_t>::lowest(), thisValue, otherValue)) {
             exc.printError("myInt16::operator+ error: overflow or underflow\n");
             return (NULL);
         }
@@ -118,7 +118,7 @@ avm::IOperand *avm::myInt16::operator*(const IOperand &other) const
     int16_t thisValue = static_cast<int16_t>(std::stold(this->value));
     long double otherValue = static_cast<long double>(std::stold(other.toString()));
     if (this->type >= other.getType()) {
-        if (isMulOverflowing(std::numeric_limits<int16_t>::max(), std::numeric_limits<int16_t>::min(), thisValue, otherValue)) {
+        if (isMulOverflowing(std::numeric_limits<int16_t>::max(), std::numeric_limits<int16_t>::lowest(), thisValue, otherValue)) {
             exc.printError("myInt16::operator+ error: overflow or underflow\n");
             return (NULL);
         }

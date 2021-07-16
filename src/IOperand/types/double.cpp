@@ -89,7 +89,7 @@ avm::IOperand *avm::myDouble::operator-(const IOperand &other) const
     double thisValue = std::stold(this->value);
     long double otherValue = static_cast<long double>(std::stold(other.toString()));
     if (this->type >= other.getType()) {
-        if (isSubOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::min(), thisValue, otherValue)) {
+        if (isSubOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), thisValue, otherValue)) {
             exc.printError("double::operator+ error: overflow or underflow\n");
             return (NULL);
         }
@@ -117,7 +117,7 @@ avm::IOperand *avm::myDouble::operator*(const IOperand &other) const
     double thisValue = std::stold(this->value);
     long double otherValue = std::stold(other.toString());
     if (this->type >= other.getType()) {
-        if (isMulOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::min(), thisValue, otherValue)) {
+        if (isMulOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), thisValue, otherValue)) {
             exc.printError("double::operator+ error: overflow or underflow\n");
             return (NULL);
         }
