@@ -73,7 +73,7 @@ void avm::getTab(std::string codeAsm, std::vector<avm::Instruction_t *> &iList)
     avm::Factory f;
 
     tmp.str(codeAsm);
-    for (std::string line; std::getline(tmp, line); ) {
+    for (std::string line; std::getline(tmp, line) ; ) {
         if (line.compare("") != 0 && avm::HasOnlySpaces(line) != false) {
             newInstruction = new(avm::Instruction_t);
             newInstruction->i = getInstruction(line);
@@ -83,6 +83,8 @@ void avm::getTab(std::string codeAsm, std::vector<avm::Instruction_t *> &iList)
             }
             newInstruction->value = f.createOperand(type, value);
             iList.push_back(newInstruction);
+            if (newInstruction->i == 15)
+                return;
         }
     }
 }
