@@ -212,12 +212,13 @@ int avm::mdup(std::vector<avm::IOperand *> *OList)
 int avm::mswap(std::vector<avm::IOperand *> *OList)
 {
     avm::myException exc;
+    avm::Factory fct;
 
     if (OList->size() < 2) {
         exc.printError("'SWAP' error: not enough value on the stack\n");
         return 84;
     }
-    OList->insert(OList->begin(), OList->at(1));
+    OList->insert(OList->begin(), fct.createOperand(OList->at(1)->getType(), OList->at(1)->toString()));
     OList->erase(OList->begin() + 2);
     return 0;
 }
