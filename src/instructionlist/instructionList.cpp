@@ -16,6 +16,8 @@ avm::eInstruction avm::getInstruction(std::string instruction)
     const char *strInstruction[] = {"push", "assert", "load", "store", "pop", "dump", "clear", "dup", "swap", "add", "sub", "mul", "div", "mod", "print", "exit"};
     avm::eInstruction enumInstruction = avm::eInstruction::PUSH;
 
+    if (instruction.empty())
+        return avm::eInstruction::UNKNOWN_INSTRUCTION;
     while (instruction.find(strInstruction[enumInstruction]) == std::string::npos && enumInstruction != 16) {
         enumInstruction = avm::eInstruction(enumInstruction + 1);
     }
@@ -54,7 +56,7 @@ std::string getValue(std::string line)
 
 bool avm::HasOnlySpaces(std::string& str)
 {
-    char* token = strtok(const_cast<char*>(str.c_str()), " ");
+    char *token = strtok(const_cast<char*>(str.c_str()), " ");
 
     while (token != NULL) {
         if (*token != ' ') {

@@ -27,10 +27,12 @@ std::string ReadFromTerminal()
 {
     std::string codeAsm("");
     std::string line("");
+    char *str = new(char);
 
     while(line.compare(";;")) {
         codeAsm = codeAsm + line + "\n";
-        std::cin >> line;
+        std::cin.getline(str, 2000, '\n');
+        line = std::string(str);
     }
     return codeAsm;
 }
