@@ -10,14 +10,15 @@
 
     #include <vector>
 
+    #include "Registers.hpp"
     #include "IOperand.hpp"
 
     namespace avm {
 
         int mpush(avm::IOperand *data, std::vector<avm::IOperand *> *OList);
         int massert(avm::IOperand *data, std::vector<avm::IOperand *> *OList);
-        int mload(avm::IOperand *data, std::vector<avm::IOperand *> *OList);
-        int mstore(avm::IOperand *dest, std::vector<avm::IOperand *> *OList);
+        int mload(avm::IOperand *data, std::vector<avm::IOperand *> *OList, std::vector<avm::Registers *> *registers);
+        int mstore(avm::IOperand *dest, std::vector<avm::IOperand *> *OList, std::vector<avm::Registers *> *registers);
         int mpop(std::vector<avm::IOperand *> *OList);
         int mdump(std::vector<avm::IOperand *> *OList);
         int mclear(std::vector<avm::IOperand *> *OList);
