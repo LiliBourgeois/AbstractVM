@@ -23,7 +23,7 @@ Test(test_mdiv, test_int8_div)
     stack.push_back(v2);
     avm::mdiv(&stack);
 
-    cr_assert_eq(2, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(2, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_mdiv, test_int16_div)
@@ -37,7 +37,7 @@ Test(test_mdiv, test_int16_div)
     stack.push_back(v2);
     avm::mdiv(&stack);
 
-    cr_assert_eq(2, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(2, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_mdiv, test_int32_div)
@@ -51,7 +51,7 @@ Test(test_mdiv, test_int32_div)
     stack.push_back(v2);
     avm::mdiv(&stack);
 
-    cr_assert_eq(2, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(2, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_mdiv, test_float_div)
@@ -65,7 +65,7 @@ Test(test_mdiv, test_float_div)
     stack.push_back(v2);
     avm::mdiv(&stack);
 
-    cr_assert_eq(2.5, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(2.5, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_mdiv, test_double_div)
@@ -79,7 +79,7 @@ Test(test_mdiv, test_double_div)
     stack.push_back(v2);
     avm::mdiv(&stack);
 
-    cr_assert_eq(2.5, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(2.5, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_mdiv, test_bigdecimal_div)
@@ -93,5 +93,5 @@ Test(test_mdiv, test_bigdecimal_div)
     stack.push_back(v2);
     avm::mdiv(&stack);
 
-    cr_assert_eq(2.5, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(2.5, std::stold(stack.at(0)->toString()));
 }

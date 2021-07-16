@@ -25,8 +25,8 @@ Test(test_mstore, test_store)
 
     avm::mstore(dest, &stack);
 
-    cr_assert_eq(0, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(0, std::stold(stack.at(0)->toString()));
     cr_assert_eq(avm::eOperandType::FLOAT, stack.at(0)->getType());
-    cr_assert_eq(99, std::stod(stack.at(1)->toString()));
+    cr_assert_eq(99, std::stold(stack.at(1)->toString()));
     cr_assert_eq(avm::eOperandType::BIGDECIMAL, stack.at(1)->getType());
 }

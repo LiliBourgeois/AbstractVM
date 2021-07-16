@@ -31,10 +31,10 @@ Test(test_mload, test_load)
 
     avm::mload(src, &stack);
 
-    cr_assert_eq(1, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(1, std::stold(stack.at(0)->toString()));
     cr_assert_eq(avm::eOperandType::FLOAT, stack.at(0)->getType());
-    cr_assert_eq(0, std::stod(stack.at(1)->toString()));
+    cr_assert_eq(0, std::stold(stack.at(1)->toString()));
     cr_assert_eq(avm::eOperandType::FLOAT, stack.at(1)->getType());
-    cr_assert_eq(1, std::stod(stack.at(2)->toString()));
+    cr_assert_eq(1, std::stold(stack.at(2)->toString()));
     cr_assert_eq(avm::eOperandType::FLOAT, stack.at(2)->getType());
 }

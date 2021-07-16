@@ -20,6 +20,6 @@ Test(test_mpush, test_bigdecimal_push)
 
     avm::mpush(v, &stack);
 
-    cr_assert_eq(4, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(4, std::stold(stack.at(0)->toString()));
     cr_assert_eq(avm::eOperandType::BIGDECIMAL, stack.at(0)->getType());
 }

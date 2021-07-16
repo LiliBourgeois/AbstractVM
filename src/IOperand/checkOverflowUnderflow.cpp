@@ -30,6 +30,7 @@ bool avm::isSubOverflowing(long double max, long double min, long double x, long
 
 bool avm::isMulOverflowing(long double max, long double min, long double x, long double y)
 {
+    std::cout << "IS MUL OVERFLOWING\n";
     if (x == -1 && y == min) {
         return true;
     } else if (x == -1) {

@@ -58,8 +58,8 @@ avm::IOperand *avm::myDouble::operator+(const IOperand &other) const
     avm::Factory fct;
     avm::myException exc;
 
-    double thisValue = std::stod(this->value);
-    long double otherValue = static_cast<long double>(std::stod(other.toString()));
+    double thisValue = std::stold(this->value);
+    long double otherValue = static_cast<long double>(std::stold(other.toString()));
     if (this->type >= other.getType()) {
         if (isAddOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), thisValue, otherValue)) {
             exc.printError("double::operator+ error: overflow or underflow\n");
@@ -86,8 +86,8 @@ avm::IOperand *avm::myDouble::operator-(const IOperand &other) const
     avm::Factory fct;
     avm::myException exc;
 
-    double thisValue = std::stod(this->value);
-    long double otherValue = static_cast<long double>(std::stod(other.toString()));
+    double thisValue = std::stold(this->value);
+    long double otherValue = static_cast<long double>(std::stold(other.toString()));
     if (this->type >= other.getType()) {
         if (isSubOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::min(), thisValue, otherValue)) {
             exc.printError("double::operator+ error: overflow or underflow\n");
@@ -114,8 +114,8 @@ avm::IOperand *avm::myDouble::operator*(const IOperand &other) const
     avm::Factory fct;
     avm::myException exc;
 
-    double thisValue = std::stod(this->value);
-    long double otherValue = std::stod(other.toString());
+    double thisValue = std::stold(this->value);
+    long double otherValue = std::stold(other.toString());
     if (this->type >= other.getType()) {
         if (isMulOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::min(), thisValue, otherValue)) {
             exc.printError("double::operator+ error: overflow or underflow\n");
@@ -143,8 +143,8 @@ avm::IOperand *avm::myDouble::operator/(const IOperand &other) const
     avm::myException exc;
 
 
-    double thisValue = std::stod(this->value);
-    long double otherValue = std::stod(other.toString());
+    double thisValue = std::stold(this->value);
+    long double otherValue = std::stold(other.toString());
     if (thisValue == 0) {
         exc.printError("myDouble::operator/ error: division by 0\n");
         return (NULL);
@@ -164,8 +164,8 @@ avm::IOperand *avm::myDouble::operator%(const IOperand &other) const
     avm::Factory fct;
     avm::myException exc;
 
-    double thisValue = std::stod(this->value);
-    long double otherValue = std::stod(other.toString());
+    double thisValue = std::stold(this->value);
+    long double otherValue = std::stold(other.toString());
     if (thisValue == 0) {
         exc.printError("myDouble::operator\% error: modulo by 0\n");
         return (NULL);

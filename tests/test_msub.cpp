@@ -23,7 +23,7 @@ Test(test_msub, test_int8_sub)
     stack.push_back(v2);
     avm::msub(&stack);
 
-    cr_assert_eq(-1, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(-1, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_msub, test_int16_sub)
@@ -37,7 +37,7 @@ Test(test_msub, test_int16_sub)
     stack.push_back(v2);
     avm::msub(&stack);
 
-    cr_assert_eq(-1, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(-1, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_msub, test_int32_sub)
@@ -51,7 +51,7 @@ Test(test_msub, test_int32_sub)
     stack.push_back(v2);
     avm::msub(&stack);
 
-    cr_assert_eq(-1, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(-1, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_msub, test_float_sub)
@@ -65,7 +65,7 @@ Test(test_msub, test_float_sub)
     stack.push_back(v2);
     avm::msub(&stack);
 
-    cr_assert_eq(-1, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(-1, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_msub, test_double_sub)
@@ -79,7 +79,7 @@ Test(test_msub, test_double_sub)
     stack.push_back(v2);
     avm::msub(&stack);
 
-    cr_assert_eq(-1, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(-1, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_msub, test_bigdecimal_sub)
@@ -93,7 +93,7 @@ Test(test_msub, test_bigdecimal_sub)
     stack.push_back(v2);
     avm::msub(&stack);
 
-    cr_assert_eq(-1, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(-1, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_msub, test_int8_n_sub)
@@ -107,7 +107,7 @@ Test(test_msub, test_int8_n_sub)
     stack.push_back(v2);
     avm::msub(&stack);
 
-    cr_assert_eq(1, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(1, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_msub, test_int16_n_sub)
@@ -121,7 +121,7 @@ Test(test_msub, test_int16_n_sub)
     stack.push_back(v2);
     avm::msub(&stack);
 
-    cr_assert_eq(1, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(1, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_msub, test_int32_n_sub)
@@ -135,7 +135,7 @@ Test(test_msub, test_int32_n_sub)
     stack.push_back(v2);
     avm::msub(&stack);
 
-    cr_assert_eq(1, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(1, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_msub, test_float_n_sub)
@@ -149,7 +149,7 @@ Test(test_msub, test_float_n_sub)
     stack.push_back(v2);
     avm::msub(&stack);
 
-    cr_assert_eq(1, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(1, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_msub, test_double_n_sub)
@@ -163,7 +163,7 @@ Test(test_msub, test_double_n_sub)
     stack.push_back(v2);
     avm::msub(&stack);
 
-    cr_assert_eq(1, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(1, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_msub, test_bigdecimal_n_sub)
@@ -177,5 +177,5 @@ Test(test_msub, test_bigdecimal_n_sub)
     stack.push_back(v2);
     avm::msub(&stack);
 
-    cr_assert_eq(1, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(1, std::stold(stack.at(0)->toString()));
 }

@@ -23,7 +23,7 @@ Test(test_mmul, test_int8_mul)
     stack.push_back(v2);
     avm::mmul(&stack);
 
-    cr_assert_eq(12, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(12, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_mmul, test_int16_mul)
@@ -37,7 +37,7 @@ Test(test_mmul, test_int16_mul)
     stack.push_back(v2);
     avm::mmul(&stack);
 
-    cr_assert_eq(12, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(12, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_mmul, test_int32_mul)
@@ -51,7 +51,7 @@ Test(test_mmul, test_int32_mul)
     stack.push_back(v2);
     avm::mmul(&stack);
 
-    cr_assert_eq(12, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(12, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_mmul, test_float_mul)
@@ -65,7 +65,7 @@ Test(test_mmul, test_float_mul)
     stack.push_back(v2);
     avm::mmul(&stack);
 
-    cr_assert_eq(12, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(12, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_mmul, test_double_mul)
@@ -79,7 +79,7 @@ Test(test_mmul, test_double_mul)
     stack.push_back(v2);
     avm::mmul(&stack);
 
-    cr_assert_eq(12, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(12, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_mmul, test_bigdecimal_mul)
@@ -93,5 +93,5 @@ Test(test_mmul, test_bigdecimal_mul)
     stack.push_back(v2);
     avm::mmul(&stack);
 
-    cr_assert_eq(12, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(12, std::stold(stack.at(0)->toString()));
 }

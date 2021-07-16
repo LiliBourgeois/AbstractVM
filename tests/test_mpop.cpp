@@ -23,6 +23,6 @@ Test(test_mpop, test_pop)
     avm::mpush(v2, &stack);
     avm::mpop(&stack);
 
-    cr_assert_eq(4, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(4, std::stold(stack.at(0)->toString()));
     cr_assert_eq(avm::eOperandType::BIGDECIMAL, stack.at(0)->getType());
 }

@@ -143,8 +143,8 @@ avm::IOperand *avm::myFloat::operator/(const IOperand &other) const
     avm::myException exc;
 
 
-    float thisValue = std::stod(this->value);
-    long double otherValue = std::stod(other.toString());
+    float thisValue = std::stold(this->value);
+    long double otherValue = std::stold(other.toString());
     if (thisValue == 0) {
         exc.printError("myFloat::operator/ error: division by 0\n");
         return (NULL);

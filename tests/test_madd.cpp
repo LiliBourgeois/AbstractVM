@@ -23,7 +23,7 @@ Test(test_madd, test_int8_add)
     stack.push_back(v2);
     avm::madd(&stack);
 
-    cr_assert_eq(7, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(7, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_madd, test_int16_add)
@@ -37,7 +37,7 @@ Test(test_madd, test_int16_add)
     stack.push_back(v2);
     avm::madd(&stack);
 
-    cr_assert_eq(7, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(7, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_madd, test_int32_add)
@@ -51,7 +51,7 @@ Test(test_madd, test_int32_add)
     stack.push_back(v2);
     avm::madd(&stack);
 
-    cr_assert_eq(7, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(7, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_madd, test_float_add)
@@ -65,7 +65,7 @@ Test(test_madd, test_float_add)
     stack.push_back(v2);
     avm::madd(&stack);
 
-    cr_assert_eq(7, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(7, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_madd, test_double_add)
@@ -79,7 +79,7 @@ Test(test_madd, test_double_add)
     stack.push_back(v2);
     avm::madd(&stack);
 
-    cr_assert_eq(7, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(7, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_madd, test_bigdecimal_add)
@@ -93,7 +93,7 @@ Test(test_madd, test_bigdecimal_add)
     stack.push_back(v2);
     avm::madd(&stack);
 
-    cr_assert_eq(7, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(7, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_madd, test_int8_n_add)
@@ -107,7 +107,7 @@ Test(test_madd, test_int8_n_add)
     stack.push_back(v2);
     avm::madd(&stack);
 
-    cr_assert_eq(-7, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(-7, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_madd, test_int16_n_add)
@@ -121,7 +121,7 @@ Test(test_madd, test_int16_n_add)
     stack.push_back(v2);
     avm::madd(&stack);
 
-    cr_assert_eq(-7, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(-7, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_madd, test_int32_n_add)
@@ -135,7 +135,7 @@ Test(test_madd, test_int32_n_add)
     stack.push_back(v2);
     avm::madd(&stack);
 
-    cr_assert_eq(-7, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(-7, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_madd, test_float_n_add)
@@ -149,7 +149,7 @@ Test(test_madd, test_float_n_add)
     stack.push_back(v2);
     avm::madd(&stack);
 
-    cr_assert_eq(-7, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(-7, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_madd, test_double_n_add)
@@ -163,7 +163,7 @@ Test(test_madd, test_double_n_add)
     stack.push_back(v2);
     avm::madd(&stack);
 
-    cr_assert_eq(-7, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(-7, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_madd, test_bigdecimal_n_add)
@@ -177,5 +177,5 @@ Test(test_madd, test_bigdecimal_n_add)
     stack.push_back(v2);
     avm::madd(&stack);
 
-    cr_assert_eq(-7, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(-7, std::stold(stack.at(0)->toString()));
 }

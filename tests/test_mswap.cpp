@@ -24,8 +24,8 @@ Test(test_mswap, test_swap)
 
     avm::mswap(&stack);
 
-    cr_assert_eq(4, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(4, std::stold(stack.at(0)->toString()));
     cr_assert_eq(avm::eOperandType::BIGDECIMAL, stack.at(0)->getType());
-    cr_assert_eq(-23, std::stod(stack.at(1)->toString()));
+    cr_assert_eq(-23, std::stold(stack.at(1)->toString()));
     cr_assert_eq(avm::eOperandType::INT32, stack.at(1)->getType());
 }

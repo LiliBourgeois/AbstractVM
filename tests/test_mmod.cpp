@@ -23,7 +23,7 @@ Test(test_mmod, test_int8_mod)
     stack.push_back(v2);
     avm::mmod(&stack);
 
-    cr_assert_eq(2, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(2, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_mmod, test_int16_mod)
@@ -37,7 +37,7 @@ Test(test_mmod, test_int16_mod)
     stack.push_back(v2);
     avm::mmod(&stack);
 
-    cr_assert_eq(2, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(2, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_mmod, test_int32_mod)
@@ -51,7 +51,7 @@ Test(test_mmod, test_int32_mod)
     stack.push_back(v2);
     avm::mmod(&stack);
 
-    cr_assert_eq(2, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(2, std::stold(stack.at(0)->toString()));
 }
 
 Test(test_mmod, test_bigdecimal_mod)
@@ -65,5 +65,5 @@ Test(test_mmod, test_bigdecimal_mod)
     stack.push_back(v2);
     avm::mmod(&stack);
 
-    cr_assert_eq(2, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(2, std::stold(stack.at(0)->toString()));
 }
