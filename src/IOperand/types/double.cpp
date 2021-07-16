@@ -168,24 +168,6 @@ avm::IOperand *avm::myDouble::operator/(const IOperand &other) const
 
 avm::IOperand *avm::myDouble::operator%(const IOperand &other) const
 {
-    std::string result;
-    avm::IOperand *newOperand;
-    avm::IOperand *tmpOperand;
-    avm::Factory fct;
-    avm::myException exc;
-
-    double thisValue = std::stold(this->value);
-    long double otherValue = std::stold(other.toString());
-    if (thisValue == 0) {
-        exc.printError("myDouble::operator\% error: modulo by 0\n");
-        return (NULL);
-    }
-    (void)(otherValue);
-    if (this->getType() > other.getType())
-        tmpOperand = fct.createOperand(this->getType(), result);
-    else
-        tmpOperand = fct.createOperand(other.getType(), result);
-    newOperand = fct.createOperand(tmpOperand->getType(), avm::checkNumber(tmpOperand->toString(), tmpOperand->getType(), tmpOperand->getPrecision()));
-    (void)(newOperand);
-    return (NULL);
+    (void)other;
+    return NULL;
 }

@@ -167,23 +167,6 @@ avm::IOperand *avm::myBigdecimal::operator/(const IOperand &other) const
 
 avm::IOperand *avm::myBigdecimal::operator%(const IOperand &other) const
 {
-    std::string result;
-    avm::IOperand *newOperand;
-    avm::IOperand *tmpOperand;
-    avm::Factory fct;
-    avm::myException exc;
-
-    int64_t thisValue = static_cast<int64_t>(std::stold(this->value));
-    int64_t otherValue = static_cast<int64_t>(std::stold(other.toString()));
-    if (thisValue == 0) {
-        exc.printError("myBigDecimal::operator\% error: modulo by 0\n");
-        return (NULL);
-    }
-    result = std::to_string(otherValue % thisValue);
-    if (this->getType() > other.getType())
-        tmpOperand = fct.createOperand(this->getType(), result);
-    else
-        tmpOperand = fct.createOperand(other.getType(), result);
-    newOperand = fct.createOperand(tmpOperand->getType(), avm::checkNumber(tmpOperand->toString(), tmpOperand->getType(), tmpOperand->getPrecision()));
-    return (newOperand);
+    (void)other;
+    return NULL;
 }
