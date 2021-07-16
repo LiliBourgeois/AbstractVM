@@ -12,7 +12,7 @@
     #include <exception>
 
     namespace avm {
-        class myException : std::exception
+        class myException : public std::exception
         {
         public:
             void printError(const char *);

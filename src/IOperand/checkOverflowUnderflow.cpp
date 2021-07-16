@@ -30,10 +30,16 @@ bool avm::isSubOverflowing(long double max, long double min, long double x, long
 
 bool avm::isMulOverflowing(long double max, long double min, long double x, long double y)
 {
-    if (x == -1 && y == min)
+    if (x == -1 && y == min) {
         return true;
-    if (y == -1 && x == min)
+    } else if (x == -1) {
+        return false;
+    }
+    if (y == -1 && x == min) {
         return true;
+    } else if (y == -1) {
+        return false;
+    }
     if (y > max / x)
         return true;
     if (y < min / x)
