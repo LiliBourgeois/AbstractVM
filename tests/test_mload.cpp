@@ -8,12 +8,14 @@
 #include <criterion/criterion.h>
 #include <string>
 
+#include "Registers.hpp"
 #include "Factory.hpp"
 #include "IOperand.hpp"
 #include "Stack.hpp"
 
 Test(test_mload, test_load)
 {
+    std::vector<avm::Registers *> registers;
     std::vector<avm::IOperand *> stack;
     avm::Factory fct;
     avm::IOperand *v1 = fct.createOperand(avm::eOperandType::FLOAT, "4");
@@ -28,13 +30,13 @@ Test(test_mload, test_load)
     avm::mpush(v3, &stack);
     avm::mpush(v4, &stack);
     avm::mpush(v5, &stack);
+    avm::createRegisters(registers);
 
-    avm::mload(src, &stack);
+    avm::mstore(src, &stack, &registers);
+    avm::mload(src, &stack, &registers);
 
-    cr_assert_eq(1, std::stold(stack.at(0)->toString()));
+    cr_assert_eq(0, std::stold(stack.at(0)->toString()));
     cr_assert_eq(avm::eOperandType::FLOAT, stack.at(0)->getType());
-    cr_assert_eq(0, std::stold(stack.at(1)->toString()));
+    cr_assert_eq(1, std::stold(stack.at(1)->toString()));
     cr_assert_eq(avm::eOperandType::FLOAT, stack.at(1)->getType());
-    cr_assert_eq(1, std::stold(stack.at(2)->toString()));
-    cr_assert_eq(avm::eOperandType::FLOAT, stack.at(2)->getType());
 }

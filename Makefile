@@ -22,10 +22,11 @@ SRC		=	./src/IOperand/checkOverflowUnderflow.cpp	\
 			\
 			./src/stack/stack.cpp	\
 			./src/stack/checkZero.cpp	\
+			./src/registers.cpp	\
 			\
 			./src/abstractVM.cpp	\
 			\
-			./src/exception/exception.cpp	\
+			./src/exception/exception.cpp
 
 TEST	=	./tests/test_abstractVM.cpp	\
 			./tests/test_madd.cpp	\
