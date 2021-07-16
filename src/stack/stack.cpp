@@ -85,7 +85,7 @@ int avm::mstore(avm::IOperand *data, std::vector<avm::IOperand *> *OList)
         exc.printError("'STORE' error: unreachable register\n");
         return 84;
     }
-    OList->insert(OList->begin() + std::stold(data->toString()) + 1, fct.createOperand(OList->at(0)->getType(), OList->at(0)->toString()));
+    
     mpop(OList);
     return 0;
 }
@@ -198,13 +198,14 @@ int avm::mclear(std::vector<avm::IOperand *> *OList)
 
 int avm::mdup(std::vector<avm::IOperand *> *OList)
 {
+    avm::Factory fct;
     avm::myException exc;
 
     if (OList->size() >= 16) {
         exc.printError("'DUP' error: stack is full\n");
         return 84;
     }
-    OList->insert(OList->begin(), OList->at(0));
+    OList->insert(OList->begin(), fct.createOperand(OList->at(0)->getType(), OList->at(0)->toString()));
     return 0;
 }
 
