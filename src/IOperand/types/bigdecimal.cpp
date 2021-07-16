@@ -42,7 +42,7 @@ unsigned int avm::myBigdecimal::getPrecision() const
 
 long double avm::myBigdecimal::getMinValue() const
 {
-    return (std::numeric_limits<long double>::min());
+    return (std::numeric_limits<long double>::lowest());
 }
 
 long double avm::myBigdecimal::getMaxValue() const
@@ -60,7 +60,7 @@ avm::IOperand *avm::myBigdecimal::operator+(const IOperand &other) const
     long double thisValue = static_cast<long double>(std::stod(this->value));
     long double otherValue = static_cast<long double>(std::stod(other.toString()));
     if (this->type >= other.getType()) {
-        if (isAddOverflowing(std::numeric_limits<long double>::max(), std::numeric_limits<long double>::min(), thisValue, otherValue)) {
+        if (isAddOverflowing(std::numeric_limits<long double>::max(), std::numeric_limits<long double>::lowest(), thisValue, otherValue)) {
             exc.printError("myBigDecimal::operator+ error: overflow or underflow\n");
             return (NULL);
         }

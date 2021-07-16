@@ -93,5 +93,5 @@ Test(test_mdiv, test_bigdecimal_div)
     stack.push_back(v2);
     avm::mdiv(&stack);
 
-    cr_assert_eq(2, std::stod(stack.at(0)->toString()));
+    cr_assert_eq(2.5, std::stod(stack.at(0)->toString()));
 }

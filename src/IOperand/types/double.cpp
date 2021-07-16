@@ -61,7 +61,7 @@ avm::IOperand *avm::myDouble::operator+(const IOperand &other) const
     double thisValue = std::stod(this->value);
     long double otherValue = static_cast<long double>(std::stod(other.toString()));
     if (this->type >= other.getType()) {
-        if (isAddOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::min(), thisValue, otherValue)) {
+        if (isAddOverflowing(std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), thisValue, otherValue)) {
             exc.printError("double::operator+ error: overflow or underflow\n");
             return (NULL);
         }
