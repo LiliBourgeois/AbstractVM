@@ -9,8 +9,10 @@
 #include <iostream>
 #include <sstream>
 #include <string.h>
+#include <algorithm>
 
 #include "AbstractVM.hpp"
+#include "Instruction.hpp"
 #include "Exception.hpp"
 
 size_t GetTypeSize(std::string value)
@@ -57,6 +59,35 @@ bool CheckTheNb(std::string line, avm::eOperandType type)
     return true;
 }
 
+std::string RemoveSpaces(std::string line)
+{
+    size_t i = 0;
+
+    while (i < line.length()) {
+        if (line[i] == ' ' || line[i] == '\t') {
+            line.erase(i, 1);
+        } else {
+            i += 1;
+        }
+    }
+    return line;
+}
+
+std::string RemoveSpacesUntilWord(std::string line)
+{
+    size_t i = 0;
+
+    while (i < line.length() && line[i] == ' ') {
+        if (line[i] == ' ' || line[i] == '\t') {
+            line.erase(i, 1);
+        } else {
+            i += 1;
+        }
+    }
+    return line;
+}
+
+
 bool CheckSyntacticalError(std::string line, avm::eInstruction enumInstruction, const char *strInstruction[])
 {
     size_t instructionSize = strlen(strInstruction[enumInstruction]); 
@@ -65,17 +96,24 @@ bool CheckSyntacticalError(std::string line, avm::eInstruction enumInstruction, 
     avm::myException exc;
 
     if (enumInstruction > 3) {
+        line = RemoveSpaces(line);
         if (line.length() != instructionSize) {
             return false;
         }
     } else if (0 <= enumInstruction && enumInstruction <= 3) {
+        line = RemoveSpacesUntilWord(line);
         line.erase(0, instructionSize + 1);
+        line = RemoveSpacesUntilWord(line);
         typeSize = GetTypeSize(line);
         if (typeSize == 0) {
-           return false;
+            exc.printError("error: number type not valid\n");
+            return false;
         }
         line.erase(0, typeSize);
+        line = RemoveSpacesUntilWord(line);
+        line.erase(line.find_last_not_of(' ') + 1);
         if (line[0] != '(' || line.back() != ')') {
+            exc.printError("error: write correctly\n");
             return false;
         }
         line.erase(0, 1);
@@ -90,35 +128,29 @@ bool CheckSyntacticalError(std::string line, avm::eInstruction enumInstruction, 
 
 bool FindInstruction(std::string codeAsm, const char *strInstruction[])
 {
-    avm::eInstruction enumInstruction = avm::eInstruction(0);
+    avm::eInstruction enumInstruction;
     std::istringstream tmp;
-    int foundInstruction = 0;
     avm::myException exc;
 
     tmp.str(codeAsm);
     for (std::string line; std::getline(tmp, line); ) {
-        while (enumInstruction < 16) {
-            if (!line.empty() && line.find(strInstruction[enumInstruction]) != std::string::npos) {
-                foundInstruction = 1;
-                if (CheckSyntacticalError(line, enumInstruction, strInstruction) == false) {
-                    exc.printError("error: syntactical error\n");
-                    return false;
-                }
-                enumInstruction = avm::eInstruction(18);
+        enumInstruction = avm::getInstruction(line);
+        if (!line.empty() && enumInstruction != 16) {
+            if (CheckSyntacticalError(line, avm::getInstruction(line), strInstruction) == false) {
+                exc.printError("error: syntactical error\n");
+                return false;
             }
-            enumInstruction = avm::eInstruction(enumInstruction + 1);
         }
-        if (!line.empty() && foundInstruction == 0) {
+        if (!line.empty() && avm::HasOnlySpaces(line) != false && enumInstruction == 16) {
             exc.printError("error: wrong instruction\n");
             return false;
         }
-        foundInstruction = 0;
         enumInstruction = avm::eInstruction(0);
     }
     return true;
 }
 
-bool avm::CheckCode(std::string codeAsm)
+bool avm::CheckCode(std::string  codeAsm)
 {
     const char *strInstruction[] = {"push", "assert", "load", "store", "pop", "dump", "clear", "dup", "swap", "add", "sub", "mul", "div", "mod", "print", "exit"};
     avm::myException exc;

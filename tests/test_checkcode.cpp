@@ -11,8 +11,8 @@
 
 Test(test_checkcode, test_legal_code_all_opp)
 {
-    std::string code = ";;;;;;;;;;;;;;\n;header\n;this is a file\n;;;;;;;;;;;;;;\npush int8(78)\npush int16(300)\nadd\ndump\t;should be 378\npush int16(90)\nsub\ndump\t;should be 288\npush int8(-1)\nmul\ndump\t;should be -288\npush int8(2)\ndiv\ndump\t;should be -144\npush int8(5)\nmod\ndump\t;should be -4\n    ;;;OPP END;;;\nexit";
-    cr_assert(avm::CheckCode(code));
+    std::string code = ";;;;;;;;;;;;;;\n;header\n;this is a file\n;;;;;;;;;;;;;;\npush int8(78)\npush int16(300)\nadd\ndump\t;should be 378\npush int16(90)\nsub\ndump\t;should be 288\npush int8(-1)\nmul\ndump\t;should be -288\npush int8(2)\ndiv\ndump\t;should be -144\npush int8(5)\nmod\ndump\t;should be -4\nexit";
+    cr_assert(avm::CheckCode(avm::GetRidOfComment(code)));
 }
 
 Test(test_checkcode, test_legal_code_all_types)

@@ -11,7 +11,7 @@
 #include "AbstractVM.hpp"
 #include <regex>
 
-std::string GetRidOfComment(std::string codeAsm)
+std::string avm::GetRidOfComment(std::string codeAsm)
 {
     size_t semicolonPos = 0;
     size_t endCommentPos = 0;
@@ -46,15 +46,17 @@ int avm::AbstractVMCore(std::vector<avm::Instruction_t *> &iList)
     if (iList.empty())
         return 84;
     while (running) {
-        if (iList.at(idx)->i <= 3) {
-            retval = vpf[iList.at(idx)->i](iList.at(idx)->value, &stack);
-        } else 
-            retval = pf[iList.at(idx)->i - 4](&stack);
-        if (retval == 84)
-            return 84;
-        idx = idx + 1;
-        if (iList.at(idx) == iList.back())
-            running = false;
+        if (iList.at(idx)->i != 16) {
+            if (iList.at(idx)->i <= 3) {
+                retval = vpf[iList.at(idx)->i](iList.at(idx)->value, &stack);
+            } else
+                retval = pf[iList.at(idx)->i - 4](&stack);
+            if (retval == 84)
+                return 84;
+            idx = idx + 1;
+            if (iList.at(idx) == iList.back())
+                running = false;
+        }
     }
     return 0;
 }
@@ -64,9 +66,9 @@ int avm::AbstractVM(std::string codeAsm)
     std::vector<avm::Instruction_t *> iList;
     bool isCodeCorrect = true;
 
-    codeAsm = GetRidOfComment(codeAsm);
+    codeAsm = avm::GetRidOfComment(codeAsm);
     codeAsm = GetRidOfTabs(codeAsm);
-    //isCodeCorrect = avm::CheckCode(codeAsm);
+    isCodeCorrect = avm::CheckCode(codeAsm);
     if (!isCodeCorrect)
         return 84;
     avm::getTab(codeAsm, iList);

@@ -8,14 +8,15 @@
 #include "AbstractVM.hpp"
 #include "IOperand.hpp"
 #include "Factory.hpp"
+#include "Instruction.hpp"
 #include <regex>
 
-avm::eInstruction getInstruction(std::string instruction)
+avm::eInstruction avm::getInstruction(std::string instruction)
 {
     const char *strInstruction[] = {"push", "assert", "load", "store", "pop", "dump", "clear", "dup", "swap", "add", "sub", "mul", "div", "mod", "print", "exit"};
     avm::eInstruction enumInstruction = avm::eInstruction::PUSH;
 
-    while (strInstruction[enumInstruction] != instruction && enumInstruction != 16) {
+    while (instruction.find(strInstruction[enumInstruction]) == std::string::npos && enumInstruction != 16) {
         enumInstruction = avm::eInstruction(enumInstruction + 1);
     }
     return enumInstruction;
@@ -39,19 +40,6 @@ avm::eOperandType avm::getType(std::string value)
     return avm::eOperandType::UNKNOWN;
 }
 
-std::string getFirstWord(std::string line)
-{
-    size_t firstSpace = line.find_first_of(' ');
-
-    while (firstSpace == 0 || line[0] == '\t') {
-        line.erase(firstSpace, 1);
-        firstSpace = line.find_first_of(' ');
-    }
-    if (firstSpace != std::string::npos)
-        line.erase(firstSpace);
-    return line;
-}
-
 std::string getValue(std::string line)
 {
     size_t i = 0;
@@ -64,6 +52,18 @@ std::string getValue(std::string line)
     return line;
 }
 
+bool avm::HasOnlySpaces(std::string& str)
+{
+    char* token = strtok(const_cast<char*>(str.c_str()), " ");
+
+    while (token != NULL) {
+        if (*token != ' ') {
+            return true;
+        }
+    }
+    return false;
+}
+
 void avm::getTab(std::string codeAsm, std::vector<avm::Instruction_t *> &iList)
 {
     std::istringstream tmp;
@@ -74,10 +74,9 @@ void avm::getTab(std::string codeAsm, std::vector<avm::Instruction_t *> &iList)
 
     tmp.str(codeAsm);
     for (std::string line; std::getline(tmp, line); ) {
-        if (line.compare("") != 0) {
-            value = getFirstWord(line);
+        if (line.compare("") != 0 && avm::HasOnlySpaces(line) != false) {
             newInstruction = new(avm::Instruction_t);
-            newInstruction->i = getInstruction(value);
+            newInstruction->i = getInstruction(line);
             type = getType(line);
             if (newInstruction->i <= 3){
                 value = getValue(line);
