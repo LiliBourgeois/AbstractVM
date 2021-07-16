@@ -12,6 +12,7 @@
 #include "Overflow.hpp"
 #include "Exception.hpp"
 #include "Factory.hpp"
+#include "Stack.hpp"
 #include "IOperand.hpp"
 #include "int8.hpp"
 
@@ -56,6 +57,7 @@ avm::IOperand *avm::myInt8::operator+(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
+    avm::IOperand *tmpOperand;
     avm::Factory fct;
     avm::myException exc;
 
@@ -74,9 +76,10 @@ avm::IOperand *avm::myInt8::operator+(const IOperand &other) const
     }
     result = std::to_string(otherValue + thisValue);
     if (this->getType() > other.getType())
-        newOperand = fct.createOperand(this->getType(), result);
+        tmpOperand = fct.createOperand(this->getType(), result);
     else
-        newOperand = fct.createOperand(other.getType(), result);
+        tmpOperand = fct.createOperand(other.getType(), result);
+    newOperand = fct.createOperand(tmpOperand->getType(), avm::checkNumber(tmpOperand->toString(), tmpOperand->getType(), tmpOperand->getPrecision()));
     return (newOperand);
 }
 
@@ -84,6 +87,7 @@ avm::IOperand *avm::myInt8::operator-(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
+    avm::IOperand *tmpOperand;
     avm::Factory fct;
     avm::myException exc;
 
@@ -102,9 +106,10 @@ avm::IOperand *avm::myInt8::operator-(const IOperand &other) const
     }
     result = std::to_string(otherValue - thisValue);
     if (this->getType() > other.getType())
-        newOperand = fct.createOperand(this->getType(), result);
+        tmpOperand = fct.createOperand(this->getType(), result);
     else
-        newOperand = fct.createOperand(other.getType(), result);
+        tmpOperand = fct.createOperand(other.getType(), result);
+    newOperand = fct.createOperand(tmpOperand->getType(), avm::checkNumber(tmpOperand->toString(), tmpOperand->getType(), tmpOperand->getPrecision()));
     return (newOperand);
 }
 
@@ -112,6 +117,7 @@ avm::IOperand *avm::myInt8::operator*(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
+    avm::IOperand *tmpOperand;
     avm::Factory fct;
     avm::myException exc;
 
@@ -130,9 +136,10 @@ avm::IOperand *avm::myInt8::operator*(const IOperand &other) const
     }
     result = std::to_string(otherValue * thisValue);
     if (this->getType() > other.getType())
-        newOperand = fct.createOperand(this->getType(), result);
+        tmpOperand = fct.createOperand(this->getType(), result);
     else
-        newOperand = fct.createOperand(other.getType(), result);
+        tmpOperand = fct.createOperand(other.getType(), result);
+    newOperand = fct.createOperand(tmpOperand->getType(), avm::checkNumber(tmpOperand->toString(), tmpOperand->getType(), tmpOperand->getPrecision()));
     return (newOperand);
 }
 
@@ -140,20 +147,22 @@ avm::IOperand *avm::myInt8::operator/(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
+    avm::IOperand *tmpOperand;
     avm::Factory fct;
     avm::myException exc;
 
     int8_t thisValue = static_cast<int8_t>(std::stold(this->value));
-    int64_t otherValue = static_cast<int64_t>(std::stold(other.toString()));
+    long double otherValue = static_cast<long double>(std::stold(other.toString()));
     if (thisValue == 0) {
         exc.printError("myInt8::operator/ error: division by 0\n");
         return (NULL);
     }
     result = std::to_string(otherValue / thisValue);
     if (this->getType() > other.getType())
-        newOperand = fct.createOperand(this->getType(), result);
+        tmpOperand = fct.createOperand(this->getType(), result);
     else
-        newOperand = fct.createOperand(other.getType(), result);
+        tmpOperand = fct.createOperand(other.getType(), result);
+    newOperand = fct.createOperand(tmpOperand->getType(), avm::checkNumber(tmpOperand->toString(), tmpOperand->getType(), tmpOperand->getPrecision()));
     return (newOperand);
 }
 
@@ -161,6 +170,7 @@ avm::IOperand *avm::myInt8::operator%(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
+    avm::IOperand *tmpOperand;
     avm::Factory fct;
     avm::myException exc;
 
@@ -172,8 +182,9 @@ avm::IOperand *avm::myInt8::operator%(const IOperand &other) const
     }
     result = std::to_string(otherValue % thisValue);
     if (this->getType() > other.getType())
-        newOperand = fct.createOperand(this->getType(), result);
+        tmpOperand = fct.createOperand(this->getType(), result);
     else
-        newOperand = fct.createOperand(other.getType(), result);
+        tmpOperand = fct.createOperand(other.getType(), result);
+    newOperand = fct.createOperand(tmpOperand->getType(), avm::checkNumber(tmpOperand->toString(), tmpOperand->getType(), tmpOperand->getPrecision()));
     return (newOperand);
 }

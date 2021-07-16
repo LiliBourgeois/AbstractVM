@@ -12,6 +12,7 @@
 #include "Overflow.hpp"
 #include "IOperand.hpp"
 #include "Factory.hpp"
+#include "Stack.hpp"
 #include "double.hpp"
 #include "Exception.hpp"
 
@@ -55,6 +56,7 @@ avm::IOperand *avm::myDouble::operator+(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
+    avm::IOperand *tmpOperand;
     avm::Factory fct;
     avm::myException exc;
 
@@ -73,9 +75,10 @@ avm::IOperand *avm::myDouble::operator+(const IOperand &other) const
     }
     result = std::to_string(otherValue + thisValue);
     if (this->getType() > other.getType())
-        newOperand = fct.createOperand(this->getType(), result);
+        tmpOperand = fct.createOperand(this->getType(), result);
     else
-        newOperand = fct.createOperand(other.getType(), result);
+        tmpOperand = fct.createOperand(other.getType(), result);
+    newOperand = fct.createOperand(tmpOperand->getType(), avm::checkNumber(tmpOperand->toString(), tmpOperand->getType(), tmpOperand->getPrecision()));
     return (newOperand);
 }
 
@@ -83,6 +86,7 @@ avm::IOperand *avm::myDouble::operator-(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
+    avm::IOperand *tmpOperand;
     avm::Factory fct;
     avm::myException exc;
 
@@ -101,9 +105,10 @@ avm::IOperand *avm::myDouble::operator-(const IOperand &other) const
     }
     result = std::to_string(otherValue - thisValue);
     if (this->getType() > other.getType())
-        newOperand = fct.createOperand(this->getType(), result);
+        tmpOperand = fct.createOperand(this->getType(), result);
     else
-        newOperand = fct.createOperand(other.getType(), result);
+        tmpOperand = fct.createOperand(other.getType(), result);
+    newOperand = fct.createOperand(tmpOperand->getType(), avm::checkNumber(tmpOperand->toString(), tmpOperand->getType(), tmpOperand->getPrecision()));
     return (newOperand);
 }
 
@@ -111,6 +116,7 @@ avm::IOperand *avm::myDouble::operator*(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
+    avm::IOperand *tmpOperand;
     avm::Factory fct;
     avm::myException exc;
 
@@ -129,9 +135,10 @@ avm::IOperand *avm::myDouble::operator*(const IOperand &other) const
     }
     result = std::to_string(otherValue * thisValue);
     if (this->getType() > other.getType())
-        newOperand = fct.createOperand(this->getType(), result);
+        tmpOperand = fct.createOperand(this->getType(), result);
     else
-        newOperand = fct.createOperand(other.getType(), result);
+        tmpOperand = fct.createOperand(other.getType(), result);
+    newOperand = fct.createOperand(tmpOperand->getType(), avm::checkNumber(tmpOperand->toString(), tmpOperand->getType(), tmpOperand->getPrecision()));
     return (newOperand);
 }
 
@@ -139,6 +146,7 @@ avm::IOperand *avm::myDouble::operator/(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
+    avm::IOperand *tmpOperand;
     avm::Factory fct;
     avm::myException exc;
 
@@ -151,9 +159,10 @@ avm::IOperand *avm::myDouble::operator/(const IOperand &other) const
     }
     result = std::to_string(otherValue / thisValue);
     if (this->getType() > other.getType())
-        newOperand = fct.createOperand(this->getType(), result);
+        tmpOperand = fct.createOperand(this->getType(), result);
     else
-        newOperand = fct.createOperand(other.getType(), result);
+        tmpOperand = fct.createOperand(other.getType(), result);
+    newOperand = fct.createOperand(tmpOperand->getType(), avm::checkNumber(tmpOperand->toString(), tmpOperand->getType(), tmpOperand->getPrecision()));
     return (newOperand);
 }
 
@@ -161,6 +170,7 @@ avm::IOperand *avm::myDouble::operator%(const IOperand &other) const
 {
     std::string result;
     avm::IOperand *newOperand;
+    avm::IOperand *tmpOperand;
     avm::Factory fct;
     avm::myException exc;
 
@@ -172,9 +182,10 @@ avm::IOperand *avm::myDouble::operator%(const IOperand &other) const
     }
     (void)(otherValue);
     if (this->getType() > other.getType())
-        newOperand = fct.createOperand(this->getType(), result);
+        tmpOperand = fct.createOperand(this->getType(), result);
     else
-        newOperand = fct.createOperand(other.getType(), result);
+        tmpOperand = fct.createOperand(other.getType(), result);
+    newOperand = fct.createOperand(tmpOperand->getType(), avm::checkNumber(tmpOperand->toString(), tmpOperand->getType(), tmpOperand->getPrecision()));
     (void)(newOperand);
     return (NULL);
 }

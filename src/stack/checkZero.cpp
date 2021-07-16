@@ -7,6 +7,7 @@
 
 #include "IOperand.hpp"
 #include "Stack.hpp"
+#include <iostream>
 
 std::string avm::checkNumber(std::string number, avm::eOperandType numberType, int precision)
 {
@@ -36,8 +37,11 @@ std::string avm::checkNumber(std::string number, avm::eOperandType numberType, i
         number.erase(i - (countNb - precision), i);
         return number;
     }
-    if (countZero != 0) {
+    if (countZero != 0 && number[i - (countZero + 1)] == '.') {
         number.erase(i - (countZero + 1), i);
+        return number;
+    } else if (countZero != 0) {
+        number.erase(i - (countZero), i);
         return number;
     }
     return number;
